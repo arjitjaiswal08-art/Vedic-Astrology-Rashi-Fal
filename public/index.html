@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vedic Astrology AI - Rashi Fal & Horoscope Predictions</title>
+  <meta name="description" content="Expert Vedic Astrology AI providing accurate daily, weekly, and monthly Rashi Fal predictions in strict structured format." />
+
+  <!-- Google Fonts: Cinzel for regal Vedic headings, Outfit for sleek modern UI typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient Cosmic Background Stars & Nebulae -->
+  <div class="stars-container" aria-hidden="true">
+    <div class="star-cluster cluster-1"></div>
+    <div class="star-cluster cluster-2"></div>
+    <div class="glow-orb orb-gold"></div>
+    <div class="glow-orb orb-purple"></div>
+  </div>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-layout">
+    <!-- Header Section -->
+    <header class="app-header">
+      <div class="brand-badge">
+        <span class="om-symbol">ॐ</span>
+        <span>Jyotish AI • Vedic Wisdom</span>
+      </div>
+      <h1 class="app-title">Vedic Astrology Rashi Fal</h1>
+      <p class="app-subtitle">
+        Grounded, realistic, and uplifting planetary insights curated according to ancient Moon Sign (Chandra Rashi) traditions.
+      </p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="mode-tabs" role="tablist" aria-label="Astrology Tools">
+      <button class="tab-btn active" id="tabHoroscope" role="tab" aria-selected="true" aria-controls="panelHoroscope">
+        <span class="tab-icon">✨</span> Rashi Fal (Horoscope)
+      </button>
+      <button class="tab-btn" id="tabCompatibility" role="tab" aria-selected="false" aria-controls="panelCompatibility">
+        <span class="tab-icon">💫</span> Rashi Compatibility
+      </button>
+      <button class="tab-btn" id="tabDOBFinder" role="tab" aria-selected="false" aria-controls="panelDOBFinder">
+        <span class="tab-icon">🧭</span> DOB Rashi Finder
+      </button>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-content">
+      <!-- PANEL 1: HOROSCOPE PREDICTOR -->
+      <section id="panelHoroscope" class="tool-panel active" role="tabpanel" aria-labelledby="tabHoroscope">
+        <!-- 12 Rashis Selector Grid -->
+        <div class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">1. Select Your Moon Sign (Rashi)</h2>
+            <span class="step-badge">12 Signs</span>
+          </div>
+
+          <div class="rashi-grid" id="rashiGrid" role="radiogroup" aria-label="Select Rashi">
+            <!-- 12 Rashis injected or rendered here -->
+          </div>
+        </div>
+
+        <!-- Controls: Timeframe, Date, Intent -->
+        <div class="section-card controls-card">
+          <div class="controls-grid">
+            <!-- Timeframe selector -->
+            <div class="control-group">
+              <label class="control-label" for="timeframeSelect">Timeframe</label>
+              <div class="segmented-control" id="timeframeSelect" role="radiogroup">
+                <button type="button" class="segment-btn active" data-timeframe="daily">Daily</button>
+                <button type="button" class="segment-btn" data-timeframe="weekly">Weekly</button>
+                <button type="button" class="segment-btn" data-timeframe="monthly">Monthly</button>
+              </div>
+            </div>
+
+            <!-- Date picker -->
+            <div class="control-group" id="dateGroup">
+              <label class="control-label" for="horoscopeDate">Prediction Date</label>
+              <div class="date-input-wrapper">
+                <input type="date" id="horoscopeDate" class="custom-input" />
+                <button type="button" class="btn-sm" id="btnSetToday">Today</button>
+              </div>
+            </div>
+
+            <!-- Focus Intent pills -->
+            <div class="control-group">
+              <label class="control-label">Focus Area (Intent)</label>
+              <div class="intent-pills" id="intentPills">
+                <button type="button" class="pill-btn active" data-intent="all">All Pillars</button>
+                <button type="button" class="pill-btn" data-intent="career">💼 Career</button>
+                <button type="button" class="pill-btn" data-intent="love">❤️ Love</button>
+                <button type="button" class="pill-btn" data-intent="finance">💰 Finance</button>
+                <button type="button" class="pill-btn" data-intent="health">🌿 Health</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button type="button" id="btnGetHoroscope" class="btn-primary">
+              <span class="btn-sparkle">✦</span> Consult Celestial Alignment
+            </button>
+          </div>
+        </div>
+
+        <!-- Output Display Section -->
+        <div class="section-card results-card" id="resultsSection" style="display: none;">
+          <div class="results-header">
+            <div class="results-meta">
+              <h2 class="results-title" id="resRashiHeading">Mithun (Gemini) Prediction</h2>
+              <span class="date-badge" id="resDateBadge">DD-MM-YYYY</span>
+            </div>
+            <div class="view-toggle" role="group" aria-label="Output View">
+              <button type="button" class="view-btn active" id="btnViewVisual">Visual Cards</button>
+              <button type="button" class="view-btn" id="btnViewJson">Strict JSON</button>
+            </div>
+          </div>
+
+          <!-- Visual Cards Layout -->
+          <div id="visualDisplay" class="visual-container">
+            <!-- Overall banner -->
+            <div class="insight-banner">
+              <div class="banner-icon">🪐</div>
+              <div class="banner-content">
+                <div class="banner-label">Overall Alignment</div>
+                <p class="banner-text" id="resOverall">Loading overall prediction...</p>
+              </div>
+            </div>
+
+            <!-- 4 Pillars Grid -->
+            <div class="pillars-grid">
+              <!-- Career -->
+              <div class="pillar-card pillar-career">
+                <div class="pillar-header">
+                  <span class="pillar-icon">💼</span>
+                  <span class="pillar-title">Career & Work</span>
+                </div>
+                <p class="pillar-desc" id="resCareer"></p>
+              </div>
+
+              <!-- Love -->
+              <div class="pillar-card pillar-love">
+                <div class="pillar-header">
+                  <span class="pillar-icon">❤️</span>
+                  <span class="pillar-title">Love & Relationship</span>
+                </div>
+                <p class="pillar-desc" id="resLove"></p>
+              </div>
+
+              <!-- Finance -->
+              <div class="pillar-card pillar-finance">
+                <div class="pillar-header">
+                  <span class="pillar-icon">💰</span>
+                  <span class="pillar-title">Money & Finance</span>
+                </div>
+                <p class="pillar-desc" id="resFinance"></p>
+              </div>
+
+              <!-- Health -->
+              <div class="pillar-card pillar-health">
+                <div class="pillar-header">
+                  <span class="pillar-icon">🌿</span>
+                  <span class="pillar-title">Health & Vitality</span>
+                </div>
+                <p class="pillar-desc" id="resHealth"></p>
+              </div>
+            </div>
+
+            <!-- Lucky Badges & Actionable Tip -->
+            <div class="lucky-and-tip-row">
+              <div class="lucky-card">
+                <div class="lucky-item">
+                  <span class="lucky-label">Lucky Color</span>
+                  <div class="lucky-color-preview">
+                    <span class="color-dot" id="resColorDot"></span>
+                    <strong id="resColorName">-</strong>
+                  </div>
+                </div>
+                <div class="divider-vertical"></div>
+                <div class="lucky-item">
+                  <span class="lucky-label">Lucky Number</span>
+                  <div class="lucky-num-circle" id="resLuckyNumber">-</div>
+                </div>
+              </div>
+
+              <div class="tip-card">
+                <div class="tip-header">
+                  <span class="tip-icon">💡</span>
+                  <span class="tip-title">Actionable Advice (Upaya)</span>
+                </div>
+                <p class="tip-body" id="resTip">-</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Strict Raw JSON Output Layout -->
+          <div id="jsonDisplay" class="json-container" style="display: none;">
+            <div class="json-toolbar">
+              <span class="json-tag">STRICT JSON SCHEMA</span>
+              <button type="button" class="btn-copy" id="btnCopyJson">
+                <span id="copyIcon">📋</span> <span id="copyText">Copy JSON</span>
+              </button>
+            </div>
+            <pre class="json-pre"><code id="rawJsonCode"></code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 2: COMPATIBILITY EVALUATOR -->
+      <section id="panelCompatibility" class="tool-panel" role="tabpanel" aria-labelledby="tabCompatibility" style="display: none;">
+        <div class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">Vedic Rashi Compatibility Match</h2>
+            <span class="step-badge">Elemental Harmony</span>
+          </div>
+          <p class="section-desc">
+            Compare elemental synergy (Agni, Prithvi, Vayu, Jal) and planetary friendship between two Moon signs.
+          </p>
+
+          <div class="compat-form-row">
+            <div class="compat-select-box">
+              <label for="compatRashi1">First Rashi</label>
+              <select id="compatRashi1" class="custom-select"></select>
+            </div>
+
+            <div class="compat-vs-badge">⚡ VS ⚡</div>
+
+            <div class="compat-select-box">
+              <label for="compatRashi2">Second Rashi</label>
+              <select id="compatRashi2" class="custom-select"></select>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button type="button" id="btnCheckCompat" class="btn-primary">
+              <span class="btn-sparkle">✦</span> Analyze Compatibility
+            </button>
+          </div>
+
+          <div id="compatResults" class="compat-results-box" style="display: none;">
+            <!-- Injected via JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL 3: DOB RASHI FINDER -->
+      <section id="panelDOBFinder" class="tool-panel" role="tabpanel" aria-labelledby="tabDOBFinder" style="display: none;">
+        <div class="section-card">
+          <div class="section-header">
+            <h2 class="section-title">Find Your Rashi by Date of Birth</h2>
+            <span class="step-badge">Sidereal Vedic Solar Ingress</span>
+          </div>
+          <p class="section-desc">
+            Enter your Date of Birth to determine your Vedic Sidereal sign, ruling planet, and elemental constitution.
+          </p>
+
+          <div class="dob-form-row">
+            <label for="dobInput">Date of Birth</label>
+            <input type="date" id="dobInput" class="custom-input dob-input" value="1998-05-20" />
+            <button type="button" id="btnInferDOB" class="btn-primary">
+              <span class="btn-sparkle">✦</span> Infer Rashi
+            </button>
+          </div>
+
+          <div id="dobResultBox" class="dob-result-box" style="display: none;">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>
+        Guided by traditional Vedic Jyotish principles • Strictly realistic and non-harmful predictions • Positive & grounded advice
+      </p>
+      <div class="api-links">
+        <a href="/api/rashifal?rashi=Mithun&date=today" target="_blank">View Live API Endpoint (/api/rashifal)</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "vedic-astrology-rashi-fal-ai",
+  "version": "1.0.0",
+  "description": "Expert Vedic Astrology AI specializing in Rashi Fal (horoscope predictions) with strict JSON output",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node test/engine.test.js",
+    "cli": "node cli.js"
+  },
+  "keywords": [
+    "vedic-astrology",
+    "rashi-fal",
+    "horoscope",
+    "astrology",
+    "moon-sign"
+  ],
+  "author": "Vedic Astrology AI",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
