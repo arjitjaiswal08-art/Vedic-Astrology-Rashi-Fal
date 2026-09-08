@@ -1882,7 +1882,10 @@ function classifyVedicIntent(input) {
   let targetMode = "daily";
 
   // Check explicit mode first
-  if (explicitMode === "sun_analysis" || explicitMode === "sun") {
+  if (explicitMode === "lagna" || explicitMode === "ascendant") {
+    classifiedIntent = "life path / health";
+    targetMode = "lagna";
+  } else if (explicitMode === "sun_analysis" || explicitMode === "sun" || explicitMode === "surya") {
     classifiedIntent = "personality / career / self";
     targetMode = "sun_analysis";
   } else if (explicitMode === "kundli") {
@@ -2028,6 +2031,42 @@ function generateSunAnalysisMode({ surya_rashi, rashi, language = "en" }) {
 }
 
 /**
+ * ⚡ MODE: LAGNA (ASCENDANT / RISING SIGN) ANALYSIS
+ */
+function generateLagnaMode({ lagna, rashi, language = "en" }) {
+  const targetSign = normalizeRashiName(lagna || rashi || "Singh");
+  const meta = RASHI_DATA[targetSign] || RASHI_DATA["Singh"];
+  const lang = String(language || "en").toLowerCase();
+  const isHi = lang === "hi";
+
+  if (isHi) {
+    return {
+      type: "lagna",
+      lagna: targetSign,
+      title: `${meta.sanskritName} लग्न (उदय राशि)`,
+      element: meta.element,
+      lord: meta.lord,
+      vitality: `${meta.sanskritName} लग्न आपको प्रभावशाली, गरिमामय शारीरिक आभा और स्वाभाविक आकर्षण प्रदान करता है।`,
+      temperament: `आपका स्वभाव दृढ़ संकल्पी, स्वतंत्र और स्वाभिमानी है। आप अपने वातावरण में स्वाभाविक रूप से प्रभाव स्थापित करते हैं।`,
+      life_path: `जीवन का मूल उद्देश्य आत्मनिर्भरता, अपनी पहचान का निर्माण और अपने सिद्धांतों पर अडिग रहकर सफलता प्राप्त करना है।`,
+      growth_advice: `अपने लग्नेश ${meta.lord.split(" ")[0]} की सकारात्मक ऊर्जा के लिए आत्म-अनुशासन, प्रातःकालीन ध्यान और संतुलित दिनचर्या अपनाएं।`
+    };
+  }
+
+  return {
+    type: "lagna",
+    lagna: targetSign,
+    title: `${meta.englishName} Lagna (Ascendant / Rising Sign)`,
+    element: meta.element,
+    lord: meta.lord,
+    vitality: `Your ${meta.englishName} Ascendant confers robust physical vitality, natural personal authority, and an unmistakable aura of dignity.`,
+    temperament: `You possess a driven, principled, and expressive temperament with a natural instinct to take the initiative and lead with honor.`,
+    life_path: `Your core life path centers around building personal sovereignty, establishing an authentic reputation, and overcoming worldly challenges through resilience.`,
+    growth_advice: `Cultivate alignment with your Lagna Lord ${meta.lord.split(" ")[0]} through intentional daily routines, purposeful discipline, and grounded mindfulness.`
+  };
+}
+
+/**
  * ⚡ MODE 3: FULL KUNDLI SUMMARY
  * Exact JSON schema:
  * {
@@ -2101,6 +2140,14 @@ function generateVedicAstrologyAI(input = {}) {
   const lang = (typeof input === "object" && input !== null) ? (input.language || input.lang || "en") : "en";
   const date = (typeof input === "object" && input !== null) ? (input.date || "today") : "today";
 
+  if (analysis.mode === "lagna") {
+    return generateLagnaMode({
+      lagna: analysis.lagna || analysis.rashi,
+      rashi: analysis.rashi,
+      language: lang
+    });
+  }
+
   if (analysis.mode === "sun_analysis") {
     return generateSunAnalysisMode({
       surya_rashi: analysis.surya_rashi,
@@ -2156,6 +2203,7 @@ module.exports = {
   compareCompatibility,
   classifyVedicIntent,
   generateDailyMode,
+  generateLagnaMode,
   generateSunAnalysisMode,
   generateKundliMode,
   generateVedicAstrologyAI

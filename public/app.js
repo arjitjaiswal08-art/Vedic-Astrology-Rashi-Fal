@@ -316,7 +316,6 @@ function initVedicAiStudio() {
     });
   });
 
-  const inputEl = document.getElementById("vedicAiInput");
   const runBtn = document.getElementById("btnRunVedicAi");
 
   const runQuery = () => {
@@ -449,6 +448,40 @@ function renderInlineAiResult(data, lang) {
             <div style="font-size:0.75rem;font-weight:700;color:#a5b4fc;margin-bottom:6px;">💎 Growth Advice</div>
             <p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.growth_advice||""}</p>
           </div>
+        </div>
+      </div>`;
+  } else if (data.type === "lagna") {
+    const sign = data.lagna || "";
+    const meta = RASHIS.find(r => r.key === sign) || {};
+    el.innerHTML = `
+      <div style="animation:fadeIn 0.5s ease;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+          <span style="font-size:2.2rem;">${meta.icon || "🌅"}</span>
+          <div>
+            <div style="font-size:1.15rem;font-weight:700;color:var(--gold-primary);">${data.title || sign + " Lagna (Ascendant)"}</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);display:flex;gap:10px;margin-top:2px;">
+              <span>🪐 Ruling Planet: <strong>${data.lord || meta.lord || "Surya"}</strong></span>
+              <span>🔥 Element: <strong>${data.element || meta.element || "Fire"}</strong></span>
+            </div>
+          </div>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(245,158,11,0.1),rgba(251,146,60,0.06));border:1px solid rgba(245,158,11,0.25);border-radius:14px;padding:16px;margin-bottom:12px;">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--gold-glow);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;">🌅 Physical Vitality & Presence</div>
+          <p style="margin:0;font-size:0.92rem;color:#f1f5f9;line-height:1.7;">${data.vitality || ""}</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+          <div style="background:rgba(56,189,248,0.07);border:1px solid rgba(56,189,248,0.2);border-radius:12px;padding:14px;">
+            <div style="font-size:0.75rem;font-weight:700;color:#7dd3fc;margin-bottom:6px;">⚡ Temperament</div>
+            <p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.temperament || ""}</p>
+          </div>
+          <div style="background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px;">
+            <div style="font-size:0.75rem;font-weight:700;color:#34d399;margin-bottom:6px;">🛤️ Life Path & Destiny</div>
+            <p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.life_path || ""}</p>
+          </div>
+        </div>
+        <div style="background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:14px;">
+          <div style="font-size:0.75rem;font-weight:700;color:#a5b4fc;margin-bottom:6px;">🙏 Lagna Vedic Upaya</div>
+          <p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.growth_advice || ""}</p>
         </div>
       </div>`;
   } else if (data.type === "kundli") {
