@@ -249,7 +249,7 @@ const I18N = {
       surya_result_title: "☀️ Surya Rashi (Sun Sign)",
       chandra_result_title: "🌙 Chandra Rashi (Moon Sign)",
       footer_made_by: "Made by Arjit Jaiswal",
-      footer_disclaimer: "Vedic Jyotish insights are rooted in Moon Sign, Lagna, and Sun transit analysis. Meant for mindful personal reflection.",
+      footer_disclaimer: "Vedic Jyotish insights are rooted in Moon Sign (Chandra Rashi) transit analysis. Meant for mindful personal reflection.",
       lang_label: "Language"
     },
 
@@ -333,7 +333,7 @@ const I18N = {
       surya_result_title: "☀️ सूर्य राशि",
       chandra_result_title: "🌙 चंद्र राशि (जन्म राशि)",
       footer_made_by: "Made by Arjit Jaiswal",
-      footer_disclaimer: "वैदिक ज्योतिष फल चंद्र राशि, लग्न एवं सूर्य गोचर गणना पर आधारित है। यह व्यक्तिगत मार्गदर्शन एवं आत्म-मंथन हेतु है।",
+      footer_disclaimer: "वैदिक ज्योतिष फल चंद्र राशि गोचर गणना पर आधारित है। यह व्यक्तिगत मार्गदर्शन एवं आत्म-मंथन हेतु है।",
       lang_label: "भाषा"
     },
 

@@ -491,9 +491,9 @@ function renderInlineAiResult(data, lang) {
           </div>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px;">
-          <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.22);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:var(--gold-glow);margin-bottom:6px;">🌅 Personality (Lagna)</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.personality_insight||data.overall||""}</p></div>
-          <div style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.22);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:#38bdf8;margin-bottom:6px;">🌙 Emotional (Chandra)</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.emotional_state||data.overall||""}</p></div>
-          <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.22);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:#34d399;margin-bottom:6px;">☀️ Daily Guidance</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.daily_guidance||data.overall||""}</p></div>
+          <div style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.22);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:#38bdf8;margin-bottom:6px;">🌙 Emotional & Mind State (Chandra)</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.emotional_state||data.overall||""}</p></div>
+          <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.22);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:#34d399;margin-bottom:6px;">🪐 Planetary Transit Guidance</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.daily_guidance||data.overall||""}</p></div>
+          <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.22);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:var(--gold-glow);margin-bottom:6px;">✨ Vedic Life Alignment</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.personality_insight||data.overall||""}</p></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
           <div style="background:rgba(245,197,24,0.07);border:1px solid rgba(245,197,24,0.2);border-radius:12px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:var(--gold-glow);margin-bottom:5px;">💼 Career</div><p style="margin:0;font-size:0.85rem;color:#e2e8f0;line-height:1.5;">${data.career_focus||data.career||""}</p></div>
@@ -621,44 +621,9 @@ function renderPrediction(data) {
     document.getElementById("resRashiHeading").textContent = `${rashiDisplay} ${predLabel}`;
     document.getElementById("resDateBadge").textContent = `${(state.timeframe || "daily").toUpperCase()}: ${data.date || "Today"}`;
 
-    // ── Three-Sign Identity Bar ──────────────────────────────────────────────
-    let signBarEl = document.getElementById("resSignBar");
-    if (!signBarEl) {
-      signBarEl = document.createElement("div");
-      signBarEl.id = "resSignBar";
-      const heading = document.getElementById("resRashiHeading");
-      if (heading && heading.parentNode) {
-        heading.parentNode.insertBefore(signBarEl, heading.nextSibling);
-      }
-    }
-
-    const lagnaRashi   = RASHIS.find(r => r.key === (data.lagna         || data.rashi)) || {};
-    const suryaRashi   = RASHIS.find(r => r.key === (data.surya_rashi   || data.rashi)) || {};
-    const chandraRashi = RASHIS.find(r => r.key === (data.chandra_rashi || data.rashi)) || {};
-
-    const allSame = data.lagna === data.surya_rashi && data.surya_rashi === data.chandra_rashi;
-
-    signBarEl.style.cssText = "margin: 10px 0 18px; display: flex; gap: 10px; flex-wrap: wrap;";
-    if (!allSame && (data.lagna || data.surya_rashi || data.chandra_rashi)) {
-      signBarEl.innerHTML = `
-        <span style="display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);border-radius:9999px;padding:4px 12px;font-size:0.82rem;color:var(--gold-glow);"
-          title="Lagna (Ascendant)">
-          🌅 <strong>${lagnaRashi.icon || ""} ${data.lagna || data.rashi}</strong>
-          <span style="opacity:0.7">(Lagna)</span>
-        </span>
-        <span style="display:inline-flex;align-items:center;gap:5px;background:rgba(234,88,12,0.12);border:1px solid rgba(234,88,12,0.35);border-radius:9999px;padding:4px 12px;font-size:0.82rem;color:#fb923c;"
-          title="Surya Rashi (Sun Sign)">
-          ☀️ <strong>${suryaRashi.icon || ""} ${data.surya_rashi || data.rashi}</strong>
-          <span style="opacity:0.7">(Surya)</span>
-        </span>
-        <span style="display:inline-flex;align-items:center;gap:5px;background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.35);border-radius:9999px;padding:4px 12px;font-size:0.82rem;color:#38bdf8;"
-          title="Chandra Rashi (Moon Sign)">
-          🌙 <strong>${chandraRashi.icon || ""} ${data.chandra_rashi || data.rashi}</strong>
-          <span style="opacity:0.7">(Chandra)</span>
-        </span>`;
-    } else {
-      signBarEl.innerHTML = "";
-    }
+    // Remove legacy multi-sign bar if present
+    const signBarEl = document.getElementById("resSignBar");
+    if (signBarEl) signBarEl.remove();
 
     setFieldIfExists("resPersonalityInsight", localizedData.personality_insight);
     setFieldIfExists("resEmotionalState",     localizedData.emotional_state);
@@ -811,38 +776,17 @@ function initDOBFinder() {
 
       resultBox.style.display = "block";
 
-      const lagna = data.lagna_rashi || { key: data.inferred_rashi, english: data.english_name, sanskrit: data.sanskrit_name, lord: data.ruling_planet, element: data.element };
-      const surya = data.surya_rashi || lagna;
-      const chandra = data.chandra_rashi || lagna;
-
-      const tLagna = (typeof I18N !== "undefined" ? I18N.t("lagna_result_title") : "🌅 Lagna (Ascendant Sign)");
-      const tSurya = (typeof I18N !== "undefined" ? I18N.t("surya_result_title") : "☀️ Surya Rashi (Sun Sign)");
+      const chandra = data.chandra_rashi || { key: data.inferred_rashi, english: data.english_name, sanskrit: data.sanskrit_name, lord: data.ruling_planet, element: data.element };
       const tChandra = (typeof I18N !== "undefined" ? I18N.t("chandra_result_title") : "🌙 Chandra Rashi (Moon Sign)");
 
       resultBox.innerHTML = `
-        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:16px;margin-bottom:16px;">
-          <!-- Lagna Card -->
-          <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:12px;padding:14px;">
-            <div style="font-size:0.85rem;color:var(--gold-glow);font-weight:600;margin-bottom:4px;">${tLagna}</div>
-            <div style="font-family:var(--font-heading);font-size:1.3rem;color:#fff;font-weight:700;">${lagna.key} <span style="font-size:0.9rem;font-weight:normal;color:var(--text-muted);">(${lagna.english})</span></div>
-            <div style="font-size:0.85rem;color:var(--text-muted);margin-top:6px;">🪐 Lord: <strong>${lagna.lord}</strong> | 🔥 ${lagna.element}</div>
-            <button type="button" class="btn-sm" style="margin-top:10px;width:100%;" onclick="switchAndSelectRashiMode('${lagna.key}', 'lagna')">Select Lagna →</button>
-          </div>
-
-          <!-- Surya Rashi Card -->
-          <div style="background:rgba(234,88,12,0.1);border:1px solid rgba(234,88,12,0.3);border-radius:12px;padding:14px;">
-            <div style="font-size:0.85rem;color:#fb923c;font-weight:600;margin-bottom:4px;">${tSurya}</div>
-            <div style="font-family:var(--font-heading);font-size:1.3rem;color:#fff;font-weight:700;">${surya.key} <span style="font-size:0.9rem;font-weight:normal;color:var(--text-muted);">(${surya.english})</span></div>
-            <div style="font-size:0.85rem;color:var(--text-muted);margin-top:6px;">🪐 Lord: <strong>${surya.lord}</strong> | 🔥 ${surya.element}</div>
-            <button type="button" class="btn-sm" style="margin-top:10px;width:100%;" onclick="switchAndSelectRashiMode('${surya.key}', 'surya')">Select Surya Rashi →</button>
-          </div>
-
+        <div style="max-width:440px;margin:0 auto 16px;">
           <!-- Chandra Rashi Card -->
-          <div style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.3);border-radius:12px;padding:14px;">
-            <div style="font-size:0.85rem;color:#38bdf8;font-weight:600;margin-bottom:4px;">${tChandra}</div>
-            <div style="font-family:var(--font-heading);font-size:1.3rem;color:#fff;font-weight:700;">${chandra.key} <span style="font-size:0.9rem;font-weight:normal;color:var(--text-muted);">(${chandra.english})</span></div>
-            <div style="font-size:0.85rem;color:var(--text-muted);margin-top:6px;">🪐 Lord: <strong>${chandra.lord}</strong> | 🔥 ${chandra.element}</div>
-            <button type="button" class="btn-sm" style="margin-top:10px;width:100%;" onclick="switchAndSelectRashiMode('${chandra.key}', 'chandra')">Select Chandra Rashi →</button>
+          <div style="background:linear-gradient(135deg,rgba(56,189,248,0.12),rgba(99,102,241,0.1));border:1px solid rgba(56,189,248,0.35);border-radius:14px;padding:20px;text-align:center;">
+            <div style="font-size:0.82rem;color:#38bdf8;font-weight:700;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;">${tChandra}</div>
+            <div style="font-family:var(--font-heading);font-size:1.7rem;color:#fff;font-weight:700;">${chandra.key} <span style="font-size:1rem;font-weight:normal;color:var(--text-muted);">(${chandra.english})</span></div>
+            <div style="font-size:0.88rem;color:var(--text-muted);margin-top:8px;">🪐 Ruling Planet: <strong>${chandra.lord}</strong> | 🔥 Element: <strong>${chandra.element}</strong></div>
+            <button type="button" class="btn-primary" style="margin-top:16px;width:100%;" onclick="switchAndSelectRashiMode('${chandra.key}', 'chandra')">Select This Moon Sign →</button>
           </div>
         </div>
 

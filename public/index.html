@@ -90,24 +90,24 @@
               <span style="font-size: 1.8rem; filter: drop-shadow(0 0 10px rgba(245,197,24,0.5));">🕉️</span>
               <div>
                 <h2 class="section-title" style="margin: 0; font-size: 1.3rem; color: var(--gold-primary); letter-spacing: 0.02em;">Advanced Vedic Astrology AI</h2>
-                <p style="font-size: 0.84rem; color: var(--text-muted); margin: 3px 0 0;">Intelligent Synthesis: Lagna (Ascendant), Surya Rashi (Sun Sign), & Chandra Rashi (Moon Sign)</p>
+                <p style="font-size: 0.84rem; color: var(--text-muted); margin: 3px 0 0;">Authentic Vedic Chandra Rashi (Moon Sign) Predictions & Cosmic Insights</p>
               </div>
             </div>
-            <span class="step-badge" style="background: rgba(245, 197, 24, 0.15); color: var(--gold-glow); border: 1px solid rgba(245, 197, 24, 0.35); font-weight: 600;">3-Sign AI Engine</span>
+            <span class="step-badge" style="background: rgba(245, 197, 24, 0.15); color: var(--gold-glow); border: 1px solid rgba(245, 197, 24, 0.35); font-weight: 600;">Vedic AI Engine</span>
           </div>
 
-          <!-- Mode Selection Pills -->
+          <!-- Prediction Scope Selector -->
           <div style="margin-bottom: 16px;">
-            <label class="control-label" style="margin-bottom: 8px; display: block; font-weight: 600; font-size: 0.84rem; color: var(--text-muted);">SELECT OUTPUT MODE:</label>
+            <label class="control-label" style="margin-bottom: 8px; display: block; font-weight: 600; font-size: 0.84rem; color: var(--text-muted);">SELECT PREDICTION SCOPE:</label>
             <div class="segmented-control" id="aiModeSelector" role="radiogroup" style="display: flex; gap: 8px; flex-wrap: wrap;">
               <button type="button" class="segment-btn active" data-aimode="daily" style="flex: 1; min-width: 140px;">
-                🌙 Mode 1: Daily (Moon)
+                🌙 Daily Rashi Fal
               </button>
-              <button type="button" class="segment-btn" data-aimode="sun_analysis" style="flex: 1; min-width: 140px;">
-                ☀️ Mode 2: Sun Sign Analysis
+              <button type="button" class="segment-btn" data-aimode="weekly" style="flex: 1; min-width: 140px;">
+                📅 Weekly Transit
               </button>
-              <button type="button" class="segment-btn" data-aimode="kundli" style="flex: 1; min-width: 140px;">
-                🕉️ Mode 3: Full Kundli
+              <button type="button" class="segment-btn" data-aimode="compatibility" style="flex: 1; min-width: 140px;">
+                ⚡ Sign Compatibility
               </button>
             </div>
           </div>
@@ -116,7 +116,7 @@
           <div style="margin-bottom: 14px;">
             <label class="control-label" for="vedicAiInput" style="margin-bottom: 6px; display: block; font-size: 0.84rem; color: var(--text-muted);">Ask the AI Astrologer (Natural Query):</label>
             <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-              <input type="text" id="vedicAiInput" class="custom-input" style="flex: 1; min-width: 260px; padding: 12px 16px; border-radius: 12px; background: rgba(10, 14, 30, 0.85); border: 1px solid rgba(245, 197, 24, 0.35); color: var(--text-main); font-size: 0.96rem;" placeholder="e.g. Mithun rashi today | My sun sign is Leo | Lagna Leo, Moon Gemini, Sun Aries" />
+              <input type="text" id="vedicAiInput" class="custom-input" style="flex: 1; min-width: 260px; padding: 12px 16px; border-radius: 12px; background: rgba(10, 14, 30, 0.85); border: 1px solid rgba(245, 197, 24, 0.35); color: var(--text-main); font-size: 0.96rem;" placeholder="e.g. Mithun rashi today | Career guidance for Singh | Compatibility between Aries and Leo" />
               <button type="button" id="btnRunVedicAi" class="btn-primary" style="padding: 12px 24px; white-space: nowrap;">
                 <span class="btn-sparkle">✦</span> Analyze with Vedic AI
               </button>
@@ -127,13 +127,16 @@
           <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
             <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">Try Examples:</span>
             <button type="button" class="ai-prompt-chip" data-query="Mithun rashi today" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
-              🌙 Mithun rashi today (Mode 1)
+              🌙 Mithun rashi today
             </button>
-            <button type="button" class="ai-prompt-chip" data-query="My sun sign is Leo" style="background: rgba(234, 88, 12, 0.12); border: 1px solid rgba(234, 88, 12, 0.35); color: #fb923c; border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
-              ☀️ My sun sign is Leo (Mode 2)
+            <button type="button" class="ai-prompt-chip" data-query="Weekly horoscope for Kark rashi" style="background: rgba(167, 139, 250, 0.12); border: 1px solid rgba(167, 139, 250, 0.35); color: #a78bfa; border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
+              📅 Weekly for Kark
             </button>
-            <button type="button" class="ai-prompt-chip" data-query="Lagna Leo, Moon Gemini, Sun Aries" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); color: var(--gold-primary); border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
-              🕉️ Lagna Leo, Moon Gemini, Sun Aries (Mode 3)
+            <button type="button" class="ai-prompt-chip" data-query="Career advice for Singh rashi" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); color: var(--gold-primary); border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
+              💼 Career for Singh
+            </button>
+            <button type="button" class="ai-prompt-chip" data-query="Compatibility between Aries and Sagittarius" style="background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.35); color: #34d399; border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
+              ⚡ Aries & Sagittarius Match
             </button>
           </div>
 
@@ -164,16 +167,6 @@
         <!-- Controls: Timeframe, Date, Intent -->
         <div class="section-card controls-card">
           <div class="controls-grid">
-            <!-- Sign Basis / Chart Perspective selector -->
-            <div class="control-group">
-              <label class="control-label" data-i18n="label_sign_type">Chart Perspective (Sign Basis)</label>
-              <div class="segmented-control" id="signTypeSelect" role="radiogroup">
-                <button type="button" class="segment-btn active" data-signtype="chandra" data-i18n="st_chandra">🌙 Chandra (Moon)</button>
-                <button type="button" class="segment-btn" data-signtype="lagna" data-i18n="st_lagna">🌅 Lagna (Ascendant)</button>
-                <button type="button" class="segment-btn" data-signtype="surya" data-i18n="st_surya">☀️ Surya (Sun)</button>
-              </div>
-            </div>
-
             <!-- Timeframe selector -->
             <div class="control-group">
               <label class="control-label" for="timeframeSelect" data-i18n="label_timeframe">Timeframe</label>
@@ -241,33 +234,33 @@
 
             <!-- MODE 1: DAILY HOROSCOPE CONTAINER -->
             <div id="containerModeDaily">
-              <!-- Three-Sign Cosmic Insight Cards -->
+              <!-- Vedic Chandra Rashi Cosmic Insight Cards -->
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:18px;">
-                <!-- Personality Insight (Lagna) -->
-                <div style="background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(251,146,60,0.08));border:1px solid rgba(245,158,11,0.25);border-radius:14px;padding:16px;">
-                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-                    <span style="font-size:1.3rem;">🌅</span>
-                    <span style="font-size:0.78rem;font-weight:700;color:var(--gold-glow);letter-spacing:0.08em;text-transform:uppercase;">Personality (Lagna)</span>
-                  </div>
-                  <p style="font-size:0.92rem;color:#e2e8f0;line-height:1.6;margin:0;" id="resPersonalityInsight">Loading personality insight...</p>
-                </div>
-
                 <!-- Emotional State (Chandra) -->
                 <div style="background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.25);border-radius:14px;padding:16px;">
                   <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
                     <span style="font-size:1.3rem;">🌙</span>
-                    <span style="font-size:0.78rem;font-weight:700;color:#38bdf8;letter-spacing:0.08em;text-transform:uppercase;">Emotional State (Chandra)</span>
+                    <span style="font-size:0.78rem;font-weight:700;color:#38bdf8;letter-spacing:0.08em;text-transform:uppercase;">Emotional & Mind State (Chandra)</span>
                   </div>
                   <p style="font-size:0.92rem;color:#e2e8f0;line-height:1.6;margin:0;" id="resEmotionalState">Loading emotional state...</p>
                 </div>
 
-                <!-- Daily Guidance (All 3 Signs) -->
+                <!-- Daily Guidance -->
                 <div style="background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(6,182,212,0.08));border:1px solid rgba(16,185,129,0.25);border-radius:14px;padding:16px;">
                   <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-                    <span style="font-size:1.3rem;">☀️</span>
-                    <span style="font-size:0.78rem;font-weight:700;color:#34d399;letter-spacing:0.08em;text-transform:uppercase;">Daily Guidance (All Signs)</span>
+                    <span style="font-size:1.3rem;">🪐</span>
+                    <span style="font-size:0.78rem;font-weight:700;color:#34d399;letter-spacing:0.08em;text-transform:uppercase;">Planetary Transit Guidance</span>
                   </div>
                   <p style="font-size:0.92rem;color:#e2e8f0;line-height:1.6;margin:0;" id="resDailyGuidance">Loading daily guidance...</p>
+                </div>
+
+                <!-- Auspicious Alignment & Upaya -->
+                <div style="background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(251,146,60,0.08));border:1px solid rgba(245,158,11,0.25);border-radius:14px;padding:16px;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                    <span style="font-size:1.3rem;">✨</span>
+                    <span style="font-size:0.78rem;font-weight:700;color:var(--gold-glow);letter-spacing:0.08em;text-transform:uppercase;">Vedic Life Alignment</span>
+                  </div>
+                  <p style="font-size:0.92rem;color:#e2e8f0;line-height:1.6;margin:0;" id="resPersonalityInsight">Loading alignment...</p>
                 </div>
               </div>
 
@@ -811,13 +804,13 @@
         <span class="quick-label">Try Asking Vedic AI:</span>
         <div class="voice-chips-container">
           <button type="button" class="voice-chip-btn" data-prompt="Mithun rashi today">
-            🌙 Mithun rashi today (Mode 1)
+            🌙 Mithun rashi today
           </button>
-          <button type="button" class="voice-chip-btn" data-prompt="My sun sign is Leo">
-            ☀️ My sun sign is Leo (Mode 2)
+          <button type="button" class="voice-chip-btn" data-prompt="Weekly horoscope for Kark rashi">
+            📅 Weekly horoscope for Kark
           </button>
-          <button type="button" class="voice-chip-btn" data-prompt="Lagna Leo, Moon Gemini, Sun Aries">
-            🕉️ Lagna Leo, Moon Gemini, Sun Aries (Mode 3)
+          <button type="button" class="voice-chip-btn" data-prompt="Career and finance advice for Singh rashi">
+            💼 Career & Finance for Singh
           </button>
           <button type="button" class="voice-chip-btn" data-prompt="Check compatibility between Aries and Sagittarius">
             ⚡ Aries & Sagittarius Match
@@ -830,7 +823,7 @@
 
       <!-- Text Query Fallback Input -->
       <div class="drawer-input-row">
-        <input type="text" id="voiceQueryInput" class="custom-input voice-text-input" placeholder="e.g. Mithun rashi today, My sun sign is Leo, Lagna Leo..." />
+        <input type="text" id="voiceQueryInput" class="custom-input voice-text-input" placeholder="e.g. Mithun rashi today, Career advice for Singh, Upaya for Vrishabh..." />
         <button type="button" id="btnSendVoiceQuery" class="btn-primary btn-send-query">
           <span>Ask</span>
         </button>

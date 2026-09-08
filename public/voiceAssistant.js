@@ -442,19 +442,13 @@ class JyotishVoiceAssistant {
       let spokenText = "";
       let displayText = "";
 
-      if (data.type === "sun_analysis") {
-        spokenText = `Surya Rashi ${data.surya_rashi}. ${data.core_personality} Career: ${data.career_tendency} Growth advice: ${data.growth_advice}`;
-        displayText = `☀️ [Mode 2: Sun Analysis for ${data.surya_rashi}]\n\n${data.core_personality}\n\n• Strengths: ${data.strengths.join(", ")}\n• Leadership: ${data.leadership_style}\n• Advice: ${data.growth_advice}`;
-      } else if (data.type === "kundli") {
-        spokenText = `Kundli synthesis for Lagna ${data.lagna}, Sun ${data.surya_rashi}, and Moon ${data.chandra_rashi}. ${data.summary} Tip: ${data.tip}`;
-        displayText = `🕉️ [Mode 3: Kundli Summary: Lagna ${data.lagna} | Sun ${data.surya_rashi} | Moon ${data.chandra_rashi}]\n\n${data.summary}\n\n• Career: ${data.career}\n• Love: ${data.love}\n• Health: ${data.health}\n• Planetary Hint: ${data.planetary_hint}\n• Upaya: ${data.tip}`;
-      } else if (data.type === "compatibility") {
+      if (data.type === "compatibility") {
         spokenText = `Compatibility between ${data.rashi1} and ${data.rashi2} is ${data.compatibility_score}, rated as ${data.rating}. ${data.elemental_dynamic}`;
         displayText = `⚡ Compatibility: ${data.rashi1} & ${data.rashi2} (${data.compatibility_score} - ${data.rating})\n\n${data.elemental_dynamic}\nGuidance: ${data.advice}`;
       } else {
-        // Mode 1: Daily Horoscope
+        // Authentic Vedic Moon Sign (Chandra Rashi) Fal
         spokenText = `Namaste. For ${data.rashi}, ${data.overall} In career: ${data.career} Lucky color: ${data.lucky_color}, number: ${data.lucky_number}. Upaya: ${data.tip}`;
-        displayText = `🌙 [Mode 1: Daily Horoscope for ${data.rashi}]\n\n${data.overall}\n\n• Career: ${data.career}\n• Love: ${data.love}\n• Finance: ${data.finance}\n• Health: ${data.health}\n• Lucky: ${data.lucky_color} | Number: ${data.lucky_number}\n• Upaya: ${data.tip}`;
+        displayText = `🌙 [Vedic Chandra Rashi Fal for ${data.rashi}]\n\n${data.overall}\n\n• Career: ${data.career}\n• Love: ${data.love}\n• Finance: ${data.finance}\n• Health: ${data.health}\n• Lucky: ${data.lucky_color} | Number: ${data.lucky_number}\n• Upaya: ${data.tip}`;
       }
 
       if (this.dom.responseText) {

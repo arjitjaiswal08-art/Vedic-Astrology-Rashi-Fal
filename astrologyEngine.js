@@ -1328,12 +1328,7 @@ function generateRashiFal({ rashi, date, timeframe = "daily", intent = null, lan
 
 
   // ── Sign-type label ──────────────────────────────────────────────────────
-  let signTypeLabel = "Chandra Rashi (Moon Sign)";
-  if (st === "lagna" || st === "ascendant") {
-    signTypeLabel = "Lagna (Ascendant / Rising Sign)";
-  } else if (st === "surya" || st === "sun") {
-    signTypeLabel = "Surya Rashi (Sun Sign)";
-  }
+  const signTypeLabel = "Chandra Rashi (Moon Sign)";
 
   // ── Final output — expanded three-sign schema ────────────────────────────
   const output = {
@@ -1489,7 +1484,7 @@ function inferRashiFromDOB(dobString, timeString = "") {
       lord: chandraMeta.lord,
       element: chandraMeta.element
     },
-    note: "Vedic Sidereal calculation: Surya Rashi (Sun Sign), Lagna (Rising Sign / Ascendant based on birth time), and Janma Chandra Rashi (Moon Sign)."
+    note: "Vedic Sidereal calculation: Janma Chandra Rashi (Moon Sign) transit analysis."
   };
 }
 
