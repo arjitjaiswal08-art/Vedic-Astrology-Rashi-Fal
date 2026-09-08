@@ -81,76 +81,7 @@
     <main class="main-content">
       <!-- PANEL 1: HOROSCOPE PREDICTOR -->
       <section id="panelHoroscope" class="tool-panel active" role="tabpanel" aria-labelledby="tabHoroscope">
-        <!-- Advanced Vedic Astrology AI Studio Card -->
-        <div class="section-card ai-studio-card" style="border: 1px solid rgba(245, 197, 24, 0.35); background: linear-gradient(135deg, rgba(18, 24, 48, 0.92), rgba(30, 27, 75, 0.72)); box-shadow: 0 12px 32px rgba(0,0,0,0.45); margin-bottom: 24px; position: relative; overflow: hidden;">
-          <div style="position: absolute; top: -30px; right: -30px; width: 140px; height: 140px; background: radial-gradient(circle, rgba(245, 197, 24, 0.15) 0%, transparent 70%); pointer-events: none;"></div>
-          
-          <div class="section-header" style="border-bottom: 1px solid rgba(245, 197, 24, 0.15); padding-bottom: 14px; margin-bottom: 16px;">
-            <div style="display: flex; align-items: center; gap: 12px;">
-              <span style="font-size: 1.8rem; filter: drop-shadow(0 0 10px rgba(245,197,24,0.5));">🕉️</span>
-              <div>
-                <h2 class="section-title" style="margin: 0; font-size: 1.3rem; color: var(--gold-primary); letter-spacing: 0.02em;">Advanced Vedic Astrology AI</h2>
-                <p style="font-size: 0.84rem; color: var(--text-muted); margin: 3px 0 0;">Authentic Vedic Chandra Rashi (Moon Sign) Predictions & Cosmic Insights</p>
-              </div>
-            </div>
-            <span class="step-badge" style="background: rgba(245, 197, 24, 0.15); color: var(--gold-glow); border: 1px solid rgba(245, 197, 24, 0.35); font-weight: 600;">Vedic AI Engine</span>
-          </div>
 
-          <!-- Prediction Scope Selector -->
-          <div style="margin-bottom: 16px;">
-            <label class="control-label" style="margin-bottom: 8px; display: block; font-weight: 600; font-size: 0.84rem; color: var(--text-muted);">SELECT PREDICTION SCOPE:</label>
-            <div class="segmented-control" id="aiModeSelector" role="radiogroup" style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <button type="button" class="segment-btn active" data-aimode="daily" style="flex: 1; min-width: 140px;">
-                🌙 Daily Rashi Fal
-              </button>
-              <button type="button" class="segment-btn" data-aimode="weekly" style="flex: 1; min-width: 140px;">
-                📅 Weekly Transit
-              </button>
-              <button type="button" class="segment-btn" data-aimode="compatibility" style="flex: 1; min-width: 140px;">
-                ⚡ Sign Compatibility
-              </button>
-            </div>
-          </div>
-
-          <!-- Natural AI Query Input Bar -->
-          <div style="margin-bottom: 14px;">
-            <label class="control-label" for="vedicAiInput" style="margin-bottom: 6px; display: block; font-size: 0.84rem; color: var(--text-muted);">Ask the AI Astrologer (Natural Query):</label>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-              <input type="text" id="vedicAiInput" class="custom-input" style="flex: 1; min-width: 260px; padding: 12px 16px; border-radius: 12px; background: rgba(10, 14, 30, 0.85); border: 1px solid rgba(245, 197, 24, 0.35); color: var(--text-main); font-size: 0.96rem;" placeholder="e.g. Mithun rashi today | Career guidance for Singh | Compatibility between Aries and Leo" />
-              <button type="button" id="btnRunVedicAi" class="btn-primary" style="padding: 12px 24px; white-space: nowrap;">
-                <span class="btn-sparkle">✦</span> Analyze with Vedic AI
-              </button>
-            </div>
-          </div>
-
-          <!-- Quick Query Example Chips -->
-          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-            <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">Try Examples:</span>
-            <button type="button" class="ai-prompt-chip" data-query="Mithun rashi today" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
-              🌙 Mithun rashi today
-            </button>
-            <button type="button" class="ai-prompt-chip" data-query="Weekly horoscope for Kark rashi" style="background: rgba(167, 139, 250, 0.12); border: 1px solid rgba(167, 139, 250, 0.35); color: #a78bfa; border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
-              📅 Weekly for Kark
-            </button>
-            <button type="button" class="ai-prompt-chip" data-query="Career advice for Singh rashi" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); color: var(--gold-primary); border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
-              💼 Career for Singh
-            </button>
-            <button type="button" class="ai-prompt-chip" data-query="Compatibility between Aries and Sagittarius" style="background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.35); color: #34d399; border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
-              ⚡ Aries & Sagittarius Match
-            </button>
-          </div>
-
-          <!-- ✦ INLINE AI RESULT PANEL (appears right here after clicking Analyze) -->
-          <div id="aiInlineResult" style="display:none; margin-top:20px; border-top:1px solid rgba(245,197,24,0.2); padding-top:20px;">
-            <!-- Loading State -->
-            <div id="aiInlineLoading" style="display:none; text-align:center; padding:32px 0;">
-              <div style="font-size:2.2rem; animation:spin 1.2s linear infinite; display:inline-block;">🕉️</div>
-              <p style="color:var(--text-muted);margin-top:10px;font-size:0.9rem;">Consulting the stars...</p>
-            </div>
-            <!-- Result Content -->
-            <div id="aiInlineContent"></div>
-          </div>
-        </div>
 
         <!-- 12 Rashis Selector Grid -->
         <div class="section-card">

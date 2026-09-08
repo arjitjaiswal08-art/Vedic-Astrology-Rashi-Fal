@@ -302,6 +302,8 @@ async function fetchPrediction() {
 
 // Vedic AI Studio Controller
 function initVedicAiStudio() {
+  const inputEl = document.getElementById("vedicAiInput");
+  if (!inputEl) return;
   const modeBtns = document.querySelectorAll("#aiModeSelector .segment-btn");
   modeBtns.forEach(btn => {
     btn.addEventListener("click", () => {
