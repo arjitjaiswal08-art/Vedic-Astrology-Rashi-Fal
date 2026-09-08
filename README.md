@@ -7,6 +7,7 @@ An expert Vedic Astrology AI specializing in accurate, grounded, and uplifting *
 ## 🚀 Key Features
 
 - **12 Vedic Rashis (Moon Signs):** Knowledge base encompassing ruling planetary lords (*Mangal, Shukra, Budh, Chandra, Surya, Guru, Shani*), elemental constitutions (*Agni, Prithvi, Vayu, Jal*), and authentic traits.
+- **🎙️ Jyotish Vani AI (Voice Assistant):** Interactive voice assistant with real-time Speech-to-Text, natural language astrology queries, and calming Vedic Text-to-Speech audio reading with animated audio equalizers.
 - **Strict JSON Output:** Structured format with exact schema keys (`rashi`, `date`, `overall`, `career`, `love`, `finance`, `health`, `lucky_color`, `lucky_number`, `tip`).
 - **Timeframe Adjustments:** Daily, Weekly, and Monthly horoscopes.
 - **Intent Focus:** Tailored insights for Career, Love, Finance, and Health.
@@ -102,6 +103,22 @@ node cli.js --dob 1996-08-20
 # List all 12 Rashis
 node cli.js --list
 ```
+
+---
+
+## 🎙️ Jyotish Vani AI (Voice Assistant)
+
+The web UI includes an interactive Voice Assistant powered by the browser-native **Web Speech API** (zero third-party API keys required, completely client-side private):
+
+1. **Floating Cosmic Trigger:** Click the floating **🎙️ Voice AI** button in the bottom right corner to open the assistant drawer.
+2. **Audio Horoscope Reader:** Click the **🔊 Listen to Horoscope** button located in the results header to have the prediction read aloud in a calming, authentic Vedic cadence with animated audio equalizer waves.
+3. **Voice & Text Queries:** Speak into the microphone or type natural language prompts:
+   - *"What is today's horoscope for Gemini?"*
+   - *"Tell me career prediction for Leo this week"*
+   - *"Check compatibility between Aries and Sagittarius"*
+   - *"What's Scorpio love horoscope?"*
+   - *"Read my current horoscope"*
+   - *"Stop" / "Mute"*
 
 ---
 

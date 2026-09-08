@@ -26,12 +26,36 @@
   <div class="app-layout">
     <!-- Header Section -->
     <header class="app-header">
-      <div class="brand-badge">
-        <span class="om-symbol">ॐ</span>
-        <span>Jyotish AI • Vedic Wisdom</span>
+      <div class="header-top-bar">
+        <div class="brand-badge">
+          <span class="om-symbol">ॐ</span>
+          <span data-i18n="brand_badge">Jyotish AI • Vedic Wisdom</span>
+        </div>
+        
+        <!-- Language Mode Selector -->
+        <div class="lang-selector-container">
+          <div class="lang-pill-group" id="langPillGroup" role="radiogroup" aria-label="Select Language">
+            <button type="button" class="lang-pill active" data-lang="en" title="English" role="radio" aria-checked="true">
+              <span class="lang-flag">🌐</span> English
+            </button>
+            <button type="button" class="lang-pill" data-lang="hi" title="हिन्दी (Hindi)" role="radio" aria-checked="false">
+              <span class="lang-flag">🇮🇳</span> हिन्दी
+            </button>
+            <button type="button" class="lang-pill" data-lang="ta" title="தமிழ் (Tamil)" role="radio" aria-checked="false">
+              <span class="lang-flag">🇮🇳</span> தமிழ்
+            </button>
+            <button type="button" class="lang-pill" data-lang="te" title="తెలుగు (Telugu)" role="radio" aria-checked="false">
+              <span class="lang-flag">🇮🇳</span> తెలుగు
+            </button>
+            <button type="button" class="lang-pill" data-lang="sa" title="संस्कृतम् (Sanskrit)" role="radio" aria-checked="false">
+              <span class="lang-flag">🕉️</span> संस्कृतम्
+            </button>
+          </div>
+        </div>
       </div>
-      <h1 class="app-title">Vedic Astrology Rashi Fal</h1>
-      <p class="app-subtitle">
+
+      <h1 class="app-title" data-i18n="app_title">Vedic Astrology Rashi Fal</h1>
+      <p class="app-subtitle" data-i18n="app_subtitle">
         Grounded, realistic, and uplifting planetary insights curated according to ancient Moon Sign (Chandra Rashi) traditions.
       </p>
     </header>
@@ -39,25 +63,86 @@
     <!-- Navigation Tabs -->
     <nav class="mode-tabs" role="tablist" aria-label="Astrology Tools">
       <button class="tab-btn active" id="tabHoroscope" role="tab" aria-selected="true" aria-controls="panelHoroscope">
-        <span class="tab-icon">✨</span> Rashi Fal (Horoscope)
+        <span class="tab-icon">✨</span> <span data-i18n="tab_horoscope">Rashi Fal (Horoscope)</span>
       </button>
       <button class="tab-btn" id="tabCompatibility" role="tab" aria-selected="false" aria-controls="panelCompatibility">
-        <span class="tab-icon">💫</span> Rashi Compatibility
+        <span class="tab-icon">💫</span> <span data-i18n="tab_compatibility">Rashi Compatibility</span>
       </button>
       <button class="tab-btn" id="tabDOBFinder" role="tab" aria-selected="false" aria-controls="panelDOBFinder">
-        <span class="tab-icon">🧭</span> DOB Rashi Finder
+        <span class="tab-icon">🧭</span> <span data-i18n="tab_dob_finder">DOB Rashi Finder</span>
+      </button>
+      <button class="tab-btn" id="tabPalmistry" role="tab" aria-selected="false" aria-controls="panelPalmistry">
+        <span class="tab-icon">✋</span> <span data-i18n="tab_palmistry">Hast Rekha (Palmistry)</span>
       </button>
     </nav>
+
 
     <!-- Main Container -->
     <main class="main-content">
       <!-- PANEL 1: HOROSCOPE PREDICTOR -->
       <section id="panelHoroscope" class="tool-panel active" role="tabpanel" aria-labelledby="tabHoroscope">
+        <!-- Advanced Vedic Astrology AI Studio Card -->
+        <div class="section-card ai-studio-card" style="border: 1px solid rgba(245, 197, 24, 0.35); background: linear-gradient(135deg, rgba(18, 24, 48, 0.92), rgba(30, 27, 75, 0.72)); box-shadow: 0 12px 32px rgba(0,0,0,0.45); margin-bottom: 24px; position: relative; overflow: hidden;">
+          <div style="position: absolute; top: -30px; right: -30px; width: 140px; height: 140px; background: radial-gradient(circle, rgba(245, 197, 24, 0.15) 0%, transparent 70%); pointer-events: none;"></div>
+          
+          <div class="section-header" style="border-bottom: 1px solid rgba(245, 197, 24, 0.15); padding-bottom: 14px; margin-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 1.8rem; filter: drop-shadow(0 0 10px rgba(245,197,24,0.5));">🕉️</span>
+              <div>
+                <h2 class="section-title" style="margin: 0; font-size: 1.3rem; color: var(--gold-primary); letter-spacing: 0.02em;">Advanced Vedic Astrology AI</h2>
+                <p style="font-size: 0.84rem; color: var(--text-muted); margin: 3px 0 0;">Intelligent Synthesis: Lagna (Ascendant), Surya Rashi (Sun Sign), & Chandra Rashi (Moon Sign)</p>
+              </div>
+            </div>
+            <span class="step-badge" style="background: rgba(245, 197, 24, 0.15); color: var(--gold-glow); border: 1px solid rgba(245, 197, 24, 0.35); font-weight: 600;">3-Sign AI Engine</span>
+          </div>
+
+          <!-- Mode Selection Pills -->
+          <div style="margin-bottom: 16px;">
+            <label class="control-label" style="margin-bottom: 8px; display: block; font-weight: 600; font-size: 0.84rem; color: var(--text-muted);">SELECT OUTPUT MODE:</label>
+            <div class="segmented-control" id="aiModeSelector" role="radiogroup" style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button type="button" class="segment-btn active" data-aimode="daily" style="flex: 1; min-width: 140px;">
+                🌙 Mode 1: Daily (Moon)
+              </button>
+              <button type="button" class="segment-btn" data-aimode="sun_analysis" style="flex: 1; min-width: 140px;">
+                ☀️ Mode 2: Sun Sign Analysis
+              </button>
+              <button type="button" class="segment-btn" data-aimode="kundli" style="flex: 1; min-width: 140px;">
+                🕉️ Mode 3: Full Kundli
+              </button>
+            </div>
+          </div>
+
+          <!-- Natural AI Query Input Bar -->
+          <div style="margin-bottom: 14px;">
+            <label class="control-label" for="vedicAiInput" style="margin-bottom: 6px; display: block; font-size: 0.84rem; color: var(--text-muted);">Ask the AI Astrologer (Natural Query):</label>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <input type="text" id="vedicAiInput" class="custom-input" style="flex: 1; min-width: 260px; padding: 12px 16px; border-radius: 12px; background: rgba(10, 14, 30, 0.85); border: 1px solid rgba(245, 197, 24, 0.35); color: var(--text-main); font-size: 0.96rem;" placeholder="e.g. Mithun rashi today | My sun sign is Leo | Lagna Leo, Moon Gemini, Sun Aries" />
+              <button type="button" id="btnRunVedicAi" class="btn-primary" style="padding: 12px 24px; white-space: nowrap;">
+                <span class="btn-sparkle">✦</span> Analyze with Vedic AI
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Query Example Chips -->
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">Try Examples:</span>
+            <button type="button" class="ai-prompt-chip" data-query="Mithun rashi today" style="background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
+              🌙 Mithun rashi today (Mode 1)
+            </button>
+            <button type="button" class="ai-prompt-chip" data-query="My sun sign is Leo" style="background: rgba(234, 88, 12, 0.12); border: 1px solid rgba(234, 88, 12, 0.35); color: #fb923c; border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
+              ☀️ My sun sign is Leo (Mode 2)
+            </button>
+            <button type="button" class="ai-prompt-chip" data-query="Lagna Leo, Moon Gemini, Sun Aries" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); color: var(--gold-primary); border-radius: 9999px; padding: 5px 13px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">
+              🕉️ Lagna Leo, Moon Gemini, Sun Aries (Mode 3)
+            </button>
+          </div>
+        </div>
+
         <!-- 12 Rashis Selector Grid -->
         <div class="section-card">
           <div class="section-header">
-            <h2 class="section-title">1. Select Your Moon Sign (Rashi)</h2>
-            <span class="step-badge">12 Signs</span>
+            <h2 class="section-title" data-i18n="section_select_rashi">1. Select Your Moon Sign (Rashi)</h2>
+            <span class="step-badge" data-i18n="twelve_signs_badge">12 Signs</span>
           </div>
 
           <div class="rashi-grid" id="rashiGrid" role="radiogroup" aria-label="Select Rashi">
@@ -68,41 +153,51 @@
         <!-- Controls: Timeframe, Date, Intent -->
         <div class="section-card controls-card">
           <div class="controls-grid">
+            <!-- Sign Basis / Chart Perspective selector -->
+            <div class="control-group">
+              <label class="control-label" data-i18n="label_sign_type">Chart Perspective (Sign Basis)</label>
+              <div class="segmented-control" id="signTypeSelect" role="radiogroup">
+                <button type="button" class="segment-btn active" data-signtype="chandra" data-i18n="st_chandra">🌙 Chandra (Moon)</button>
+                <button type="button" class="segment-btn" data-signtype="lagna" data-i18n="st_lagna">🌅 Lagna (Ascendant)</button>
+                <button type="button" class="segment-btn" data-signtype="surya" data-i18n="st_surya">☀️ Surya (Sun)</button>
+              </div>
+            </div>
+
             <!-- Timeframe selector -->
             <div class="control-group">
-              <label class="control-label" for="timeframeSelect">Timeframe</label>
+              <label class="control-label" for="timeframeSelect" data-i18n="label_timeframe">Timeframe</label>
               <div class="segmented-control" id="timeframeSelect" role="radiogroup">
-                <button type="button" class="segment-btn active" data-timeframe="daily">Daily</button>
-                <button type="button" class="segment-btn" data-timeframe="weekly">Weekly</button>
-                <button type="button" class="segment-btn" data-timeframe="monthly">Monthly</button>
+                <button type="button" class="segment-btn active" data-timeframe="daily" data-i18n="tf_daily">Daily</button>
+                <button type="button" class="segment-btn" data-timeframe="weekly" data-i18n="tf_weekly">Weekly</button>
+                <button type="button" class="segment-btn" data-timeframe="monthly" data-i18n="tf_monthly">Monthly</button>
               </div>
             </div>
 
             <!-- Date picker -->
             <div class="control-group" id="dateGroup">
-              <label class="control-label" for="horoscopeDate">Prediction Date</label>
+              <label class="control-label" for="horoscopeDate" data-i18n="label_date">Prediction Date</label>
               <div class="date-input-wrapper">
                 <input type="date" id="horoscopeDate" class="custom-input" />
-                <button type="button" class="btn-sm" id="btnSetToday">Today</button>
+                <button type="button" class="btn-sm" id="btnSetToday" data-i18n="btn_today">Today</button>
               </div>
             </div>
 
             <!-- Focus Intent pills -->
             <div class="control-group">
-              <label class="control-label">Focus Area (Intent)</label>
+              <label class="control-label" data-i18n="label_intent">Focus Area (Intent)</label>
               <div class="intent-pills" id="intentPills">
-                <button type="button" class="pill-btn active" data-intent="all">All Pillars</button>
-                <button type="button" class="pill-btn" data-intent="career">💼 Career</button>
-                <button type="button" class="pill-btn" data-intent="love">❤️ Love</button>
-                <button type="button" class="pill-btn" data-intent="finance">💰 Finance</button>
-                <button type="button" class="pill-btn" data-intent="health">🌿 Health</button>
+                <button type="button" class="pill-btn active" data-intent="all" data-i18n="intent_all">All Pillars</button>
+                <button type="button" class="pill-btn" data-intent="career" data-i18n="intent_career">💼 Career</button>
+                <button type="button" class="pill-btn" data-intent="love" data-i18n="intent_love">❤️ Love</button>
+                <button type="button" class="pill-btn" data-intent="finance" data-i18n="intent_finance">💰 Finance</button>
+                <button type="button" class="pill-btn" data-intent="health" data-i18n="intent_health">🌿 Health</button>
               </div>
             </div>
           </div>
 
           <div class="action-row">
             <button type="button" id="btnGetHoroscope" class="btn-primary">
-              <span class="btn-sparkle">✦</span> Consult Celestial Alignment
+              <span class="btn-sparkle">✦</span> <span id="btnGetHoroscopeText" data-i18n="btn_get_horoscope">Consult Celestial Alignment</span>
             </button>
           </div>
         </div>
@@ -114,67 +209,272 @@
               <h2 class="results-title" id="resRashiHeading">Mithun (Gemini) Prediction</h2>
               <span class="date-badge" id="resDateBadge">DD-MM-YYYY</span>
             </div>
-            <div class="view-toggle" role="group" aria-label="Output View">
-              <button type="button" class="view-btn active" id="btnViewVisual">Visual Cards</button>
-              <button type="button" class="view-btn" id="btnViewJson">Strict JSON</button>
+            <div class="results-actions">
+              <!-- Audio Horoscope Reader Button -->
+              <button type="button" class="btn-listen" id="btnListenHoroscope" title="Listen to Vedic Horoscope Speech">
+                <span class="listen-icon" id="listenIcon">🔊</span>
+                <span class="listen-label" id="listenLabel" data-i18n="listen_horoscope">Listen to Horoscope</span>
+                <span class="listen-wave" id="listenWave" style="display: none;">
+                  <span></span><span></span><span></span><span></span>
+                </span>
+              </button>
+              <div class="view-toggle" role="group" aria-label="Output View">
+                <button type="button" class="view-btn active" id="btnViewVisual" data-i18n="view_visual">Visual Reading</button>
+                <button type="button" class="view-btn" id="btnViewJson" data-i18n="view_json">Strict JSON</button>
+              </div>
             </div>
           </div>
 
           <!-- Visual Cards Layout -->
           <div id="visualDisplay" class="visual-container">
-            <!-- Overall banner -->
-            <div class="insight-banner">
-              <div class="banner-icon">🪐</div>
-              <div class="banner-content">
-                <div class="banner-label">Overall Alignment</div>
-                <p class="banner-text" id="resOverall">Loading overall prediction...</p>
+
+            <!-- MODE 1: DAILY HOROSCOPE CONTAINER -->
+            <div id="containerModeDaily">
+              <!-- Three-Sign Cosmic Insight Cards -->
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:18px;">
+                <!-- Personality Insight (Lagna) -->
+                <div style="background:linear-gradient(135deg,rgba(245,158,11,0.08),rgba(251,146,60,0.08));border:1px solid rgba(245,158,11,0.25);border-radius:14px;padding:16px;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                    <span style="font-size:1.3rem;">🌅</span>
+                    <span style="font-size:0.78rem;font-weight:700;color:var(--gold-glow);letter-spacing:0.08em;text-transform:uppercase;">Personality (Lagna)</span>
+                  </div>
+                  <p style="font-size:0.92rem;color:#e2e8f0;line-height:1.6;margin:0;" id="resPersonalityInsight">Loading personality insight...</p>
+                </div>
+
+                <!-- Emotional State (Chandra) -->
+                <div style="background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.25);border-radius:14px;padding:16px;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                    <span style="font-size:1.3rem;">🌙</span>
+                    <span style="font-size:0.78rem;font-weight:700;color:#38bdf8;letter-spacing:0.08em;text-transform:uppercase;">Emotional State (Chandra)</span>
+                  </div>
+                  <p style="font-size:0.92rem;color:#e2e8f0;line-height:1.6;margin:0;" id="resEmotionalState">Loading emotional state...</p>
+                </div>
+
+                <!-- Daily Guidance (All 3 Signs) -->
+                <div style="background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(6,182,212,0.08));border:1px solid rgba(16,185,129,0.25);border-radius:14px;padding:16px;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                    <span style="font-size:1.3rem;">☀️</span>
+                    <span style="font-size:0.78rem;font-weight:700;color:#34d399;letter-spacing:0.08em;text-transform:uppercase;">Daily Guidance (All Signs)</span>
+                  </div>
+                  <p style="font-size:0.92rem;color:#e2e8f0;line-height:1.6;margin:0;" id="resDailyGuidance">Loading daily guidance...</p>
+                </div>
+              </div>
+
+              <!-- Overall banner -->
+              <div class="insight-banner">
+                <div class="banner-icon">🪐</div>
+                <div class="banner-content">
+                  <div class="banner-label" data-i18n="overview_heading">Cosmic Overview</div>
+                  <p class="banner-text" id="resOverall">Loading overall prediction...</p>
+                </div>
+              </div>
+
+              <!-- 4 Pillars Grid -->
+              <div class="pillars-grid">
+                <!-- Career -->
+                <div class="pillar-card pillar-career">
+                  <div class="pillar-header">
+                    <span class="pillar-icon">💼</span>
+                    <span class="pillar-title" data-i18n="pillar_career">Career & Ambition</span>
+                  </div>
+                  <p class="pillar-desc" id="resCareer"></p>
+                  <p class="pillar-desc" id="resCareerFocus" style="display:none;"></p>
+                </div>
+
+                <!-- Love -->
+                <div class="pillar-card pillar-love">
+                  <div class="pillar-header">
+                    <span class="pillar-icon">❤️</span>
+                    <span class="pillar-title" data-i18n="pillar_love">Love & Relationships</span>
+                  </div>
+                  <p class="pillar-desc" id="resLove"></p>
+                  <p class="pillar-desc" id="resLoveHarmony" style="display:none;"></p>
+                </div>
+
+                <!-- Finance -->
+                <div class="pillar-card pillar-finance">
+                  <div class="pillar-header">
+                    <span class="pillar-icon">💰</span>
+                    <span class="pillar-title" data-i18n="pillar_finance">Wealth & Finance</span>
+                  </div>
+                  <p class="pillar-desc" id="resFinance"></p>
+                  <p class="pillar-desc" id="resFinanceWisdom" style="display:none;"></p>
+                </div>
+
+                <!-- Health -->
+                <div class="pillar-card pillar-health">
+                  <div class="pillar-header">
+                    <span class="pillar-icon">🌿</span>
+                    <span class="pillar-title" data-i18n="pillar_health">Health & Energy</span>
+                  </div>
+                  <p class="pillar-desc" id="resHealth"></p>
+                  <p class="pillar-desc" id="resHealthVitality" style="display:none;"></p>
+                </div>
+              </div>
+
+              <!-- Lucky Badges & Actionable Tip -->
+              <div class="lucky-and-tip-row">
+                <div class="lucky-card">
+                  <div class="lucky-item">
+                    <span class="lucky-label" data-i18n="lucky_color_label">Lucky Color</span>
+                    <div class="lucky-color-preview">
+                      <span class="color-dot" id="resColorDot"></span>
+                      <strong id="resColorName">-</strong>
+                    </div>
+                  </div>
+                  <div class="divider-vertical"></div>
+                  <div class="lucky-item">
+                    <span class="lucky-label" data-i18n="lucky_number_label">Lucky Number</span>
+                    <div class="lucky-num-circle" id="resLuckyNumber">-</div>
+                  </div>
+                </div>
+
+                <div class="tip-card">
+                  <div class="tip-header">
+                    <span class="tip-icon">💡</span>
+                    <span class="tip-title" data-i18n="tip_heading">Vedic Wisdom & Guidance</span>
+                  </div>
+                  <p class="tip-body" id="resTip">-</p>
+                  <p class="tip-body" id="resCosmicTip" style="display:none;">-</p>
+                </div>
               </div>
             </div>
 
-            <!-- 4 Pillars Grid -->
-            <div class="pillars-grid">
-              <!-- Career -->
-              <div class="pillar-card pillar-career">
-                <div class="pillar-header">
-                  <span class="pillar-icon">💼</span>
-                  <span class="pillar-title">Career & Work</span>
+            <!-- MODE 2: SUN SIGN ANALYSIS CONTAINER -->
+            <div id="containerModeSun" style="display: none;">
+              <!-- Core Personality Card -->
+              <div style="background: linear-gradient(135deg, rgba(234, 88, 12, 0.12), rgba(245, 158, 11, 0.08)); border: 1px solid rgba(234, 88, 12, 0.35); border-radius: 16px; padding: 22px; margin-bottom: 20px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                  <span style="font-size:1.6rem;">☀️</span>
+                  <div>
+                    <h3 style="font-size:1.15rem;color:#fb923c;margin:0;">Core Solar Personality</h3>
+                    <span id="sunBadgeSign" style="font-size:0.8rem;color:var(--text-muted);font-weight:600;">Surya Rashi Essence</span>
+                  </div>
                 </div>
-                <p class="pillar-desc" id="resCareer"></p>
+                <p id="sunCorePersonality" style="font-size:1.02rem;color:#f1f5f9;line-height:1.7;margin:0;"></p>
               </div>
 
-              <!-- Love -->
-              <div class="pillar-card pillar-love">
-                <div class="pillar-header">
-                  <span class="pillar-icon">❤️</span>
-                  <span class="pillar-title">Love & Relationship</span>
+              <!-- Strengths & Weaknesses Grid -->
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px;">
+                <!-- Strengths -->
+                <div style="background:rgba(16, 185, 129, 0.08);border:1px solid rgba(16, 185, 129, 0.28);border-radius:14px;padding:18px;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                    <span style="font-size:1.2rem;">✨</span>
+                    <h4 style="margin:0;font-size:0.95rem;color:#34d399;text-transform:uppercase;letter-spacing:0.06em;">Solar Strengths</h4>
+                  </div>
+                  <div id="sunStrengthsList" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
                 </div>
-                <p class="pillar-desc" id="resLove"></p>
+                <!-- Weaknesses / Growth Areas -->
+                <div style="background:rgba(239, 68, 68, 0.08);border:1px solid rgba(239, 68, 68, 0.28);border-radius:14px;padding:18px;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+                    <span style="font-size:1.2rem;">🌱</span>
+                    <h4 style="margin:0;font-size:0.95rem;color:#f87171;text-transform:uppercase;letter-spacing:0.06em;">Growth Areas</h4>
+                  </div>
+                  <div id="sunWeaknessesList" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+                </div>
               </div>
 
-              <!-- Finance -->
-              <div class="pillar-card pillar-finance">
-                <div class="pillar-header">
-                  <span class="pillar-icon">💰</span>
-                  <span class="pillar-title">Money & Finance</span>
+              <!-- Career & Leadership Grid -->
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px;">
+                <!-- Career Tendency -->
+                <div class="pillar-card" style="border: 1px solid rgba(245, 197, 24, 0.25);">
+                  <div class="pillar-header">
+                    <span class="pillar-icon">🎯</span>
+                    <span class="pillar-title" style="color:var(--gold-primary);">Career Tendency</span>
+                  </div>
+                  <p class="pillar-desc" id="sunCareerTendency"></p>
                 </div>
-                <p class="pillar-desc" id="resFinance"></p>
+                <!-- Leadership Style -->
+                <div class="pillar-card" style="border: 1px solid rgba(245, 197, 24, 0.25);">
+                  <div class="pillar-header">
+                    <span class="pillar-icon">👑</span>
+                    <span class="pillar-title" style="color:var(--gold-primary);">Leadership Style</span>
+                  </div>
+                  <p class="pillar-desc" id="sunLeadershipStyle"></p>
+                </div>
               </div>
 
-              <!-- Health -->
-              <div class="pillar-card pillar-health">
-                <div class="pillar-header">
-                  <span class="pillar-icon">🌿</span>
-                  <span class="pillar-title">Health & Vitality</span>
+              <!-- Love Style & Growth Advice Grid -->
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+                <!-- Love Style -->
+                <div class="pillar-card" style="border: 1px solid rgba(244, 63, 94, 0.25);">
+                  <div class="pillar-header">
+                    <span class="pillar-icon">💖</span>
+                    <span class="pillar-title" style="color:#fda4af;">Love Style</span>
+                  </div>
+                  <p class="pillar-desc" id="sunLoveStyle"></p>
                 </div>
-                <p class="pillar-desc" id="resHealth"></p>
+                <!-- Growth Advice -->
+                <div class="pillar-card" style="border: 1px solid rgba(56, 189, 248, 0.25);">
+                  <div class="pillar-header">
+                    <span class="pillar-icon">💎</span>
+                    <span class="pillar-title" style="color:#7dd3fc;">Growth Advice</span>
+                  </div>
+                  <p class="pillar-desc" id="sunGrowthAdvice"></p>
+                </div>
               </div>
             </div>
+
+            <!-- MODE 3: FULL KUNDLI SUMMARY CONTAINER -->
+            <div id="containerModeKundli" style="display: none;">
+              <!-- 3 Signs Banner -->
+              <div id="kundliSignsBanner" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px;"></div>
+
+              <!-- Master Kundli Summary -->
+              <div class="insight-banner" style="margin-bottom: 20px; border: 1px solid rgba(245, 197, 24, 0.35);">
+                <div class="banner-icon">🕉️</div>
+                <div class="banner-content">
+                  <div class="banner-label" style="color:var(--gold-primary);">Master Kundli Synthesis</div>
+                  <p class="banner-text" id="kundliSummaryText" style="font-size:1.02rem;line-height:1.7;"></p>
+                </div>
+              </div>
+
+              <!-- 4 Pillars for Kundli -->
+              <div class="pillars-grid" style="margin-bottom: 20px;">
+                <div class="pillar-card pillar-career">
+                  <div class="pillar-header"><span class="pillar-icon">💼</span><span class="pillar-title">Career & Vocational Destiny</span></div>
+                  <p class="pillar-desc" id="kundliCareer"></p>
+                </div>
+                <div class="pillar-card pillar-love">
+                  <div class="pillar-header"><span class="pillar-icon">❤️</span><span class="pillar-title">Love & Emotional Depth</span></div>
+                  <p class="pillar-desc" id="kundliLove"></p>
+                </div>
+                <div class="pillar-card pillar-finance">
+                  <div class="pillar-header"><span class="pillar-icon">💰</span><span class="pillar-title">Wealth & Material Stability</span></div>
+                  <p class="pillar-desc" id="kundliFinance"></p>
+                </div>
+                <div class="pillar-card pillar-health">
+                  <div class="pillar-header"><span class="pillar-icon">🌿</span><span class="pillar-title">Physical Vitality & Health</span></div>
+                  <p class="pillar-desc" id="kundliHealth"></p>
+                </div>
+              </div>
+
+              <!-- Planetary Hint & Cosmic Tip Row -->
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+                <div style="background:rgba(139, 92, 246, 0.1);border:1px solid rgba(139, 92, 246, 0.3);border-radius:14px;padding:18px;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                    <span style="font-size:1.3rem;">🪐</span>
+                    <span style="font-size:0.85rem;font-weight:700;color:#c084fc;text-transform:uppercase;letter-spacing:0.06em;">Planetary Hint</span>
+                  </div>
+                  <p id="kundliPlanetaryHint" style="font-size:0.95rem;color:#e2e8f0;line-height:1.6;margin:0;"></p>
+                </div>
+                <div style="background:rgba(245, 197, 24, 0.1);border:1px solid rgba(245, 197, 24, 0.3);border-radius:14px;padding:18px;">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+                    <span style="font-size:1.3rem;">💡</span>
+                    <span style="font-size:0.85rem;font-weight:700;color:var(--gold-glow);text-transform:uppercase;letter-spacing:0.06em;">Cosmic Tip</span>
+                  </div>
+                  <p id="kundliTip" style="font-size:0.95rem;color:#e2e8f0;line-height:1.6;margin:0;"></p>
+                </div>
+              </div>
+            </div>
+
+          </div>
 
             <!-- Lucky Badges & Actionable Tip -->
             <div class="lucky-and-tip-row">
               <div class="lucky-card">
                 <div class="lucky-item">
-                  <span class="lucky-label">Lucky Color</span>
+                  <span class="lucky-label" data-i18n="lucky_color_label">Lucky Color</span>
                   <div class="lucky-color-preview">
                     <span class="color-dot" id="resColorDot"></span>
                     <strong id="resColorName">-</strong>
@@ -182,7 +482,7 @@
                 </div>
                 <div class="divider-vertical"></div>
                 <div class="lucky-item">
-                  <span class="lucky-label">Lucky Number</span>
+                  <span class="lucky-label" data-i18n="lucky_number_label">Lucky Number</span>
                   <div class="lucky-num-circle" id="resLuckyNumber">-</div>
                 </div>
               </div>
@@ -190,9 +490,10 @@
               <div class="tip-card">
                 <div class="tip-header">
                   <span class="tip-icon">💡</span>
-                  <span class="tip-title">Actionable Advice (Upaya)</span>
+                  <span class="tip-title" data-i18n="tip_heading">Vedic Wisdom & Guidance</span>
                 </div>
                 <p class="tip-body" id="resTip">-</p>
+                <p class="tip-body" id="resCosmicTip" style="display:none;">-</p>
               </div>
             </div>
           </div>
@@ -214,30 +515,30 @@
       <section id="panelCompatibility" class="tool-panel" role="tabpanel" aria-labelledby="tabCompatibility" style="display: none;">
         <div class="section-card">
           <div class="section-header">
-            <h2 class="section-title">Vedic Rashi Compatibility Match</h2>
-            <span class="step-badge">Elemental Harmony</span>
+            <h2 class="section-title" data-i18n="compat_title">Vedic Rashi Compatibility Match</h2>
+            <span class="step-badge" data-i18n="tab_compatibility">Elemental Harmony</span>
           </div>
-          <p class="section-desc">
-            Compare elemental synergy (Agni, Prithvi, Vayu, Jal) and planetary friendship between two Moon signs.
+          <p class="section-desc" data-i18n="compat_desc">
+            Compare elemental synergy (Agni, Prithvi, Vayu, Jal) and planetary friendship between two Moon signs according to classical Vedic principles.
           </p>
 
           <div class="compat-form-row">
             <div class="compat-select-box">
-              <label for="compatRashi1">First Rashi</label>
+              <label for="compatRashi1" data-i18n="compat_rashi1_label">First Sign (Rashi 1)</label>
               <select id="compatRashi1" class="custom-select"></select>
             </div>
 
             <div class="compat-vs-badge">⚡ VS ⚡</div>
 
             <div class="compat-select-box">
-              <label for="compatRashi2">Second Rashi</label>
+              <label for="compatRashi2" data-i18n="compat_rashi2_label">Second Sign (Rashi 2)</label>
               <select id="compatRashi2" class="custom-select"></select>
             </div>
           </div>
 
           <div class="action-row">
             <button type="button" id="btnCheckCompat" class="btn-primary">
-              <span class="btn-sparkle">✦</span> Analyze Compatibility
+              <span class="btn-sparkle">✦</span> <span data-i18n="btn_check_compat">Analyze Compatibility</span>
             </button>
           </div>
 
@@ -251,18 +552,24 @@
       <section id="panelDOBFinder" class="tool-panel" role="tabpanel" aria-labelledby="tabDOBFinder" style="display: none;">
         <div class="section-card">
           <div class="section-header">
-            <h2 class="section-title">Find Your Rashi by Date of Birth</h2>
-            <span class="step-badge">Sidereal Vedic Solar Ingress</span>
+            <h2 class="section-title" data-i18n="dob_title">Date of Birth Rashi Finder</h2>
+            <span class="step-badge" data-i18n="tab_dob_finder">Sidereal Vedic Solar Ingress</span>
           </div>
-          <p class="section-desc">
-            Enter your Date of Birth to determine your Vedic Sidereal sign, ruling planet, and elemental constitution.
+          <p class="section-desc" data-i18n="dob_desc">
+            Don't know your Moon sign? Enter your date of birth to calculate your approximate Vedic Moon Sign ingress.
           </p>
 
-          <div class="dob-form-row">
-            <label for="dobInput">Date of Birth</label>
-            <input type="date" id="dobInput" class="custom-input dob-input" value="1998-05-20" />
-            <button type="button" id="btnInferDOB" class="btn-primary">
-              <span class="btn-sparkle">✦</span> Infer Rashi
+          <div class="dob-form-row" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;">
+            <div style="flex:1;min-width:180px;">
+              <label for="dobInput" data-i18n="dob_label">Date of Birth</label>
+              <input type="date" id="dobInput" class="custom-input dob-input" value="1998-05-20" style="width:100%;" />
+            </div>
+            <div style="flex:1;min-width:160px;">
+              <label for="dobTimeInput" data-i18n="dob_time_label">Birth Time (Optional)</label>
+              <input type="time" id="dobTimeInput" class="custom-input dob-input" value="06:00" style="width:100%;" />
+            </div>
+            <button type="button" id="btnInferDOB" class="btn-primary" style="height:44px;">
+              <span class="btn-sparkle">✦</span> <span data-i18n="btn_infer_dob">Infer Rashi</span>
             </button>
           </div>
 
@@ -271,11 +578,142 @@
           </div>
         </div>
       </section>
+      <!-- PANEL 4: PALMISTRY (HAST REKHA) -->
+      <section id="panelPalmistry" class="tool-panel" role="tabpanel" aria-labelledby="tabPalmistry" style="display: none;">
+
+        <!-- Intro Banner -->
+        <div class="section-card palmistry-intro-card">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="palm_title">Hast Rekha Vidya — Ancient Vedic Palmistry</h2>
+            <span class="step-badge" data-i18n="tab_palmistry">✋ Palm Reading</span>
+          </div>
+          <p class="section-desc" data-i18n="palm_subtitle">
+            Examine the sacred lines and mounts of your palm to uncover life path, personality, love, destiny, and more — rooted in Vedic Hast Rekha Vidya.
+          </p>
+          <div class="palm-scan-cta-card">
+            <div class="palm-scan-cta-content">
+              <div class="palm-scan-badge" data-i18n="palm_camera_badge">📷 Camera AI Vision</div>
+              <h3 class="palm-scan-cta-title" data-i18n="palm_camera_title">Scan Palm with Camera</h3>
+              <p class="palm-scan-cta-desc" data-i18n="palm_camera_desc">Hold your palm to the camera or upload a photo. Our vision engine maps your lines and mounts instantly to reveal your Vedic destiny.</p>
+            </div>
+            <button type="button" id="btnOpenPalmScan" class="btn-primary palm-scan-open-btn">
+              <span class="btn-sparkle">📷</span> <span data-i18n="btn_scan_palm">Scan Palm Now</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 1: Hand Type -->
+        <div class="section-card">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="palm_step1_title">1. Identify Your Hand Type (Hast Prakar)</h2>
+            <span class="step-badge">4 Types</span>
+          </div>
+          <p class="section-desc" data-i18n="palm_step1_desc">Choose the hand shape closest to yours. This determines your elemental constitution and base personality archetype.</p>
+          <div class="palm-hand-grid" id="palmHandTypeGrid"></div>
+          <div class="palm-vedic-note" id="palmHandVedicNote">Dominated by the Agni (Fire) tattva — Mangal and Surya energies are strong.</div>
+        </div>
+
+        <!-- Step 2: Palm Diagram + Line Selector -->
+        <div class="section-card palmistry-diagram-card">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="palm_step2_title">2. Describe Your Palm Lines (Hast Rekhayen)</h2>
+            <span class="step-badge">6 Lines</span>
+          </div>
+          <p class="section-desc" data-i18n="palm_step2_desc">Hover over lines on the diagram to highlight them. Select the description that best matches each line on your palm.</p>
+
+          <div class="palmistry-two-col">
+            <!-- Left: SVG Diagram -->
+            <div class="palm-diagram-wrapper">
+              <div class="palm-diagram-label">Your Palm</div>
+              <div id="palmDiagramContainer" class="palm-diagram-container"></div>
+              <div class="palm-line-legend">
+                <div class="legend-item"><span class="legend-dot" style="background:#10b981"></span>Life</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#f43f5e"></span>Heart</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#38bdf8"></span>Head</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#ffd166"></span>Fate</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span>Sun</div>
+                <div class="legend-item"><span class="legend-dot" style="background:#8b5cf6"></span>Union</div>
+              </div>
+            </div>
+
+            <!-- Right: Line selectors -->
+            <div id="palmLinesContainer" class="palm-lines-container"></div>
+          </div>
+        </div>
+
+        <!-- Step 3: Mount Selector -->
+        <div class="section-card">
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="palm_step3_title">3. Assess Your Palm Mounts (Hast Parvat)</h2>
+            <span class="step-badge">8 Mounts</span>
+          </div>
+          <p class="section-desc" data-i18n="palm_step3_desc">Press the fleshy pads of your palm. Select whether each planetary mount feels prominent, flat, or overdeveloped.</p>
+          <div id="palmMountsContainer" class="palm-mounts-grid"></div>
+        </div>
+
+        <!-- Read Palm CTA -->
+        <div class="section-card controls-card">
+          <div class="action-row">
+            <button type="button" id="btnReadPalm" class="btn-primary">
+              <span class="btn-sparkle">✦</span> <span data-i18n="btn_read_palm">Read My Palm</span>
+            </button>
+            <button type="button" id="btnPalmReset" class="btn-sm" style="margin-left:12px; padding:10px 20px;" data-i18n="btn_palm_reset">Reset</button>
+          </div>
+        </div>
+
+        <!-- Reading Results -->
+        <div id="palmResultSection" class="section-card palm-result-section" style="display:none;">
+          <div class="palm-result-header">
+            <div class="palm-result-title-row">
+              <h2 class="section-title" data-i18n="palm_reading_title">✋ Your Hast Rekha Reading</h2>
+              <div style="display:flex;gap:10px;align-items:center;">
+                <span class="date-badge" id="palmResTimestamp"></span>
+                <button type="button" id="btnCopyPalmReading" class="btn-copy" data-i18n="palm_copy_reading">📋 Copy Reading</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hand Type Result -->
+          <div class="palm-res-block">
+            <div class="palm-res-block-title" data-i18n="palm_hand_analysis">🖐 Hand Type Analysis</div>
+            <div class="palm-res-hand-type" id="palmResHandType"></div>
+          </div>
+
+          <!-- Overall Synthesis -->
+          <div class="insight-banner" style="margin:20px 0;">
+            <div class="banner-icon">🌟</div>
+            <div class="banner-content">
+              <div class="banner-label" data-i18n="palm_overall_synthesis">Overall Palm Synthesis</div>
+              <p class="banner-text" id="palmResOverall"></p>
+            </div>
+          </div>
+
+          <!-- Lines Readings -->
+          <div class="palm-res-block">
+            <div class="palm-res-block-title" data-i18n="palm_lines_title">📜 Palm Line Readings</div>
+            <div id="palmResLines" class="palm-res-lines-grid"></div>
+          </div>
+
+          <!-- Mount Readings -->
+          <div class="palm-res-block">
+            <div class="palm-res-block-title" data-i18n="palm_mounts_title">⛰️ Mount Readings</div>
+            <div id="palmResMounts" class="palm-res-mounts-grid"></div>
+          </div>
+
+          <!-- Vedic Advice -->
+          <div class="palm-res-block">
+            <div class="palm-res-block-title" data-i18n="palm_remedies_title">🙏 Vedic Remedies & Guidance</div>
+            <div id="palmResAdvice" class="palm-advice-container"></div>
+          </div>
+        </div>
+
+      </section>
     </main>
 
     <!-- Footer -->
     <footer class="app-footer">
-      <p>
+      <p class="footer-credit"><span data-i18n="footer_made_by">Made by Arjit Jaiswal</span></p>
+      <p data-i18n="footer_disclaimer">
         Guided by traditional Vedic Jyotish principles • Strictly realistic and non-harmful predictions • Positive & grounded advice
       </p>
       <div class="api-links">
@@ -283,7 +721,116 @@
       </div>
     </footer>
   </div>
+  
+  <!-- Floating Voice Assistant Launcher Button -->
+  <button type="button" id="voiceAssistantLauncher" class="voice-floating-btn" aria-label="Open Vedic Voice Assistant" title="Open Jyotish Vani AI Assistant">
+    <div class="floating-btn-glow"></div>
+    <div class="floating-btn-pulse"></div>
+    <span class="floating-btn-icon">🎙️</span>
+    <span class="floating-btn-label">Voice AI</span>
+    <span class="floating-btn-badge" id="launcherStatusBadge">Assistant</span>
+  </button>
 
+  <!-- Voice Assistant Backdrop -->
+  <div id="voiceAssistantBackdrop" class="voice-backdrop" aria-hidden="true"></div>
+
+  <!-- Voice Assistant Drawer / Modal -->
+  <aside id="voiceAssistantDrawer" class="voice-drawer" role="dialog" aria-labelledby="assistantTitle" aria-modal="true">
+    <div class="drawer-header">
+      <div class="drawer-brand">
+        <span class="drawer-om">ॐ</span>
+        <div>
+          <h3 id="assistantTitle" class="drawer-title">Jyotish Vani AI</h3>
+          <p class="drawer-subtitle">Vedic Voice & Horoscope Assistant</p>
+        </div>
+      </div>
+      <button type="button" id="closeVoiceAssistant" class="drawer-close-btn" aria-label="Close Voice Assistant">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- Cosmic Visualizer & Animated Avatar Orb -->
+      <div class="assistant-visualizer-card">
+        <div class="assistant-orb-wrapper">
+          <div class="assistant-orb idle" id="assistantOrb">
+            <span class="orb-icon">✨</span>
+          </div>
+          <div class="orb-aura"></div>
+        </div>
+
+        <!-- Equalizer Sound Wave -->
+        <div class="voice-visualizer" id="voiceVisualizer">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+          <span class="bar bar-3"></span>
+          <span class="bar bar-4"></span>
+          <span class="bar bar-5"></span>
+          <span class="bar bar-6"></span>
+          <span class="bar bar-7"></span>
+        </div>
+
+        <div class="voice-status-badge" id="voiceStatusLabel">Tap microphone to speak or choose a topic</div>
+      </div>
+
+      <!-- Live Dialogue Box -->
+      <div class="assistant-dialogue-box">
+        <div class="dialogue-block user-block">
+          <span class="speaker-tag">You:</span>
+          <p class="dialogue-text" id="voiceTranscriptText">“What is today's horoscope for Gemini?”</p>
+        </div>
+        <div class="dialogue-block bot-block">
+          <div class="bot-header">
+            <span class="speaker-tag bot-tag">Jyotish Vani:</span>
+            <button type="button" id="btnStopVoiceAudio" class="btn-stop-audio" title="Mute/Stop Audio">⏹️ Stop</button>
+          </div>
+          <p class="dialogue-text bot-text" id="voiceResponseText">Namaste! Ask me about your Moon sign, daily/weekly/monthly horoscope, love or career alignments, or sign compatibility.</p>
+        </div>
+      </div>
+
+      <!-- Microphone & Action Controls -->
+      <div class="drawer-controls">
+        <button type="button" id="btnToggleMic" class="btn-mic-main" aria-label="Toggle Microphone">
+          <div class="mic-ripple"></div>
+          <span class="mic-icon">🎙️</span>
+        </button>
+        <div class="mic-hint">Click mic to Start / Stop listening</div>
+      </div>
+
+      <!-- Quick Prompt Suggestions -->
+      <div class="quick-prompts-section">
+        <span class="quick-label">Try Asking Vedic AI:</span>
+        <div class="voice-chips-container">
+          <button type="button" class="voice-chip-btn" data-prompt="Mithun rashi today">
+            🌙 Mithun rashi today (Mode 1)
+          </button>
+          <button type="button" class="voice-chip-btn" data-prompt="My sun sign is Leo">
+            ☀️ My sun sign is Leo (Mode 2)
+          </button>
+          <button type="button" class="voice-chip-btn" data-prompt="Lagna Leo, Moon Gemini, Sun Aries">
+            🕉️ Lagna Leo, Moon Gemini, Sun Aries (Mode 3)
+          </button>
+          <button type="button" class="voice-chip-btn" data-prompt="Check compatibility between Aries and Sagittarius">
+            ⚡ Aries & Sagittarius Match
+          </button>
+          <button type="button" class="voice-chip-btn" data-prompt="Read my current horoscope">
+            🔊 Read Current Horoscope
+          </button>
+        </div>
+      </div>
+
+      <!-- Text Query Fallback Input -->
+      <div class="drawer-input-row">
+        <input type="text" id="voiceQueryInput" class="custom-input voice-text-input" placeholder="e.g. Mithun rashi today, My sun sign is Leo, Lagna Leo..." />
+        <button type="button" id="btnSendVoiceQuery" class="btn-primary btn-send-query">
+          <span>Ask</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <script src="i18n.js"></script>
+  <script src="palmistry.js"></script>
+  <script src="palmScan.js"></script>
+  <script src="voiceAssistant.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
