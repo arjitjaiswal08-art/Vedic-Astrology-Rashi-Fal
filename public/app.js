@@ -350,10 +350,19 @@ function initVedicAiStudio() {
 async function executeVedicAi(params) {
   const currentLang = typeof I18N !== "undefined" ? I18N.currentLang : "en";
   const btn = document.getElementById("btnRunVedicAi");
+  const inlineResult  = document.getElementById("aiInlineResult");
+  const inlineLoading = document.getElementById("aiInlineLoading");
+  const inlineContent = document.getElementById("aiInlineContent");
+
+  // Show loading inside AI Studio card
   if (btn) {
     btn.disabled = true;
     btn.innerHTML = `<span class="btn-sparkle">⏳</span> Analyzing...`;
   }
+  if (inlineResult)  inlineResult.style.display  = "block";
+  if (inlineLoading) inlineLoading.style.display  = "block";
+  if (inlineContent) inlineContent.innerHTML      = "";
+  if (inlineResult)  inlineResult.scrollIntoView({ behavior: "smooth", block: "nearest" });
 
   try {
     const payload = Object.assign({ language: currentLang }, params);
@@ -362,19 +371,146 @@ async function executeVedicAi(params) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
-    if (!res.ok) throw new Error("API request failed");
+    if (!res.ok) throw new Error(`API error ${res.status}`);
     const data = await res.json();
+
+    // Render inline AND update the main results section
     renderPrediction(data);
+    renderInlineAiResult(data, currentLang);
+
   } catch (err) {
-    console.warn("Vedic AI fetch error, falling back:", err);
-    fetchPrediction();
+    console.warn("Vedic AI fetch error:", err);
+    if (inlineContent) {
+      inlineContent.innerHTML = `
+        <div style="text-align:center;padding:20px;color:#f87171;">
+          <span style="font-size:1.8rem;">⚠️</span>
+          <p style="margin-top:8px;font-size:0.9rem;">Could not connect to server. Please refresh and try again.</p>
+        </div>`;
+    }
   } finally {
     if (btn) {
       btn.disabled = false;
       btn.innerHTML = `<span class="btn-sparkle">✦</span> Analyze with Vedic AI`;
     }
+    if (inlineLoading) inlineLoading.style.display = "none";
   }
 }
+
+// Render a compact, beautiful result directly inside the AI Studio card
+function renderInlineAiResult(data, lang) {
+  const el = document.getElementById("aiInlineContent");
+  if (!el) return;
+
+  const t = (key, fallback) => {
+    try { return (typeof I18N !== "undefined" && I18N.t(key)) || fallback; } catch(e) { return fallback; }
+  };
+
+  if (data.type === "sun_analysis") {
+    const sign = data.surya_rashi || "";
+    const meta = RASHIS.find(r => r.key === sign) || {};
+    el.innerHTML = `
+      <div style="animation:fadeIn 0.5s ease;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <span style="font-size:2rem;">${meta.icon || "☀️"}</span>
+          <div>
+            <div style="font-size:1.1rem;font-weight:700;color:#fb923c;">${meta.name || sign} — Sun Sign Analysis</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);">MODE 2 · SURYA RASHI</div>
+          </div>
+        </div>
+        <p style="color:#f1f5f9;line-height:1.7;margin-bottom:16px;padding:14px;background:rgba(234,88,12,0.1);border-radius:12px;border:1px solid rgba(234,88,12,0.25);">
+          ${data.core_personality || ""}
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+          <div style="background:rgba(16,185,129,0.09);border:1px solid rgba(16,185,129,0.25);border-radius:12px;padding:14px;">
+            <div style="font-size:0.75rem;font-weight:700;color:#34d399;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;">✨ Strengths</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">${(data.strengths||[]).map(s=>`<span style="background:rgba(16,185,129,0.15);border:1px solid rgba(16,185,129,0.3);border-radius:999px;padding:3px 10px;font-size:0.8rem;color:#6ee7b7;">✓ ${s}</span>`).join("")}</div>
+          </div>
+          <div style="background:rgba(239,68,68,0.09);border:1px solid rgba(239,68,68,0.25);border-radius:12px;padding:14px;">
+            <div style="font-size:0.75rem;font-weight:700;color:#f87171;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;">🌱 Growth Areas</div>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;">${(data.weaknesses||[]).map(w=>`<span style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);border-radius:999px;padding:3px 10px;font-size:0.8rem;color:#fca5a5;">• ${w}</span>`).join("")}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="background:rgba(245,197,24,0.07);border:1px solid rgba(245,197,24,0.2);border-radius:12px;padding:14px;">
+            <div style="font-size:0.75rem;font-weight:700;color:var(--gold-glow);margin-bottom:6px;">🎯 Career</div>
+            <p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.career_tendency||""}</p>
+          </div>
+          <div style="background:rgba(244,63,94,0.07);border:1px solid rgba(244,63,94,0.2);border-radius:12px;padding:14px;">
+            <div style="font-size:0.75rem;font-weight:700;color:#fda4af;margin-bottom:6px;">💖 Love Style</div>
+            <p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.love_style||""}</p>
+          </div>
+          <div style="background:rgba(56,189,248,0.07);border:1px solid rgba(56,189,248,0.2);border-radius:12px;padding:14px;">
+            <div style="font-size:0.75rem;font-weight:700;color:#7dd3fc;margin-bottom:6px;">👑 Leadership</div>
+            <p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.leadership_style||""}</p>
+          </div>
+          <div style="background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:14px;">
+            <div style="font-size:0.75rem;font-weight:700;color:#a5b4fc;margin-bottom:6px;">💎 Growth Advice</div>
+            <p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.growth_advice||""}</p>
+          </div>
+        </div>
+      </div>`;
+  } else if (data.type === "kundli") {
+    const lagna   = RASHIS.find(r=>r.key===data.lagna)||{};
+    const surya   = RASHIS.find(r=>r.key===data.surya_rashi)||{};
+    const chandra = RASHIS.find(r=>r.key===data.chandra_rashi)||{};
+    el.innerHTML = `
+      <div style="animation:fadeIn 0.5s ease;">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
+          <span style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.35);border-radius:999px;padding:5px 14px;font-size:0.85rem;color:var(--gold-glow);">🌅 ${lagna.icon||""} ${data.lagna} (Lagna)</span>
+          <span style="background:rgba(234,88,12,0.12);border:1px solid rgba(234,88,12,0.35);border-radius:999px;padding:5px 14px;font-size:0.85rem;color:#fb923c;">☀️ ${surya.icon||""} ${data.surya_rashi} (Surya)</span>
+          <span style="background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.35);border-radius:999px;padding:5px 14px;font-size:0.85rem;color:#38bdf8;">🌙 ${chandra.icon||""} ${data.chandra_rashi} (Chandra)</span>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(245,197,24,0.08),rgba(99,102,241,0.06));border:1px solid rgba(245,197,24,0.25);border-radius:14px;padding:18px;margin-bottom:16px;">
+          <div style="font-size:0.75rem;font-weight:700;color:var(--gold-glow);margin-bottom:8px;text-transform:uppercase;">🕉️ Master Kundli Synthesis</div>
+          <p style="margin:0;color:#f1f5f9;line-height:1.7;font-size:0.96rem;">${data.summary||""}</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+          <div style="background:rgba(245,197,24,0.07);border:1px solid rgba(245,197,24,0.2);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:var(--gold-glow);margin-bottom:6px;">💼 Career</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.career||""}</p></div>
+          <div style="background:rgba(244,63,94,0.07);border:1px solid rgba(244,63,94,0.2);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:#fda4af;margin-bottom:6px;">❤️ Love</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.love||""}</p></div>
+          <div style="background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:#34d399;margin-bottom:6px;">💰 Finance</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.finance||""}</p></div>
+          <div style="background:rgba(56,189,248,0.07);border:1px solid rgba(56,189,248,0.2);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:#7dd3fc;margin-bottom:6px;">🌿 Health</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.health||""}</p></div>
+        </div>
+        <div style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.25);border-radius:12px;padding:14px;">
+          <div style="font-size:0.75rem;font-weight:700;color:#a5b4fc;margin-bottom:6px;">🪐 Planetary Hint</div>
+          <p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.planetary_hint||""}</p>
+        </div>
+        ${data.tip ? `<div style="margin-top:12px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:#34d399;margin-bottom:6px;">💡 Vedic Tip</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.tip}</p></div>` : ""}
+      </div>`;
+  } else {
+    // Mode 1: Daily
+    const sign = data.rashi || "";
+    const meta = RASHIS.find(r=>r.key===sign)||{};
+    const signName = meta.name ? `${meta.name} (${meta.english||sign})` : sign;
+    el.innerHTML = `
+      <div style="animation:fadeIn 0.5s ease;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <span style="font-size:2rem;">${meta.icon||"🌙"}</span>
+          <div>
+            <div style="font-size:1.1rem;font-weight:700;color:var(--gold-primary);">${signName} — Daily Horoscope</div>
+            <div style="font-size:0.8rem;color:var(--text-muted);">MODE 1 · CHANDRA RASHI · ${data.date||"Today"}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px;">
+          <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.22);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:var(--gold-glow);margin-bottom:6px;">🌅 Personality (Lagna)</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.personality_insight||data.overall||""}</p></div>
+          <div style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.22);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:#38bdf8;margin-bottom:6px;">🌙 Emotional (Chandra)</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.emotional_state||data.overall||""}</p></div>
+          <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.22);border-radius:12px;padding:14px;"><div style="font-size:0.75rem;font-weight:700;color:#34d399;margin-bottom:6px;">☀️ Daily Guidance</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.6;">${data.daily_guidance||data.overall||""}</p></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div style="background:rgba(245,197,24,0.07);border:1px solid rgba(245,197,24,0.2);border-radius:12px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:var(--gold-glow);margin-bottom:5px;">💼 Career</div><p style="margin:0;font-size:0.85rem;color:#e2e8f0;line-height:1.5;">${data.career_focus||data.career||""}</p></div>
+          <div style="background:rgba(244,63,94,0.07);border:1px solid rgba(244,63,94,0.2);border-radius:12px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:#fda4af;margin-bottom:5px;">❤️ Love</div><p style="margin:0;font-size:0.85rem;color:#e2e8f0;line-height:1.5;">${data.love_harmony||data.love||""}</p></div>
+          <div style="background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:#34d399;margin-bottom:5px;">💰 Finance</div><p style="margin:0;font-size:0.85rem;color:#e2e8f0;line-height:1.5;">${data.finance_wisdom||data.finance||""}</p></div>
+          <div style="background:rgba(56,189,248,0.07);border:1px solid rgba(56,189,248,0.2);border-radius:12px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:#7dd3fc;margin-bottom:5px;">🌿 Health</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.5;">${data.health_vitality||data.health||""}</p></div>
+        </div>
+        ${data.cosmic_tip||data.tip ? `<div style="margin-top:12px;background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:13px;"><div style="font-size:0.72rem;font-weight:700;color:#a5b4fc;margin-bottom:5px;">💡 Cosmic Tip</div><p style="margin:0;font-size:0.85rem;color:#e2e8f0;line-height:1.5;">${data.cosmic_tip||data.tip}</p></div>` : ""}
+        ${data.lucky_color||data.lucky_number ? `<div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap;"><span style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.25);border-radius:999px;padding:5px 14px;font-size:0.82rem;color:var(--gold-glow);">🎨 Lucky Color: ${data.lucky_color||"-"}</span><span style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.25);border-radius:999px;padding:5px 14px;font-size:0.82rem;color:var(--gold-glow);">🔢 Lucky Number: ${data.lucky_number||"-"}</span></div>` : ""}
+      </div>`;
+  }
+  // Scroll the inline result into view
+  const el2 = document.getElementById("aiInlineResult");
+  if (el2) el2.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+
 
 // Render Prediction Result to DOM
 function renderPrediction(data) {

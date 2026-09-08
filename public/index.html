@@ -136,6 +136,17 @@
               🕉️ Lagna Leo, Moon Gemini, Sun Aries (Mode 3)
             </button>
           </div>
+
+          <!-- ✦ INLINE AI RESULT PANEL (appears right here after clicking Analyze) -->
+          <div id="aiInlineResult" style="display:none; margin-top:20px; border-top:1px solid rgba(245,197,24,0.2); padding-top:20px;">
+            <!-- Loading State -->
+            <div id="aiInlineLoading" style="display:none; text-align:center; padding:32px 0;">
+              <div style="font-size:2.2rem; animation:spin 1.2s linear infinite; display:inline-block;">🕉️</div>
+              <p style="color:var(--text-muted);margin-top:10px;font-size:0.9rem;">Consulting the stars...</p>
+            </div>
+            <!-- Result Content -->
+            <div id="aiInlineContent"></div>
+          </div>
         </div>
 
         <!-- 12 Rashis Selector Grid -->
