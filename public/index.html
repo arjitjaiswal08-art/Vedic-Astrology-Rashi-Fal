@@ -359,38 +359,6 @@
                 </div>
               </div>
 
-              <!-- Lucky Badges & Actionable Tip -->
-              <div class="lucky-and-tip-row">
-                <div class="lucky-card" style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
-                  <div class="lucky-item">
-                    <span class="lucky-label" data-i18n="lucky_color_label">Lucky Color</span>
-                    <div class="lucky-color-preview">
-                      <span class="color-dot" id="resColorDot"></span>
-                      <strong id="resColorName">-</strong>
-                    </div>
-                  </div>
-                  <div class="divider-vertical"></div>
-                  <div class="lucky-item">
-                    <span class="lucky-label" data-i18n="lucky_number_label">Lucky Number</span>
-                    <div class="lucky-num-circle" id="resLuckyNumber">-</div>
-                  </div>
-                  <div class="divider-vertical"></div>
-                  <div class="lucky-item">
-                    <span class="lucky-label">Shubh Muhurat</span>
-                    <strong id="resShubhMuhurat" style="color: #38bdf8; font-size: 0.88rem;">11:48 AM – 12:38 PM</strong>
-                  </div>
-                </div>
-
-                <div class="tip-card">
-                  <div class="tip-header">
-                    <span class="tip-icon">💡</span>
-                    <span class="tip-title" data-i18n="tip_heading">Vedic Wisdom & Guidance</span>
-                  </div>
-                  <p class="tip-body" id="resTip">-</p>
-                  <p class="tip-body" id="resCosmicTip" style="display:none;">-</p>
-                </div>
-              </div>
-
               <!-- Sacred Sanskrit Mantra Card -->
               <div id="resMantraSection" style="margin-top: 18px; background: linear-gradient(135deg, rgba(245, 197, 24, 0.08), rgba(234, 88, 12, 0.06)); border: 1px solid rgba(245, 197, 24, 0.3); border-radius: 16px; padding: 20px;">
                 <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
@@ -432,6 +400,92 @@
                   </div>
                 </div>
                 <div id="resGocharGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; font-size: 0.88rem; color: #e2e8f0;"></div>
+              </div>
+
+              <!-- 🌟 8th Pillar: Auspicious Luck Factors & Vedic Wisdom -->
+              <div class="vedic-luck-wisdom-section" style="margin-top: 24px; background: linear-gradient(135deg, rgba(245, 197, 24, 0.08) 0%, rgba(15, 23, 42, 0.75) 50%, rgba(56, 189, 248, 0.06) 100%); border: 1px solid rgba(245, 197, 24, 0.35); border-radius: 20px; padding: 24px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1);">
+                
+                <!-- Section Header -->
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid rgba(245, 197, 24, 0.2); padding-bottom: 14px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.8rem; filter: drop-shadow(0 0 10px rgba(245,197,24,0.7));">✨</span>
+                    <div>
+                      <h3 style="margin: 0; font-size: 1.18rem; color: var(--gold-glow); font-family: 'Cinzel', serif; letter-spacing: 0.03em;">Auspicious Luck Factors & Cosmic Wisdom</h3>
+                      <span style="font-size: 0.8rem; color: var(--text-muted);">8th Pillar: शुभ रंग, शुभ अंक, शुभ मुहूर्त, शुभ रत्न एवं दैनिक मार्गदर्शन</span>
+                    </div>
+                  </div>
+                  <span style="background: rgba(245, 197, 24, 0.15); border: 1px solid rgba(245, 197, 24, 0.4); border-radius: 9999px; padding: 5px 14px; font-size: 0.78rem; color: var(--gold-glow); font-weight: 700; letter-spacing: 0.06em;">
+                    8th PILLAR
+                  </span>
+                </div>
+
+                <!-- 4 Luck Factor Tiles Grid -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 20px;">
+                  
+                  <!-- 1. Lucky Color Tile -->
+                  <div class="luck-tile" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(245, 197, 24, 0.25); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 14px;">
+                    <div id="resColorSwatchOrb" style="width: 48px; height: 48px; border-radius: 50%; background: #10b981; box-shadow: 0 0 18px rgba(16, 185, 129, 0.5); border: 2px solid rgba(255, 255, 255, 0.7); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0;">
+                      <span id="resColorDot" style="display: none;"></span>
+                      🎨
+                    </div>
+                    <div>
+                      <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; display: block;">Lucky Color</span>
+                      <strong id="resColorName" style="font-size: 1.05rem; color: #f8fafc; display: block; margin-top: 2px;">Emerald Green</strong>
+                      <span style="font-size: 0.72rem; color: var(--gold-primary); opacity: 0.95;">Aura Harmony</span>
+                    </div>
+                  </div>
+
+                  <!-- 2. Lucky Number Tile -->
+                  <div class="luck-tile" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(245, 197, 24, 0.25); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 14px;">
+                    <div id="resLuckyNumber" style="width: 48px; height: 48px; border-radius: 50%; background: var(--gold-gradient); color: #0f172a; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; box-shadow: 0 0 20px rgba(245, 197, 24, 0.6); flex-shrink: 0;">
+                      5
+                    </div>
+                    <div>
+                      <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; display: block;">Lucky Number</span>
+                      <strong style="font-size: 1.05rem; color: #f8fafc; display: block; margin-top: 2px;">Cosmic Resonance</strong>
+                      <span style="font-size: 0.72rem; color: #34d399; opacity: 0.95;">Positive Vibration</span>
+                    </div>
+                  </div>
+
+                  <!-- 3. Shubh Muhurat Tile -->
+                  <div class="luck-tile" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 14px;">
+                    <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(99, 102, 241, 0.3)); border: 2px solid rgba(56, 189, 248, 0.5); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #38bdf8; flex-shrink: 0; box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);">
+                      ⏰
+                    </div>
+                    <div>
+                      <span style="font-size: 0.72rem; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.06em; display: block;">Shubh Muhurat</span>
+                      <strong id="resShubhMuhurat" style="font-size: 0.95rem; color: #f8fafc; display: block; margin-top: 2px;">11:48 AM – 12:38 PM</strong>
+                      <span style="font-size: 0.72rem; color: #38bdf8; opacity: 0.9;">Abhijit & Amrit Kaal</span>
+                    </div>
+                  </div>
+
+                  <!-- 4. Sacred Gemstone Tile -->
+                  <div class="luck-tile" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(167, 139, 250, 0.25); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 14px;">
+                    <div style="width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(244, 63, 94, 0.25)); border: 2px solid rgba(167, 139, 250, 0.5); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #c4b5fd; flex-shrink: 0; box-shadow: 0 0 16px rgba(167, 139, 250, 0.35);">
+                      💎
+                    </div>
+                    <div>
+                      <span style="font-size: 0.72rem; font-weight: 700; color: #c4b5fd; text-transform: uppercase; letter-spacing: 0.06em; display: block;">Auspicious Gemstone</span>
+                      <strong id="resGemstone" style="font-size: 0.95rem; color: #f8fafc; display: block; margin-top: 2px;">Panna (Emerald)</strong>
+                      <span style="font-size: 0.72rem; color: #c4b5fd; opacity: 0.9;">Planetary Ward</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Vedic Wisdom & Guidance Box -->
+                <div class="tip-card" style="background: linear-gradient(135deg, rgba(245, 197, 24, 0.12) 0%, rgba(15, 23, 42, 0.9) 100%); border: 1px solid rgba(245, 197, 24, 0.35); border-radius: 16px; padding: 20px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <span style="font-size: 1.5rem; filter: drop-shadow(0 0 8px rgba(245,197,24,0.6));">💡</span>
+                      <h4 style="margin: 0; font-size: 1.05rem; color: var(--gold-glow); letter-spacing: 0.03em;">Vedic Wisdom & Guidance (दैनिक उपदेश)</h4>
+                    </div>
+                    <span style="font-size: 0.76rem; background: rgba(245, 197, 24, 0.15); border: 1px solid rgba(245, 197, 24, 0.35); border-radius: 9999px; padding: 3px 12px; color: var(--gold-primary); font-weight: 700;">
+                      Actionable Upay
+                    </span>
+                  </div>
+                  <p class="tip-body" id="resTip" style="font-size: 0.98rem; color: #f8fafc; line-height: 1.7; margin: 0;"></p>
+                  <p class="tip-body" id="resCosmicTip" style="display: none;"></p>
+                </div>
               </div>
             </div>
 
@@ -563,34 +617,6 @@
               </div>
             </div>
 
-          </div>
-
-            <!-- Lucky Badges & Actionable Tip -->
-            <div class="lucky-and-tip-row">
-              <div class="lucky-card">
-                <div class="lucky-item">
-                  <span class="lucky-label" data-i18n="lucky_color_label">Lucky Color</span>
-                  <div class="lucky-color-preview">
-                    <span class="color-dot" id="resColorDot"></span>
-                    <strong id="resColorName">-</strong>
-                  </div>
-                </div>
-                <div class="divider-vertical"></div>
-                <div class="lucky-item">
-                  <span class="lucky-label" data-i18n="lucky_number_label">Lucky Number</span>
-                  <div class="lucky-num-circle" id="resLuckyNumber">-</div>
-                </div>
-              </div>
-
-              <div class="tip-card">
-                <div class="tip-header">
-                  <span class="tip-icon">💡</span>
-                  <span class="tip-title" data-i18n="tip_heading">Vedic Wisdom & Guidance</span>
-                </div>
-                <p class="tip-body" id="resTip">-</p>
-                <p class="tip-body" id="resCosmicTip" style="display:none;">-</p>
-              </div>
-            </div>
           </div>
 
           <!-- Strict Raw JSON Output Layout -->

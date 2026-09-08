@@ -695,15 +695,6 @@ function renderPrediction(data) {
       }
     }
 
-    setFieldIfExists("resPersonalityInsight", localizedData.personality_insight);
-    setFieldIfExists("resEmotionalState",     localizedData.emotional_state);
-    setFieldIfExists("resDailyGuidance",      localizedData.daily_guidance);
-    setFieldIfExists("resCareerFocus",        localizedData.career_focus   || localizedData.career);
-    setFieldIfExists("resLoveHarmony",        localizedData.love_harmony   || localizedData.love);
-    setFieldIfExists("resFinanceWisdom",      localizedData.finance_wisdom || localizedData.finance);
-    setFieldIfExists("resHealthVitality",     localizedData.health_vitality || localizedData.health);
-    setFieldIfExists("resCosmicTip",          localizedData.cosmic_tip     || localizedData.tip);
-
     setFieldIfExists("resOverall",   localizedData.overall  || localizedData.daily_guidance);
     setFieldIfExists("resCareer",    localizedData.career_focus   || localizedData.career);
     setFieldIfExists("resLove",      localizedData.love_harmony   || localizedData.love);
@@ -711,14 +702,23 @@ function renderPrediction(data) {
     setFieldIfExists("resHealth",    localizedData.health_vitality || localizedData.health);
     setFieldIfExists("resEducation", localizedData.education_focus || localizedData.education || "Favorable focus for academic and creative studies.");
 
-    setFieldIfExists("resColorName", localizedData.lucky_color || "-");
-    const hex = COLOR_MAP[data.lucky_color] || "#ffd166";
+    // 8th Pillar: Luck Factors & Vedic Wisdom
+    const luckyColorVal = localizedData.lucky_color || data.lucky_color || "Emerald Green";
+    setFieldIfExists("resColorName", luckyColorVal);
+    const hex = COLOR_MAP[data.lucky_color] || "#10b981";
     const dot = document.getElementById("resColorDot");
     if (dot) dot.style.backgroundColor = hex;
+    const swatchOrb = document.getElementById("resColorSwatchOrb");
+    if (swatchOrb) {
+      swatchOrb.style.backgroundColor = hex;
+      swatchOrb.style.boxShadow = `0 0 22px ${hex}99`;
+    }
 
-    setFieldIfExists("resLuckyNumber", localizedData.lucky_number || "-");
+    const luckyNumVal = localizedData.lucky_number || data.lucky_number || 5;
+    setFieldIfExists("resLuckyNumber", luckyNumVal);
     setFieldIfExists("resShubhMuhurat", data.shubh_muhurat || (data.shubh_details ? data.shubh_details.best_window : "11:48 AM – 12:38 PM"));
-    setFieldIfExists("resTip", localizedData.cosmic_tip || localizedData.tip || "-");
+    setFieldIfExists("resGemstone", data.gemstone || "Panna (Emerald)");
+    setFieldIfExists("resTip", localizedData.cosmic_tip || localizedData.tip || data.tip || "Channel your energy into deliberate, patient action and mindful communication.");
 
     // Sacred Sanskrit Mantra Card
     const mantraSec = document.getElementById("resMantraSection");

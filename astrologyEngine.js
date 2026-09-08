@@ -1658,6 +1658,7 @@ function generateRashiFal({
     lucky_number:           luckyNumber,
     shubh_muhurat:          shubhMuhurat.best_window,
     shubh_details:          shubhMuhurat,
+    gemstone:               primaryInfo.gemstone || "Pukhraj (Yellow Sapphire)",
     cosmic_tip:             tipText,
 
     // Vedic Enhancements
@@ -2324,6 +2325,7 @@ function generateDailyMode({ rashi, chandra_rashi, date = "today", language = "e
     user_input: base.user_input,
     lucky_color: base.lucky_color,
     lucky_number: base.lucky_number,
+    gemstone: base.gemstone,
     tip: base.tip
   };
 }
