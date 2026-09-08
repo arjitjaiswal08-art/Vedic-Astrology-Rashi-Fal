@@ -201,9 +201,33 @@
                 <button type="button" class="pill-btn" data-intent="health" data-i18n="intent_health">🌿 Health</button>
               </div>
             </div>
+          <!-- Optional Personalization & Birth Details (Expandable) -->
+          <div class="personalization-accordion" style="margin-top: 18px; border-top: 1px dashed rgba(245, 197, 24, 0.25); padding-top: 14px;">
+            <button type="button" id="btnToggleBirthDetails" style="background: transparent; border: none; color: var(--gold-primary); font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 4px 0;">
+              <span id="birthDetailsIcon">➕</span>
+              <span>Personalize Horoscope (Name, Birth Time & Place — Optional)</span>
+            </button>
+            <div id="birthDetailsFields" style="display: none; margin-top: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+              <div class="control-group">
+                <label class="control-label" for="inputName">Full Name</label>
+                <input type="text" id="inputName" class="custom-input" placeholder="e.g. Rahul Sharma" />
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="inputDOB">Date of Birth</label>
+                <input type="date" id="inputDOB" class="custom-input" />
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="inputTOB">Time of Birth (24-hour)</label>
+                <input type="time" id="inputTOB" class="custom-input" />
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="inputPOB">Place of Birth (City, Country)</label>
+                <input type="text" id="inputPOB" class="custom-input" placeholder="e.g. Varanasi, India" />
+              </div>
+            </div>
           </div>
 
-          <div class="action-row">
+          <div class="action-row" style="margin-top: 16px;">
             <button type="button" id="btnGetHoroscope" class="btn-primary">
               <span class="btn-sparkle">✦</span> <span id="btnGetHoroscopeText" data-i18n="btn_get_horoscope">Consult Celestial Alignment</span>
             </button>
@@ -238,6 +262,12 @@
 
             <!-- MODE 1: DAILY HOROSCOPE CONTAINER -->
             <div id="containerModeDaily">
+              <!-- Personalized Greeting Banner (if Name provided) -->
+              <div id="resGreetingBanner" style="display: none; background: linear-gradient(135deg, rgba(245, 197, 24, 0.12), rgba(99, 102, 241, 0.08)); border: 1px solid rgba(245, 197, 24, 0.3); border-radius: 14px; padding: 14px 18px; margin-bottom: 18px; align-items: center; gap: 12px;">
+                <span style="font-size: 1.6rem;">🙏</span>
+                <p id="resGreetingText" style="margin: 0; font-size: 0.98rem; font-weight: 600; color: var(--gold-glow); line-height: 1.5;"></p>
+              </div>
+
               <!-- Vedic Chandra Rashi Cosmic Insight Cards -->
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:18px;">
                 <!-- Emotional State (Chandra) -->
@@ -277,8 +307,8 @@
                 </div>
               </div>
 
-              <!-- 4 Pillars Grid -->
-              <div class="pillars-grid">
+              <!-- Pillars Grid (Career, Love, Finance, Health, Education) -->
+              <div class="pillars-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 20px;">
                 <!-- Career -->
                 <div class="pillar-card pillar-career">
                   <div class="pillar-header">
@@ -318,11 +348,20 @@
                   <p class="pillar-desc" id="resHealth"></p>
                   <p class="pillar-desc" id="resHealthVitality" style="display:none;"></p>
                 </div>
+
+                <!-- Education & Focus (5th Pillar) -->
+                <div class="pillar-card pillar-education" style="background: rgba(167, 139, 250, 0.07); border: 1px solid rgba(167, 139, 250, 0.28); border-radius: 14px; padding: 16px;">
+                  <div class="pillar-header" style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <span class="pillar-icon" style="font-size: 1.3rem;">📚</span>
+                    <span class="pillar-title" style="font-size: 0.95rem; font-weight: 700; color: #c4b5fd;">Education & Focus</span>
+                  </div>
+                  <p class="pillar-desc" id="resEducation" style="font-size: 0.92rem; color: #e2e8f0; line-height: 1.6; margin: 0;">Favorable concentration for academic goals.</p>
+                </div>
               </div>
 
               <!-- Lucky Badges & Actionable Tip -->
               <div class="lucky-and-tip-row">
-                <div class="lucky-card">
+                <div class="lucky-card" style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
                   <div class="lucky-item">
                     <span class="lucky-label" data-i18n="lucky_color_label">Lucky Color</span>
                     <div class="lucky-color-preview">
@@ -335,6 +374,11 @@
                     <span class="lucky-label" data-i18n="lucky_number_label">Lucky Number</span>
                     <div class="lucky-num-circle" id="resLuckyNumber">-</div>
                   </div>
+                  <div class="divider-vertical"></div>
+                  <div class="lucky-item">
+                    <span class="lucky-label">Shubh Muhurat</span>
+                    <strong id="resShubhMuhurat" style="color: #38bdf8; font-size: 0.88rem;">11:48 AM – 12:38 PM</strong>
+                  </div>
                 </div>
 
                 <div class="tip-card">
@@ -345,6 +389,49 @@
                   <p class="tip-body" id="resTip">-</p>
                   <p class="tip-body" id="resCosmicTip" style="display:none;">-</p>
                 </div>
+              </div>
+
+              <!-- Sacred Sanskrit Mantra Card -->
+              <div id="resMantraSection" style="margin-top: 18px; background: linear-gradient(135deg, rgba(245, 197, 24, 0.08), rgba(234, 88, 12, 0.06)); border: 1px solid rgba(245, 197, 24, 0.3); border-radius: 16px; padding: 20px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.6rem;">🕉️</span>
+                    <div>
+                      <h4 style="margin: 0; font-size: 1.05rem; color: var(--gold-glow);">Sacred Sanskrit Mantra</h4>
+                      <span id="resMantraDeity" style="font-size: 0.8rem; color: var(--text-muted);">Planetary Deity Invocation</span>
+                    </div>
+                  </div>
+                  <span id="resMantraJapa" style="background: rgba(245, 197, 24, 0.15); border: 1px solid rgba(245, 197, 24, 0.35); border-radius: 9999px; padding: 4px 12px; font-size: 0.78rem; color: var(--gold-glow); font-weight: 600;">108 Japa</span>
+                </div>
+                <div style="text-align: center; padding: 14px; background: rgba(0, 0, 0, 0.25); border-radius: 12px; margin-bottom: 10px;">
+                  <div id="resMantraDevanagari" style="font-size: 1.45rem; font-family: 'Martel', serif; color: #ffd166; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.05em;"></div>
+                  <div id="resMantraIAST" style="font-size: 0.95rem; font-style: italic; color: #cbd5e1;"></div>
+                </div>
+                <p id="resMantraMeaning" style="margin: 0; font-size: 0.88rem; color: #94a3b8; line-height: 1.6;"></p>
+              </div>
+
+              <!-- Vedic Remedies (Upay) Card -->
+              <div id="resRemediesSection" style="margin-top: 18px; background: rgba(16, 185, 129, 0.06); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 16px; padding: 20px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+                  <span style="font-size: 1.5rem;">🪔</span>
+                  <div>
+                    <h4 style="margin: 0; font-size: 1.05rem; color: #34d399;">Vedic Remedies (Upay)</h4>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Concrete karmic balancers according to Jyotish Shastra</span>
+                  </div>
+                </div>
+                <div id="resRemediesContainer" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;"></div>
+              </div>
+
+              <!-- Key Planetary Transits (Gochar) -->
+              <div id="resGocharSection" style="margin-top: 18px; background: rgba(99, 102, 241, 0.06); border: 1px solid rgba(99, 102, 241, 0.22); border-radius: 16px; padding: 20px;">
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                  <span style="font-size: 1.5rem;">🌌</span>
+                  <div>
+                    <h4 style="margin: 0; font-size: 1.05rem; color: #a5b4fc;">Key Planetary Transits (Gochar)</h4>
+                    <span style="font-size: 0.8rem; color: var(--text-muted);">Major cosmic shifts: Saturn, Jupiter, Rahu & Ketu</span>
+                  </div>
+                </div>
+                <div id="resGocharGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; font-size: 0.88rem; color: #e2e8f0;"></div>
               </div>
             </div>
 

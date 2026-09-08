@@ -1163,31 +1163,297 @@ const MULTILINGUAL_DATA = {
   }
 };
 
+// ── VEDIC ASTROLOGY KNOWLEDGE BASE (Pillars, Mantras, Remedies, Transits) ────
+
+const EDUCATION_DATA = {
+  Mesh: {
+    en: "Aries students experience sharp intellectual drive and competitive ambition. Excel in technical topics, engineering, sports science, and timed tests. Break long study hours into 45-minute energetic sprints for maximum retention.",
+    hi: "मेष राशि के विद्यार्थियों में उत्कृष्ट प्रतिस्पर्धात्मक ऊर्जा और तत्परता रहेगी। तकनीकी विषयों, गणित और समयबद्ध परीक्षाओं में श्रेष्ठ प्रदर्शन के योग हैं।"
+  },
+  Vrishabh: {
+    en: "Taurus students benefit from patient, methodical revision and strong conceptual retention. Highly favorable for commerce, finance, architecture, and environmental sciences. A calm, uncluttered study space brings steady focus.",
+    hi: "वृषभ राशि के छात्र शांत, व्यवस्थित और धैर्यपूर्ण अध्ययन से उत्कृष्ट परिणाम प्राप्त करेंगे। वाणिज्य, कला और व्यावहारिक विज्ञान में विशेष सफलता मिलेगी।"
+  },
+  Mithun: {
+    en: "Gemini students enjoy quick intellectual absorption and communicative versatility. Favorable for languages, coding, data science, and writing. Avoid multitasking across subjects to ensure deep mastery.",
+    hi: "मिथुन राशि के शिक्षार्थियों में अद्भुत बौद्धिक ग्रहण शक्ति और तार्किक चपलता रहेगी। भाषा, कंप्यूटर और संचार से जुड़े विषयों में विशेष लाभ होगा।"
+  },
+  Kark: {
+    en: "Cancer students learn best in an emotionally supportive, peaceful environment. Strong intuitive recall aids medical, history, psychology, and creative arts. Review key concepts right before rest to anchor memory.",
+    hi: "कर्क राशि के छात्रों के लिए एकाग्र और सौम्य वातावरण में अध्ययन लाभकारी रहेगा। चिकित्सा, मनोविज्ञान और रचनात्मक विषयों में श्रेष्ठ ग्रहण शक्ति रहेगी।"
+  },
+  Singh: {
+    en: "Leo students thrive in academic presentations, leadership seminars, and administrative or political studies. Cultivate academic humility and avoid overconfident rushes during complex exam calculations.",
+    hi: "सिंह राशि के विद्यार्थी प्रतियोगी परीक्षाओं और नेतृत्व सम्मेलनों में चमकेंगे। आत्मविश्वास उत्तम रहेगा; जटिल विषयों में धैर्य और सतर्कता रखें।"
+  },
+  Kanya: {
+    en: "Virgo students naturally command analytical precision, diligent note-taking, and research depth. Outstanding prospects in STEM, medicine, statistics, and editorial work. Guard against unnecessary exam-related perfectionism.",
+    hi: "कन्या राशि के छात्रों का विश्लेषणात्मक दृष्टिकोण और सूक्ष्म अध्ययन अत्यंत प्रभावी रहेगा। विज्ञान, सांख्यिकी और शोध कार्यों में उत्तम प्रगति होगी।"
+  },
+  Tula: {
+    en: "Libra students excel in collaborative group discussions, legal studies, design, and humanities. Maintain steady revision schedules to prevent decision fatigue when choosing project specializations.",
+    hi: "तुला राशि के विद्यार्थियों के लिए विधि, समाजशास्त्र और कलात्मक अध्ययन में उत्तम सफलता के योग हैं। अध्ययन में नियमित संतुलन बनाए रखें।"
+  },
+  Vrischik: {
+    en: "Scorpio students possess unmatched focus, research intensity, and investigative depth. Favorable for surgery, advanced scientific research, and deep theoretical analysis. Pace your stamina to avoid mental exhaustion.",
+    hi: "वृश्चिक राशि के शिक्षार्थियों में गूढ़ अध्ययन और अटूट एकाग्रता रहेगी। वैज्ञानिक अनुसंधान, औषध विज्ञान और रहस्यमयी विषयों में गहरी अंतर्दृष्टि मिलेगी।"
+  },
+  Dhanu: {
+    en: "Sagittarius students excel in higher education, philosophy, jurisprudence, and competitive university admissions. Keep visionary big-picture understanding grounded with diligent attention to examination syllabi.",
+    hi: "धनु राशि के छात्रों के लिए उच्च शिक्षा, दर्शनशास्त्र और राष्ट्रीय परीक्षाओं में अनुकूल प्रगति होगी। अपने विस्तृत ज्ञान को व्यवस्थित रखें।"
+  },
+  Makar: {
+    en: "Capricorn students display disciplined stamina, structured work ethics, and long-term academic strategy. High success in engineering, corporate law, and finance exams.",
+    hi: "मकर राशि के विद्यार्थी कठोर अनुशासन और योजनाबद्ध अभ्यास से उत्कृष्ट सफलता अर्जित करेंगे। इंजीनियरिंग और वाणिज्य में विशेष लाभ होगा।"
+  },
+  Kumbh: {
+    en: "Aquarius students gravitate toward innovative subjects, physics, AI/tech, and social sciences. Combine your unconventional thinking with standard test-taking formats for best scores.",
+    hi: "कुंभ राशि के छात्र आधुनिक तकनीक, विज्ञान और नवोन्मेषी अनुसंधानों में अग्रणी रहेंगे। अपनी अनूठी सोच को सुनियोजित प्रारूप में प्रस्तुत करें।"
+  },
+  Meen: {
+    en: "Pisces students possess fertile creative imagination and intuitive grasp of complex abstract concepts. Excellent for biology, literature, arts, and spiritual sciences. Keep a grounded study schedule.",
+    hi: "मीन राशि के शिक्षार्थियों में कल्पनाशीलता और आध्यात्मिक समझ श्रेष्ठ रहेगी। साहित्य, जीव विज्ञान और कला में उत्कृष्ट सफलता के संकेत हैं।"
+  }
+};
+
+const SANSKRIT_MANTRAS = {
+  Mesh: {
+    mantra: "ॐ क्रां क्रीं क्रौं सः भौमाय नमः",
+    transliteration: "Om Kraam Kreem Kroum Sah Bhaumaaya Namah",
+    deity: "Mangal Dev / Lord Hanuman",
+    meaning: "Salutations to Mars, the divine embodiment of boundless energy, heroic courage, and righteous triumph.",
+    japa_count: "108 times at sunrise facing East"
+  },
+  Vrishabh: {
+    mantra: "ॐ द्रां द्रीं द्रौं सः शुक्राय नमः",
+    transliteration: "Om Draam Dreem Droum Sah Shukraaya Namah",
+    deity: "Shukra Dev / Goddess Mahalakshmi",
+    meaning: "Salutations to Venus, bestower of prosperity, harmonious bonds, artistic grace, and spiritual refinement.",
+    japa_count: "108 times at dusk facing North-East"
+  },
+  Mithun: {
+    mantra: "ॐ ब्रां ब्रीं ब्रौं सः बुधाय नमः",
+    transliteration: "Om Braam Breem Broum Sah Budhaaya Namah",
+    deity: "Budh Dev / Lord Vishnu",
+    meaning: "Salutations to Mercury, the divine illuminator of intellect, speech, discriminative wisdom, and success.",
+    japa_count: "108 times on Wednesday morning"
+  },
+  Kark: {
+    mantra: "ॐ श्रां श्रीं श्रौं सः चन्द्राय नमः",
+    transliteration: "Om Shraam Shreem Shroum Sah Chandraaya Namah",
+    deity: "Chandra Dev / Lord Shiva",
+    meaning: "Salutations to the Moon, sovereign lord of emotional peace, inner calmness, intuition, and mental clarity.",
+    japa_count: "108 times in the evening"
+  },
+  Singh: {
+    mantra: "ॐ ह्रां ह्रीं ह्रौं सः सूर्याय नमः",
+    transliteration: "Om Hraam Hreem Hroum Sah Suryaaya Namah",
+    deity: "Surya Bhagavan / Lord Rama",
+    meaning: "Salutations to the Sun, source of universal vitality, spiritual illumination, and righteous sovereignty.",
+    japa_count: "108 times at sunrise with water offering (Arghya)"
+  },
+  Kanya: {
+    mantra: "ॐ बुं बुधाय नमः",
+    transliteration: "Om Bum Budhaaya Namah",
+    deity: "Budh Dev / Lord Ganesha",
+    meaning: "Salutations to Mercury and Lord Ganesha, removers of obstacles and granters of analytical brilliance.",
+    japa_count: "108 times in the morning"
+  },
+  Tula: {
+    mantra: "ॐ शुं शुक्राय नमः",
+    transliteration: "Om Shum Shukraaya Namah",
+    deity: "Shukra Dev / Goddess Lakshmi",
+    meaning: "Salutations to Venus, grantor of equitable relationships, serene charm, and refined abundance.",
+    japa_count: "108 times on Friday evening"
+  },
+  Vrischik: {
+    mantra: "ॐ अं अंगारकाय नमः",
+    transliteration: "Om Am Angaarakaaya Namah",
+    deity: "Mangal Dev / Lord Kartikeya",
+    meaning: "Salutations to Mars, granter of deep protective vitality, resilience, and inner spiritual power.",
+    japa_count: "108 times on Tuesday morning"
+  },
+  Dhanu: {
+    mantra: "ॐ ग्रां ग्रीं ग्रौं सः गुरवे नमः",
+    transliteration: "Om Graam Greem Groum Sah Gurave Namah",
+    deity: "Guru Brihaspati / Lord Narayana",
+    meaning: "Salutations to Jupiter, supreme divine preceptor, source of higher wisdom, dharma, and expansion.",
+    japa_count: "108 times on Thursday morning"
+  },
+  Makar: {
+    mantra: "ॐ प्रां प्रीं प्रौं सः शनैश्चराय नमः",
+    transliteration: "Om Praam Preem Proum Sah Shanaishcharaaya Namah",
+    deity: "Shani Dev / Lord Shiva",
+    meaning: "Salutations to Saturn, guardian of justice, steadfast patience, humility, and karmic maturity.",
+    japa_count: "108 times on Saturday evening with mustard oil lamp"
+  },
+  Kumbh: {
+    mantra: "ॐ शं शनैश्चराय नमः",
+    transliteration: "Om Sham Shanaishcharaaya Namah",
+    deity: "Shani Dev / Lord Hanuman",
+    meaning: "Salutations to Saturn, bestower of universal compassion, visionary detachment, and enduring resilience.",
+    japa_count: "108 times after sunset"
+  },
+  Meen: {
+    mantra: "ॐ बृं बृहस्पतये नमः",
+    transliteration: "Om Breem Brihaspataye Namah",
+    deity: "Guru Brihaspati / Lord Vishnu",
+    meaning: "Salutations to Jupiter, guiding consciousness toward compassionate grace, intuition, and spiritual moksha.",
+    japa_count: "108 times on Thursday morning"
+  }
+};
+
+const VEDIC_REMEDIES = {
+  Mesh: [
+    { type: "Mantra Japa", title: "Hanuman Chalisa", description: "Recite the Hanuman Chalisa or Mangal Beej Mantra once in the morning to channel vitality into constructive action." },
+    { type: "Dāna (Charity)", title: "Red Lentils / Jaggery", description: "Donate red lentils (Masoor dal) or jaggery to sanitation workers or those in need on Tuesday." },
+    { type: "Lifestyle & Upay", title: "Surya Arghya", description: "Offer clean water to the rising sun from a copper vessel with sincere reverence for physical vitality." }
+  ],
+  Vrishabh: [
+    { type: "Mantra Japa", title: "Sri Suktam", description: "Chant Sri Suktam or the Shukra Gayatri Mantra at dusk to welcome harmonious energy into your domestic sphere." },
+    { type: "Dāna (Charity)", title: "White Food Offering", description: "Donate white rice, pure milk, or sweets to a community kitchen on Friday." },
+    { type: "Lifestyle & Upay", title: "Fragrant Aura", description: "Use pure sandalwood or natural floral attar; practice gratitude before meals to honor mother nature." }
+  ],
+  Mithun: [
+    { type: "Mantra Japa", title: "Vishnu Sahasranama", description: "Recite Om Namo Bhagavate Vasudevaya or Budh Beej Mantra 108 times to sharpen intellect and clear speech." },
+    { type: "Dāna (Charity)", title: "Green Feed to Cows", description: "Feed fresh green fodder, spinach, or green fruits to cows or birds on Wednesday." },
+    { type: "Lifestyle & Upay", title: "Tulsi Parikrama", description: "Water a sacred Tulsi plant daily and observe 15 minutes of silent mindfulness away from digital screens." }
+  ],
+  Kark: [
+    { type: "Mantra Japa", title: "Maha Mrityunjaya / Shiva Japa", description: "Chant 'Om Namah Shivaya' 108 times with measured deep breathing to soothe emotional fluctuations." },
+    { type: "Dāna (Charity)", title: "Drinking Water / Milk", description: "Offer clean drinking water, milk, or silver coins to elderly travelers or community shrines on Monday." },
+    { type: "Lifestyle & Upay", title: "Silver Vessel", description: "Drink drinking water kept overnight in a silver vessel; respect and seek the blessings of your mother." }
+  ],
+  Singh: [
+    { type: "Mantra Japa", title: "Aditya Hridaya Stotra", description: "Chant the Aditya Hridaya Stotra or Gayatri Mantra facing the morning sunrise for sovereign clarity." },
+    { type: "Dāna (Charity)", title: "Wheat & Jaggery", description: "Donate whole wheat grain, jaggery, or copper kitchenware on Sunday to support social nourishment." },
+    { type: "Lifestyle & Upay", title: "Fatherly Respect", description: "Seek blessings from father figures and mentors; practice 12 rounds of mindful Surya Namaskar." }
+  ],
+  Kanya: [
+    { type: "Mantra Japa", title: "Sankat Nashan Ganesha", description: "Recite Ganesha Atharvashirsha on Wednesday morning to dissolve analytical worry and mental anxiety." },
+    { type: "Dāna (Charity)", title: "Educational Stationery", description: "Donate notebooks, books, or green educational pens to deserving underprivileged students." },
+    { type: "Lifestyle & Upay", title: "Nature Grounding", description: "Walk barefoot on natural green grass in the morning; keep your workspace meticulously organized." }
+  ],
+  Tula: [
+    { type: "Mantra Japa", title: "Mahalakshmi Ashtakam", description: "Chant Mahalakshmi Ashtakam on Friday evening while lighting a pure cow ghee lamp." },
+    { type: "Dāna (Charity)", title: "Kanya Pujan / Silk Cloth", description: "Offer wholesome meals or modest silk apparel to young girls or women in need on Friday." },
+    { type: "Lifestyle & Upay", title: "Equanimity Practice", description: "Avoid harsh words in intimate relationships; wear clean, dignified white or pastel attire." }
+  ],
+  Vrischik: [
+    { type: "Mantra Japa", title: "Subrahmanya Ashtakam", description: "Chant Om Saravanabhavaya Namah or Hanuman Bahuk for unwavering inner courage and spiritual shield." },
+    { type: "Dāna (Charity)", title: "Warm Blankets / Blood Donation", description: "Donate warm blankets, medical aid, or red cloth to those facing hardship on Tuesdays." },
+    { type: "Lifestyle & Upay", title: "Pranayama & Truth", description: "Practice Anulom-Vilom pranayama; practice transparent truthfulness to release subconscious grudges." }
+  ],
+  Dhanu: [
+    { type: "Mantra Japa", title: "Guru Beej Mantra", description: "Chant Om Graam Greem Groum Sah Gurave Namah 108 times with a turmeric mala on Thursday." },
+    { type: "Dāna (Charity)", title: "Yellow Dal / Holy Books", description: "Donate yellow split lentils (Chana dal), yellow bananas, or spiritual philosophy books on Thursday." },
+    { type: "Lifestyle & Upay", title: "Tilak & Dharma", description: "Apply a modest yellow Chandan or saffron tilak on the forehead; honor spiritual teachers and Gurus." }
+  ],
+  Makar: [
+    { type: "Mantra Japa", title: "Dashratha Shani Stotra", description: "Recite the Dashratha Shani Stotra on Saturday twilight to balance karmic weight with divine grace." },
+    { type: "Dāna (Charity)", title: "Black Sesame & Mustard Oil", description: "Donate mustard oil, black sesame seeds, or iron utensils to hardworking daily laborers on Saturday." },
+    { type: "Lifestyle & Upay", title: "Selfless Service (Seva)", description: "Feed stray dogs or crows with roti; practice punctuality and humility in all professional dealings." }
+  ],
+  Kumbh: [
+    { type: "Mantra Japa", title: "Shani Beej Mantra", description: "Chant Om Sham Shanaishcharaaya Namah while lighting a sesame oil lamp near a Peepal tree on Saturday." },
+    { type: "Dāna (Charity)", title: "Footwear / Winter Clothes", description: "Donate sturdy shoes, umbrellas, or blankets to elderly laborers or disabled individuals." },
+    { type: "Lifestyle & Upay", title: "Community Welfare", description: "Engage in selfless humanitarian community service; cultivate unconditional kindness for all beings." }
+  ],
+  Meen: [
+    { type: "Mantra Japa", title: "Vishnu Gayatri Mantra", description: "Chant Om Narayanaya Vidmahe Vasudevaya Dheemahi Tanno Vishnuh Prachodayat on Thursday." },
+    { type: "Dāna (Charity)", title: "Yellow Sweets / Turmeric", description: "Donate turmeric, raw honey, or yellow sweets to traditional Vedic pathshalas or temples." },
+    { type: "Lifestyle & Upay", title: "Sacred Water Meditation", description: "Spend time near clean, peaceful natural water bodies; practice quiet forgiveness and detachment." }
+  ]
+};
+
+const GOCHAR_TRANSITS = {
+  saturn: { planet: "Shani (Saturn)", sign: "Kumbh (Aquarius)", status: "Moolatrikona / Direct", guidance: "Saturn demands disciplined service, structured patience, and authentic karmic integrity." },
+  jupiter: { planet: "Guru (Jupiter)", sign: "Vrishabh (Taurus)", status: "Direct & Expansive", guidance: "Jupiter enriches tangible stability, thoughtful investment, family wisdom, and ethical growth." },
+  rahu: { planet: "Rahu", sign: "Meen (Pisces)", status: "Retrograde", guidance: "Rahu expands intuitive imagination and foreign prospects; navigate illusions with discernment." },
+  ketu: { planet: "Ketu", sign: "Kanya (Virgo)", status: "Retrograde", guidance: "Ketu promotes spiritual detachment, critical refinement, and holistic healing." }
+};
+
+function calculateShubhMuhurat(dateStr) {
+  // Deterministic calculation based on date hash
+  const d = new Date(dateStr || Date.now());
+  const day = d.getDay(); // 0=Sun, 1=Mon, ..., 6=Sat
+
+  // Standard Abhijit Muhurat: roughly 11:48 AM to 12:38 PM
+  const abhijit = "11:48 AM – 12:38 PM";
+  
+  // Amrit Kaal shifts deterministically based on weekday
+  const amritWindows = [
+    "02:15 PM – 03:45 PM", // Sun
+    "09:30 AM – 11:00 AM", // Mon
+    "03:40 PM – 05:10 PM", // Tue
+    "10:15 AM – 11:45 AM", // Wed
+    "01:30 PM – 03:00 PM", // Thu
+    "04:20 PM – 05:50 PM", // Fri
+    "07:30 AM – 09:00 AM"  // Sat
+  ];
+
+  const brahmaMuhurta = "04:24 AM – 05:12 AM";
+
+  return {
+    abhijit_muhurat: abhijit,
+    amrit_kaal: amritWindows[day] || "02:15 PM – 03:45 PM",
+    brahma_muhurta: brahmaMuhurta,
+    best_window: `${abhijit} (Abhijit Muhurat)`
+  };
+}
+
+function calculateGocharForMoon(moonSignKey) {
+  const meta = RASHI_DATA[moonSignKey] || RASHI_DATA["Mithun"];
+  return {
+    moon_sign: meta.englishName,
+    saturn_transit: `Shani transits in Kumbh: Rewards patience and disciplined effort for ${meta.englishName}.`,
+    jupiter_transit: `Guru transits in Vrishabh: Favorable planetary aspects bring moral clarity, intellectual expansion, and protective grace.`,
+    rahu_ketu_axis: `Rahu in Meen and Ketu in Kanya sharpen intuition while urging practical groundedness in daily tasks.`,
+    summary: `Benefic transits of Jupiter harmonize karmic lessons from Saturn, making steady, honest endeavor fruitful.`
+  };
+}
+
 /**
- * Core Rashi Fal prediction generator — Three-Sign Vedic AI System.
- *
- * Priority order for sign influence:
- *  1. Lagna (Ascendant) — personality, direction, outer life
- *  2. Chandra Rashi (Moon Sign) — emotions, mind, daily experience
- *  3. Surya Rashi (Sun Sign) — ego, confidence, long-term goals
- *
- * Output JSON:
- * {
- *   rashi, lagna, surya_rashi, chandra_rashi, date, timeframe,
- *   personality_insight, emotional_state, daily_guidance,
- *   career_focus, love_harmony, finance_wisdom, health_vitality,
- *   lucky_color, lucky_number, cosmic_tip,
- *   // legacy compat fields: overall, career, love, finance, health, tip
- * }
+ * Core Rashi Fal prediction generator — Comprehensive Vedic Jyotish System.
  */
-function generateRashiFal({ rashi, date, timeframe = "daily", intent = null, language = "en", signType = "chandra", lagna = null, surya = null, chandra = null }) {
+function generateRashiFal({
+  rashi,
+  date,
+  timeframe = "daily",
+  intent = null,
+  language = "en",
+  signType = "chandra",
+  lagna = null,
+  surya = null,
+  chandra = null,
+  name = "",
+  dob = "",
+  tob = "",
+  pob = ""
+} = {}) {
   // Resolve primary sign based on signType priority
   const st = String(signType || "chandra").toLowerCase();
 
+  // If DOB is provided and signs are not explicitly passed, infer them
+  let inferredKundli = null;
+  let chandraCandidate = chandra || rashi;
+  let lagnaCandidate = lagna || rashi;
+  let suryaCandidate = surya || rashi;
+
+  if (dob) {
+    const inferred = inferRashiFromDOB(dob, tob);
+    if (!inferred.error) {
+      inferredKundli = inferred;
+      if (!chandra && !rashi) chandraCandidate = inferred.chandra_rashi.key;
+      if (!surya) suryaCandidate = inferred.surya_rashi.key;
+      if (!lagna) lagnaCandidate = inferred.lagna_rashi.key;
+    }
+  }
+
   // Normalize all three signs
-  const chandraKey = normalizeRashiName(chandra || rashi);
-  const lagnaKey   = normalizeRashiName(lagna   || rashi);
-  const suryaKey   = normalizeRashiName(surya   || rashi);
+  const chandraKey = normalizeRashiName(chandraCandidate);
+  const lagnaKey   = normalizeRashiName(lagnaCandidate);
+  const suryaKey   = normalizeRashiName(suryaCandidate);
 
   // The primary sign drives the prediction library and seed
   let primaryKey;
@@ -1326,11 +1592,31 @@ function generateRashiFal({ rashi, date, timeframe = "daily", intent = null, lan
     }
   }
 
+  // ── Jyotish 8 Pillars Extensions ─────────────────────────────────────────
+  // Education & Learning Focus
+  const educationObj = EDUCATION_DATA[primaryKey] || EDUCATION_DATA["Mithun"];
+  const educationText = (lang === "hi" && educationObj.hi) ? educationObj.hi : (educationObj.en || educationObj);
+
+  // Vedic Remedies (Upay)
+  const remediesList = VEDIC_REMEDIES[primaryKey] || VEDIC_REMEDIES["Mithun"];
+
+  // Auspicious Timing (Shubh Muhurat)
+  const shubhMuhurat = calculateShubhMuhurat(normalizedDate);
+
+  // Sacred Sanskrit Mantra
+  const mantraObj = SANSKRIT_MANTRAS[primaryKey] || SANSKRIT_MANTRAS["Mithun"];
+
+  // Key Planetary Transits (Gochar for Moon Sign)
+  const gocharData = calculateGocharForMoon(chandraKey);
+
+  // Personalized Greeting
+  const cleanName = name ? String(name).trim() : "";
+  const greeting = cleanName ? `Namaste, ${cleanName} ji! Blessed astrological insights and Jyotish guidance for your journey:` : null;
 
   // ── Sign-type label ──────────────────────────────────────────────────────
   const signTypeLabel = "Chandra Rashi (Moon Sign)";
 
-  // ── Final output — expanded three-sign schema ────────────────────────────
+  // ── Final output — expanded three-sign schema with 8 Pillars ─────────────
   const output = {
     type:          "daily",
     // Identity
@@ -1347,16 +1633,44 @@ function generateRashiFal({ rashi, date, timeframe = "daily", intent = null, lan
     emotional_state:     emotionalStateFinal,
     daily_guidance:      dailyGuidanceFinal,
 
-    // Detailed Pillars
-    career_focus:    careerText,
-    love_harmony:    loveText,
-    finance_wisdom:  financeText,
-    health_vitality: healthText,
+    // 8 Structured Pillars:
+    // 1. Overview
+    overview:               overallText,
+    // 2. Career & Business
+    career_focus:           careerText,
+    career_and_business:    careerText,
+    // 3. Finance
+    finance_wisdom:         financeText,
+    finance:                financeText,
+    // 4. Love & Relationships
+    love_harmony:           loveText,
+    love_and_relationships: loveText,
+    // 5. Health
+    health_vitality:        healthText,
+    health:                 healthText,
+    // 6. Education (for students)
+    education_focus:        educationText,
+    education:              educationText,
+    // 7. Remedies (Upay)
+    remedies:               remediesList,
+    // 8. Luck Factors
+    lucky_color:            luckyColor,
+    lucky_number:           luckyNumber,
+    shubh_muhurat:          shubhMuhurat.best_window,
+    shubh_details:          shubhMuhurat,
+    cosmic_tip:             tipText,
 
-    // Auspicious
-    lucky_color:  luckyColor,
-    lucky_number: luckyNumber,
-    cosmic_tip:   tipText,
+    // Vedic Enhancements
+    sanskrit_mantra:       mantraObj,
+    gochar:                gocharData,
+    personalized_greeting: greeting,
+    user_input: {
+      name: cleanName || null,
+      dob: dob || null,
+      tob: tob || null,
+      pob: pob || null
+    },
+    inferred_kundli: inferredKundli,
 
     // Legacy compatibility fields (mirrors above for older UI consumers)
     overall:  overallText,
@@ -1807,6 +2121,9 @@ function classifyVedicIntent(input) {
   let surya = null;
   let chandra = null;
   let dob = null;
+  let tob = null;
+  let pob = null;
+  let name = null;
   let rashiFallback = null;
 
   if (typeof input === "string") {
@@ -1819,12 +2136,24 @@ function classifyVedicIntent(input) {
     surya = input.surya_rashi || input.surya || null;
     chandra = input.chandra_rashi || input.chandra || null;
     dob = input.dob || input.date_of_birth || null;
+    tob = input.tob || input.time_of_birth || input.time || null;
+    pob = input.pob || input.place_of_birth || input.place || input.city || null;
+    name = input.name || null;
     rashiFallback = input.rashi || null;
   }
 
   const q = queryText.toLowerCase();
 
-  // 1. Natural Language Extraction of Signs
+  // 1. Natural Language Extraction of Name, Time, Place
+  const nameMatch = queryText.match(/(?:my name is|name\s*[:=]|i am)\s*([A-Za-z]+)/i);
+  if (nameMatch && !name) name = nameMatch[1].trim();
+
+  const timeMatch = queryText.match(/\b([0-2]?[0-9]:[0-5][0-9](?:\s*[AaPp][Mm])?)\b/);
+  if (timeMatch && !tob) tob = timeMatch[1].trim();
+
+  const placeMatch = queryText.match(/(?:born in|birthplace|place\s*[:=]|city\s*[:=])\s*([A-Za-z\s]+?)(?:,|\.|$)/i);
+  if (placeMatch && !pob) pob = placeMatch[1].trim();
+
   // Lagna extraction
   const lagnaMatch = queryText.match(/(?:lagna|ascendant|rising sign)\s*(?:is|:|=)?\s*([a-zA-Z]+)/i) ||
                      queryText.match(/\b([a-zA-Z]+)\s*(?:lagna|ascendant)\b/i);
@@ -1843,7 +2172,7 @@ function classifyVedicIntent(input) {
 
   // Sun extraction
   const sunMatch = queryText.match(/(?:sun sign|surya rashi|sun|surya)\s*(?:is|:|=)?\s*([a-zA-Z]+)/i) ||
-                   queryText.match(/\b([a-zA-Z]+)\s*(?:sun sign|surya rashi|sun|surya)\b/i);
+                    queryText.match(/\b([a-zA-Z]+)\s*(?:sun sign|surya rashi|sun|surya)\b/i);
   if (sunMatch && !surya) {
     const candidate = normalizeRashiName(sunMatch[1]);
     if (RASHI_DATA[candidate]) surya = candidate;
@@ -1867,9 +2196,9 @@ function classifyVedicIntent(input) {
     }
   }
 
-  // Step 2 Rules: If DOB is given, estimate Sun sign (and Moon/Lagna)
+  // Step 2 Rules: If DOB is given, estimate Sun sign, Moon sign, and Lagna (using TOB if available)
   if (dob) {
-    const inferred = inferRashiFromDOB(dob);
+    const inferred = inferRashiFromDOB(dob, tob || "");
     if (!inferred.error) {
       if (!surya) surya = inferred.surya_rashi.key;
       if (!chandra) chandra = inferred.chandra_rashi.key;
@@ -1945,28 +2274,18 @@ function classifyVedicIntent(input) {
     surya_rashi: normalizeRashiName(surya),
     chandra_rashi: normalizeRashiName(chandra),
     rashi: normalizeRashiName(effectivePrimary),
+    name: name || null,
     dob: dob || null,
+    tob: tob || null,
+    pob: pob || null,
     raw_query: queryText
   };
 }
 
 /**
- * ⚡ MODE 1: DAILY HOROSCOPE (Moon-focused)
- * Exact JSON schema:
- * {
- *   "type": "daily",
- *   "rashi": "",
- *   "overall": "",
- *   "career": "",
- *   "love": "",
- *   "finance": "",
- *   "health": "",
- *   "lucky_color": "",
- *   "lucky_number": "",
- *   "tip": ""
- * }
+ * ⚡ MODE 1: DAILY HOROSCOPE (Moon-focused, Complete 8 Pillars)
  */
-function generateDailyMode({ rashi, chandra_rashi, date = "today", language = "en" }) {
+function generateDailyMode({ rashi, chandra_rashi, date = "today", language = "en", name = "", dob = "", tob = "", pob = "" }) {
   const targetSign = normalizeRashiName(chandra_rashi || rashi || "Mithun");
   const base = generateRashiFal({
     rashi: targetSign,
@@ -1974,20 +2293,35 @@ function generateDailyMode({ rashi, chandra_rashi, date = "today", language = "e
     date,
     timeframe: "daily",
     language,
-    signType: "chandra"
+    signType: "chandra",
+    name,
+    dob,
+    tob,
+    pob
   });
-
-  const lang = String(language || "en").toLowerCase();
-  const isHi = lang === "hi";
 
   return {
     type: "daily",
     rashi: targetSign,
     overall: base.overall,
+    overview: base.overview,
     career: base.career,
+    career_focus: base.career_focus,
     love: base.love,
+    love_harmony: base.love_harmony,
     finance: base.finance,
+    finance_wisdom: base.finance_wisdom,
     health: base.health,
+    health_vitality: base.health_vitality,
+    education: base.education,
+    education_focus: base.education_focus,
+    remedies: base.remedies,
+    shubh_muhurat: base.shubh_muhurat,
+    shubh_details: base.shubh_details,
+    sanskrit_mantra: base.sanskrit_mantra,
+    gochar: base.gochar,
+    personalized_greeting: base.personalized_greeting,
+    user_input: base.user_input,
     lucky_color: base.lucky_color,
     lucky_number: base.lucky_number,
     tip: base.tip
@@ -2182,12 +2516,21 @@ function generateVedicAstrologyAI(input = {}) {
     };
   }
 
+  const name = (typeof input === "object" && input !== null) ? (input.name || analysis.name || "") : (analysis.name || "");
+  const dob  = (typeof input === "object" && input !== null) ? (input.dob || analysis.dob || "") : (analysis.dob || "");
+  const tob  = (typeof input === "object" && input !== null) ? (input.tob || analysis.tob || "") : (analysis.tob || "");
+  const pob  = (typeof input === "object" && input !== null) ? (input.pob || analysis.pob || "") : (analysis.pob || "");
+
   // Default: Mode 1 (Daily Horoscope)
   return generateDailyMode({
     rashi: analysis.rashi,
     chandra_rashi: analysis.chandra_rashi,
     date,
-    language: lang
+    language: lang,
+    name,
+    dob,
+    tob,
+    pob
   });
 }
 

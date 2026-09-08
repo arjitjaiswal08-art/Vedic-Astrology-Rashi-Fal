@@ -74,7 +74,7 @@ function handleRashiFal(req, res) {
     }
 
     const { rashi, date, timeframe, intent, language, lang, signType, sign_type,
-            lagna, surya, chandra } = params;
+            lagna, surya, chandra, name, dob, tob, pob } = params;
 
     const prediction = generateRashiFal({
       rashi: rashi || "Mithun",
@@ -85,7 +85,11 @@ function handleRashiFal(req, res) {
       signType: signType || sign_type || "chandra",
       lagna: lagna || null,
       surya: surya || null,
-      chandra: chandra || null
+      chandra: chandra || null,
+      name: name || "",
+      dob: dob || "",
+      tob: tob || "",
+      pob: pob || ""
     });
 
     // Return STRICT JSON output as required by specification

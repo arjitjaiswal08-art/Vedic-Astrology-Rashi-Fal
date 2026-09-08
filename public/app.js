@@ -271,6 +271,11 @@ async function fetchPrediction() {
 
   const dateValue = horoscopeDateInput.value ? formatDateToDDMMYYYY(horoscopeDateInput.value) : "today";
 
+  const nameVal = document.getElementById("inputName") ? document.getElementById("inputName").value.trim() : "";
+  const dobVal  = document.getElementById("inputDOB")  ? document.getElementById("inputDOB").value : "";
+  const tobVal  = document.getElementById("inputTOB")  ? document.getElementById("inputTOB").value : "";
+  const pobVal  = document.getElementById("inputPOB")  ? document.getElementById("inputPOB").value.trim() : "";
+
   try {
     const res = await fetch("/api/rashifal", {
       method: "POST",
@@ -281,7 +286,11 @@ async function fetchPrediction() {
         timeframe: state.timeframe,
         intent: state.intent === "all" ? null : state.intent,
         language: currentLang,
-        signType: state.signType
+        signType: state.signType,
+        name: nameVal,
+        dob: dobVal,
+        tob: tobVal,
+        pob: pobVal
       })
     });
 
@@ -535,9 +544,14 @@ function renderInlineAiResult(data, lang) {
           <div style="background:rgba(244,63,94,0.07);border:1px solid rgba(244,63,94,0.2);border-radius:12px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:#fda4af;margin-bottom:5px;">❤️ Love</div><p style="margin:0;font-size:0.85rem;color:#e2e8f0;line-height:1.5;">${data.love_harmony||data.love||""}</p></div>
           <div style="background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:#34d399;margin-bottom:5px;">💰 Finance</div><p style="margin:0;font-size:0.85rem;color:#e2e8f0;line-height:1.5;">${data.finance_wisdom||data.finance||""}</p></div>
           <div style="background:rgba(56,189,248,0.07);border:1px solid rgba(56,189,248,0.2);border-radius:12px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:#7dd3fc;margin-bottom:5px;">🌿 Health</div><p style="margin:0;font-size:0.88rem;color:#e2e8f0;line-height:1.5;">${data.health_vitality||data.health||""}</p></div>
-        </div>
+        ${data.education_focus||data.education ? `<div style="margin-top:10px;background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.25);border-radius:12px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:#c4b5fd;margin-bottom:4px;">📚 Education & Focus</div><p style="margin:0;font-size:0.85rem;color:#e2e8f0;line-height:1.5;">${data.education_focus||data.education}</p></div>` : ""}
+        ${data.remedies && Array.isArray(data.remedies) ? `<div style="margin-top:10px;background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.22);border-radius:12px;padding:12px;"><div style="font-size:0.72rem;font-weight:700;color:#34d399;margin-bottom:6px;">🪔 Vedic Remedies (Upay)</div><div style="display:grid;gap:6px;">${data.remedies.map(r=>`<div style="font-size:0.82rem;color:#cbd5e1;"><strong style="color:var(--gold-glow);">${r.title || r.type}:</strong> ${r.description}</div>`).join('')}</div></div>` : ""}
         ${data.cosmic_tip||data.tip ? `<div style="margin-top:12px;background:rgba(99,102,241,0.07);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:13px;"><div style="font-size:0.72rem;font-weight:700;color:#a5b4fc;margin-bottom:5px;">💡 Cosmic Tip</div><p style="margin:0;font-size:0.85rem;color:#e2e8f0;line-height:1.5;">${data.cosmic_tip||data.tip}</p></div>` : ""}
-        ${data.lucky_color||data.lucky_number ? `<div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap;"><span style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.25);border-radius:999px;padding:5px 14px;font-size:0.82rem;color:var(--gold-glow);">🎨 Lucky Color: ${data.lucky_color||"-"}</span><span style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.25);border-radius:999px;padding:5px 14px;font-size:0.82rem;color:var(--gold-glow);">🔢 Lucky Number: ${data.lucky_number||"-"}</span></div>` : ""}
+        <div style="margin-top:10px;display:flex;gap:12px;flex-wrap:wrap;">
+          ${data.lucky_color ? `<span style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.25);border-radius:999px;padding:5px 14px;font-size:0.82rem;color:var(--gold-glow);">🎨 Lucky Color: ${data.lucky_color}</span>` : ""}
+          ${data.lucky_number ? `<span style="background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.25);border-radius:999px;padding:5px 14px;font-size:0.82rem;color:var(--gold-glow);">🔢 Lucky Number: ${data.lucky_number}</span>` : ""}
+          ${data.shubh_muhurat ? `<span style="background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.25);border-radius:999px;padding:5px 14px;font-size:0.82rem;color:#38bdf8;">⏰ Shubh Muhurat: ${data.shubh_muhurat}</span>` : ""}
+        </div>
       </div>`;
   }
   // Scroll the inline result into view
@@ -669,11 +683,33 @@ function renderPrediction(data) {
     setFieldIfExists("resHealthVitality",     localizedData.health_vitality || localizedData.health);
     setFieldIfExists("resCosmicTip",          localizedData.cosmic_tip     || localizedData.tip);
 
-    setFieldIfExists("resOverall",  localizedData.overall  || localizedData.daily_guidance);
-    setFieldIfExists("resCareer",   localizedData.career_focus   || localizedData.career);
-    setFieldIfExists("resLove",     localizedData.love_harmony   || localizedData.love);
-    setFieldIfExists("resFinance",  localizedData.finance_wisdom || localizedData.finance);
-    setFieldIfExists("resHealth",   localizedData.health_vitality || localizedData.health);
+    // Personalized Greeting banner
+    const greetingBanner = document.getElementById("resGreetingBanner");
+    const greetingText = document.getElementById("resGreetingText");
+    if (greetingBanner && greetingText) {
+      if (data.personalized_greeting) {
+        greetingText.textContent = data.personalized_greeting;
+        greetingBanner.style.display = "flex";
+      } else {
+        greetingBanner.style.display = "none";
+      }
+    }
+
+    setFieldIfExists("resPersonalityInsight", localizedData.personality_insight);
+    setFieldIfExists("resEmotionalState",     localizedData.emotional_state);
+    setFieldIfExists("resDailyGuidance",      localizedData.daily_guidance);
+    setFieldIfExists("resCareerFocus",        localizedData.career_focus   || localizedData.career);
+    setFieldIfExists("resLoveHarmony",        localizedData.love_harmony   || localizedData.love);
+    setFieldIfExists("resFinanceWisdom",      localizedData.finance_wisdom || localizedData.finance);
+    setFieldIfExists("resHealthVitality",     localizedData.health_vitality || localizedData.health);
+    setFieldIfExists("resCosmicTip",          localizedData.cosmic_tip     || localizedData.tip);
+
+    setFieldIfExists("resOverall",   localizedData.overall  || localizedData.daily_guidance);
+    setFieldIfExists("resCareer",    localizedData.career_focus   || localizedData.career);
+    setFieldIfExists("resLove",      localizedData.love_harmony   || localizedData.love);
+    setFieldIfExists("resFinance",   localizedData.finance_wisdom || localizedData.finance);
+    setFieldIfExists("resHealth",    localizedData.health_vitality || localizedData.health);
+    setFieldIfExists("resEducation", localizedData.education_focus || localizedData.education || "Favorable focus for academic and creative studies.");
 
     setFieldIfExists("resColorName", localizedData.lucky_color || "-");
     const hex = COLOR_MAP[data.lucky_color] || "#ffd166";
@@ -681,7 +717,56 @@ function renderPrediction(data) {
     if (dot) dot.style.backgroundColor = hex;
 
     setFieldIfExists("resLuckyNumber", localizedData.lucky_number || "-");
+    setFieldIfExists("resShubhMuhurat", data.shubh_muhurat || (data.shubh_details ? data.shubh_details.best_window : "11:48 AM – 12:38 PM"));
     setFieldIfExists("resTip", localizedData.cosmic_tip || localizedData.tip || "-");
+
+    // Sacred Sanskrit Mantra Card
+    const mantraSec = document.getElementById("resMantraSection");
+    if (mantraSec && data.sanskrit_mantra) {
+      mantraSec.style.display = "block";
+      setFieldIfExists("resMantraDevanagari", data.sanskrit_mantra.mantra);
+      setFieldIfExists("resMantraIAST", data.sanskrit_mantra.transliteration);
+      setFieldIfExists("resMantraDeity", data.sanskrit_mantra.deity);
+      setFieldIfExists("resMantraMeaning", data.sanskrit_mantra.meaning);
+      setFieldIfExists("resMantraJapa", data.sanskrit_mantra.japa_count || "108 Japa");
+    }
+
+    // Vedic Remedies (Upay)
+    const remediesSec = document.getElementById("resRemediesSection");
+    const remediesContainer = document.getElementById("resRemediesContainer");
+    if (remediesSec && remediesContainer && Array.isArray(data.remedies)) {
+      remediesSec.style.display = "block";
+      remediesContainer.innerHTML = data.remedies.map(r => `
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(16,185,129,0.22);border-radius:12px;padding:14px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <span style="font-size:0.75rem;font-weight:700;color:#34d399;text-transform:uppercase;letter-spacing:0.05em;">${r.type || "Upay"}</span>
+          </div>
+          <h5 style="margin:0 0 6px 0;font-size:0.92rem;color:var(--gold-glow);">${r.title || ""}</h5>
+          <p style="margin:0;font-size:0.86rem;color:#cbd5e1;line-height:1.5;">${r.description || ""}</p>
+        </div>
+      `).join("");
+    }
+
+    // Key Planetary Transits (Gochar)
+    const gocharSec = document.getElementById("resGocharSection");
+    const gocharGrid = document.getElementById("resGocharGrid");
+    if (gocharSec && gocharGrid && data.gochar) {
+      gocharSec.style.display = "block";
+      gocharGrid.innerHTML = `
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:12px;">
+          <strong style="color:#a5b4fc;display:block;margin-bottom:4px;">🪐 Saturn (Shani in Kumbh)</strong>
+          <span>${data.gochar.saturn_transit || "Discipline, patience, and duty rewarded."}</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:12px;">
+          <strong style="color:#a5b4fc;display:block;margin-bottom:4px;">✨ Jupiter (Guru in Vrishabh)</strong>
+          <span>${data.gochar.jupiter_transit || "Expands intellectual vision and ethical fortune."}</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:12px;">
+          <strong style="color:#a5b4fc;display:block;margin-bottom:4px;">🔄 Rahu-Ketu Nodal Axis</strong>
+          <span>${data.gochar.rahu_ketu_axis || "Rahu in Pisces & Ketu in Virgo sharpen spiritual intuition."}</span>
+        </div>
+      `;
+    }
 
     document.querySelectorAll("#aiModeSelector .segment-btn").forEach(b => {
       b.classList.toggle("active", b.dataset.aimode === "daily");
@@ -956,6 +1041,17 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   btnGetHoroscope.addEventListener("click", fetchPrediction);
+
+  const btnToggleBirth = document.getElementById("btnToggleBirthDetails");
+  const birthFields = document.getElementById("birthDetailsFields");
+  const birthIcon = document.getElementById("birthDetailsIcon");
+  if (btnToggleBirth && birthFields) {
+    btnToggleBirth.addEventListener("click", () => {
+      const isHidden = birthFields.style.display === "none" || !birthFields.style.display;
+      birthFields.style.display = isHidden ? "grid" : "none";
+      if (birthIcon) birthIcon.textContent = isHidden ? "➖" : "➕";
+    });
+  }
 
   initRashiGrid();
   initSignTypeControl();
