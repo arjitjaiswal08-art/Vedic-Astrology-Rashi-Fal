@@ -20,7 +20,9 @@ const express    = require('express');
 const bcrypt     = require('bcryptjs');
 const jwt        = require('jsonwebtoken');
 const rateLimit  = require('express-rate-limit');
-const { v4: uuidv4 } = require('uuid');
+const crypto     = require('crypto');
+const uuidv4 = () => crypto.randomUUID();
+
 const path       = require('path');
 const fs         = require('fs');
 
