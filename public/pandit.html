@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PanditConnect — Find & Book Vedic Pandits for Puja | VedicAstrology AI</title>
+  <meta name="description" content="Discover verified Pandits near you for Griha Pravesh, Satyanarayan Katha, Rudrabhishek, and 50+ Vedic pujas. Compare profiles, check availability, and book online." />
+  <meta name="keywords" content="pandit booking, pandit near me, puja booking, vedic priest, griha pravesh pandit, satyanarayan katha, rudrabhishek" />
+  <meta property="og:title" content="PanditConnect — Book Verified Pandits Online" />
+  <meta property="og:description" content="Find trusted Pandits in your area for all types of Vedic pujas and ceremonies." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="/pandit.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="pandit.css" />
+</head>
+<body>
+
+<!-- ── Ambient Starfield ─────────────────────────────────────────── -->
+<div class="stars-container" aria-hidden="true">
+  <div class="star-cluster cluster-1"></div>
+  <div class="star-cluster cluster-2"></div>
+  <div class="glow-orb orb-saffron"></div>
+  <div class="glow-orb orb-purple"></div>
+  <div class="glow-orb orb-gold"></div>
+</div>
+
+<!-- ── Toast Container ──────────────────────────────────────────── -->
+<div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+<!-- ── Top Navigation ────────────────────────────────────────────── -->
+<nav class="top-nav" role="navigation" aria-label="Main Navigation">
+  <a href="/" class="nav-brand" aria-label="Go to Vedic Astrology home">
+    <span class="nav-logo">🕉️</span>
+    <div class="nav-title-wrap">
+      <span class="nav-title">VedicAstrology AI</span>
+      <span class="nav-sub">PanditConnect</span>
+    </div>
+  </a>
+
+  <div class="nav-links" id="navLinks">
+    <a href="/" class="nav-link">✨ Rashi Fal</a>
+    <button class="nav-link active" onclick="showSection('sectionSearch')" id="navSearch">🔍 Find a Pandit</button>
+    <button class="nav-link" onclick="showSection('sectionPujaServices')" id="navPujas">🪔 Puja Services</button>
+    <button class="nav-link" onclick="showSection('sectionAskPandit')" id="navAsk">💬 Ask a Pandit</button>
+    <button class="nav-link" onclick="showSection('sectionUserDashboard')" id="navDashboard">📋 My Bookings</button>
+  </div>
+
+  <div class="nav-actions">
+    <button class="notif-btn" id="notifBtn" aria-label="Notifications" title="Notifications">
+      🔔
+      <span class="notif-dot" id="notifDot" style="display:none;"></span>
+    </button>
+    <button class="btn-nav-login" id="btnNavLogin" onclick="openLoginModal()">Login</button>
+    <button class="btn-nav-register" onclick="showSection('sectionRegisterPandit')">✦ Register as Pandit</button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── Main Application Wrapper ─────────────────────────────────── -->
+<div class="app-layout">
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 1: HOME / HERO + SEARCH
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="sectionSearch" class="page-section active" aria-label="Find a Pandit">
+
+    <!-- Hero -->
+    <div class="hero-section">
+      <div class="hero-badge">🙏 India's Most Trusted Pandit Platform</div>
+      <h1 class="hero-title">Find & Book Verified<br>Pandits Near You</h1>
+      <p class="hero-subtitle">
+        Connect with experienced, verified Pandits for Griha Pravesh, Satyanarayan Katha, Rudrabhishek, Vivah Puja, and 50+ traditional Vedic ceremonies.
+      </p>
+      <div class="hero-cta-row">
+        <button class="btn-hero-primary" onclick="document.getElementById('searchCard').scrollIntoView({behavior:'smooth'})">
+          🔍 Find a Pandit Now
+        </button>
+        <button class="btn-hero-secondary" onclick="showSection('sectionRegisterPandit')">
+          📿 Register as Pandit
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number" id="statPandits">0</div>
+          <div class="stat-label">Registered Pandits</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number" id="statBookings">0</div>
+          <div class="stat-label">Bookings Completed</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number" id="statCities">0</div>
+          <div class="stat-label">Cities Covered</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <div class="stat-number" id="statRating">4.9★</div>
+          <div class="stat-label">Average Rating</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search & Filter Card -->
+    <div class="search-card" id="searchCard">
+      <div class="search-header">
+        <h2 class="search-title">🔍 Search Pandits</h2>
+        <button class="location-btn" id="btnUseLocation" onclick="useMyLocation()">
+          📍 Use My Location
+        </button>
+      </div>
+
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label class="filter-label" for="filterPujaType">Puja Type</label>
+          <select class="filter-select" id="filterPujaType">
+            <option value="">All Pujas</option>
+            <option>Griha Pravesh Puja</option>
+            <option>Satyanarayan Katha</option>
+            <option>Rudrabhishek</option>
+            <option>Ganesh Puja</option>
+            <option>Navgraha Shanti</option>
+            <option>Vivah / Marriage Puja</option>
+            <option>Mundan Sanskar</option>
+            <option>Namkaran Sanskar</option>
+            <option>Vastu Shanti</option>
+            <option>Shraddh / Pitru Puja</option>
+            <option>Kali Puja</option>
+            <option>Durga Saptashati</option>
+            <option>Lakshmi Puja</option>
+            <option>Saraswati Puja</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterState">State</label>
+          <select class="filter-select" id="filterState" onchange="updateDistrictOptions()">
+            <option value="">All States</option>
+            <option>Uttar Pradesh</option>
+            <option>Maharashtra</option>
+            <option>Delhi</option>
+            <option>Rajasthan</option>
+            <option>Madhya Pradesh</option>
+            <option>Gujarat</option>
+            <option>Bihar</option>
+            <option>West Bengal</option>
+            <option>Karnataka</option>
+            <option>Tamil Nadu</option>
+            <option>Kerala</option>
+            <option>Andhra Pradesh</option>
+            <option>Telangana</option>
+            <option>Haryana</option>
+            <option>Punjab</option>
+            <option>Uttarakhand</option>
+            <option>Jharkhand</option>
+            <option>Chhattisgarh</option>
+            <option>Odisha</option>
+            <option>Himachal Pradesh</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterCity">City / Town</label>
+          <input type="text" class="filter-input" id="filterCity" placeholder="e.g. Varanasi, Prayagraj" />
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterPincode">PIN Code</label>
+          <input type="text" class="filter-input" id="filterPincode" placeholder="e.g. 221001" maxlength="6" pattern="[0-9]{6}" />
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterLanguage">Language</label>
+          <select class="filter-select" id="filterLanguage">
+            <option value="">Any Language</option>
+            <option>Hindi</option>
+            <option>Sanskrit</option>
+            <option>English</option>
+            <option>Bengali</option>
+            <option>Tamil</option>
+            <option>Telugu</option>
+            <option>Kannada</option>
+            <option>Malayalam</option>
+            <option>Marathi</option>
+            <option>Gujarati</option>
+            <option>Odia</option>
+            <option>Punjabi</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterMinExp">Min. Experience (Years)</label>
+          <select class="filter-select" id="filterMinExp">
+            <option value="">Any</option>
+            <option value="1">1+ Years</option>
+            <option value="3">3+ Years</option>
+            <option value="5">5+ Years</option>
+            <option value="10">10+ Years</option>
+            <option value="20">20+ Years</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterMinRating">Min. Rating</label>
+          <select class="filter-select" id="filterMinRating">
+            <option value="">Any Rating</option>
+            <option value="3">3★ & Above</option>
+            <option value="4">4★ & Above</option>
+            <option value="4.5">4.5★ & Above</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label" for="filterHomeVisit">Home Visit</label>
+          <select class="filter-select" id="filterHomeVisit">
+            <option value="">Any</option>
+            <option value="yes">Available for Home Visit</option>
+            <option value="no">Temple / Online Only</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Price Range -->
+      <div class="filter-group mb-16" style="max-width:360px;">
+        <label class="filter-label">Max Price: ₹<span id="priceRangeLabel">5000</span></label>
+        <input type="range" id="filterPrice" min="500" max="50000" step="500" value="5000" oninput="updatePriceLabel(this.value)" />
+        <div class="range-display"><span>₹500</span><span>₹50,000+</span></div>
+      </div>
+
+      <div class="search-action-row">
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn-search" id="btnSearch" onclick="searchPandits()">🔍 Search Pandits</button>
+          <button class="btn-clear-filters" onclick="clearFilters()">✕ Clear Filters</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sort Bar + Results -->
+    <div id="searchResultsSection" style="display:none;">
+      <div class="sort-bar">
+        <div class="results-count">
+          Showing <strong id="resultsCountNum">0</strong> Pandits
+        </div>
+        <div class="sort-pills">
+          <span class="sort-label">Sort:</span>
+          <button class="sort-pill active" data-sort="rating" onclick="setSortMode('rating', this)">⭐ Highest Rated</button>
+          <button class="sort-pill" data-sort="experience" onclick="setSortMode('experience', this)">🏅 Most Experienced</button>
+          <button class="sort-pill" data-sort="price_asc" onclick="setSortMode('price_asc', this)">💰 Price: Low to High</button>
+          <button class="sort-pill" data-sort="price_desc" onclick="setSortMode('price_desc', this)">💸 Price: High to Low</button>
+        </div>
+      </div>
+
+      <!-- Pandit Cards Grid -->
+      <div class="pandits-grid" id="panditsGrid">
+        <!-- Cards injected by JS -->
+      </div>
+    </div>
+
+    <!-- Featured Puja Categories -->
+    <div class="section-card" style="margin-top:40px;">
+      <div class="section-card-header">
+        <h2 class="section-card-title">🪔 Popular Puja Services</h2>
+        <button class="btn-book-now" onclick="showSection('sectionPujaServices')">View All →</button>
+      </div>
+      <div class="puja-categories-grid" id="homePujaGrid">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 2: PANDIT PROFILE VIEW
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="sectionProfile" class="page-section" aria-label="Pandit Profile">
+    <button class="btn-back" onclick="showSection('sectionSearch')">← Back to Search</button>
+
+    <div id="profileContent">
+      <!-- Injected by JS -->
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 3: PUJA SERVICES CATALOGUE
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="sectionPujaServices" class="page-section" aria-label="Puja Services">
+    <div class="hero-section" style="padding:48px 0 32px;">
+      <h1 class="hero-title" style="font-size:2.2rem;">🪔 Puja Services Catalogue</h1>
+      <p class="hero-subtitle">Explore all Vedic ceremonies and rites. Each service is performed by trained, verified Pandits following authentic traditions.</p>
+    </div>
+
+    <div class="section-card">
+      <div class="section-card-header">
+        <h2 class="section-card-title">All Puja & Ceremony Services</h2>
+      </div>
+      <div class="services-grid" id="allServicesGrid">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 4: ASK A PANDIT
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="sectionAskPandit" class="page-section" aria-label="Ask a Pandit">
+    <div class="hero-section" style="padding:48px 0 32px;">
+      <h1 class="hero-title" style="font-size:2.2rem;">💬 Ask a Pandit</h1>
+      <p class="hero-subtitle">Have questions about a ritual, muhurta, or ceremony? Submit your question and receive a response from a qualified Pandit.</p>
+    </div>
+
+    <div class="section-card">
+      <div class="section-card-header">
+        <h2 class="section-card-title">✍️ Submit Your Question</h2>
+      </div>
+      <form id="askForm" onsubmit="submitConsultation(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="askName">Your Name <span class="required">*</span></label>
+            <input type="text" class="form-input" id="askName" required placeholder="e.g. Ram Sharma" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="askPhone">Phone / Email <span class="required">*</span></label>
+            <input type="text" class="form-input" id="askPhone" required placeholder="Contact for reply" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="askPanditSelect">Select Pandit (Optional)</label>
+            <select class="form-select" id="askPanditSelect">
+              <option value="">Any Available Pandit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="askCategory">Topic</label>
+            <select class="form-select" id="askCategory">
+              <option>Puja / Ceremony Guidance</option>
+              <option>Muhurta (Auspicious Time)</option>
+              <option>Vastu Shastra</option>
+              <option>Kundli / Horoscope</option>
+              <option>Pitru Dosh / Shraadh</option>
+              <option>Graha Shanti</option>
+              <option>Wedding Rituals</option>
+              <option>Baby Naming (Namkaran)</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label" for="askQuestion">Your Question <span class="required">*</span></label>
+            <textarea class="form-textarea" id="askQuestion" rows="5" required placeholder="Please describe your question in detail. e.g. 'What is the ideal muhurta for Griha Pravesh in November? We are moving to a new house and want to know the best date and time...'" style="min-height:120px;"></textarea>
+          </div>
+        </div>
+        <div class="form-actions" style="justify-content:flex-start;margin-top:20px;">
+          <button type="submit" class="btn-submit">🙏 Submit Question</button>
+        </div>
+      </form>
+
+      <div class="divider"></div>
+
+      <!-- Past Consultations -->
+      <h3 class="section-card-title" style="margin-bottom:16px;">📜 Recent Questions &amp; Answers</h3>
+      <div id="consultationsList">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 5: USER DASHBOARD
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="sectionUserDashboard" class="page-section" aria-label="User Dashboard">
+    <div class="hero-section" style="padding:40px 0 24px;">
+      <h1 class="hero-title" style="font-size:1.8rem;">📋 My Bookings</h1>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Sidebar -->
+      <aside class="dashboard-sidebar">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">🙏</div>
+          <div class="sidebar-name" id="sidebarUserName">Devotee</div>
+          <div class="sidebar-role">User / Devotee</div>
+        </div>
+        <nav class="sidebar-nav" role="navigation" aria-label="Dashboard navigation">
+          <button class="sidebar-nav-item active" onclick="setDashTab('bookings', this)">📋 My Bookings</button>
+          <button class="sidebar-nav-item" onclick="setDashTab('payments', this)">💳 Payments & Receipts</button>
+          <button class="sidebar-nav-item" onclick="setDashTab('consultations', this)">💬 Consultations</button>
+          <button class="sidebar-nav-item" onclick="setDashTab('favourites', this)">❤️ Saved Pandits</button>
+          <button class="sidebar-nav-item" onclick="setDashTab('reviews', this)">⭐ My Reviews</button>
+          <button class="sidebar-nav-item" onclick="setDashTab('profile', this)">👤 My Profile</button>
+          <button class="sidebar-nav-item" onclick="logoutUser()" style="color:#fb7185;margin-top:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;">🚪 Logout</button>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="dashboard-content">
+        <!-- Stats Row -->
+        <div class="stats-cards-row">
+          <div class="stat-card">
+            <div class="stat-card-icon">📋</div>
+            <div class="stat-card-value" id="userTotalBookings">0</div>
+            <div class="stat-card-label">Total Bookings</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon">⏳</div>
+            <div class="stat-card-value" id="userPendingBookings">0</div>
+            <div class="stat-card-label">Pending</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon">✅</div>
+            <div class="stat-card-value" id="userConfirmedBookings">0</div>
+            <div class="stat-card-label">Confirmed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-icon">🎉</div>
+            <div class="stat-card-value" id="userCompletedBookings">0</div>
+            <div class="stat-card-label">Completed</div>
+          </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="section-card" id="dashTabContent">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 6: PANDIT REGISTRATION
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="sectionRegisterPandit" class="page-section" aria-label="Register as Pandit">
+    <div class="hero-section" style="padding:40px 0 24px;">
+      <div class="hero-badge">📿 Join PanditConnect</div>
+      <h1 class="hero-title" style="font-size:2rem;">Register as a Pandit</h1>
+      <p class="hero-subtitle">Create your professional profile, list your puja services, and start receiving bookings from devotees across India.</p>
+    </div>
+
+    <div class="section-card">
+      <!-- Step Progress -->
+      <div class="step-progress" id="regStepProgress">
+        <div class="step-item active" id="step1Item">
+          <div class="step-circle">1</div>
+          <span class="step-label">Account</span>
+        </div>
+        <div class="step-connector" id="step1Con"></div>
+        <div class="step-item" id="step2Item">
+          <div class="step-circle">2</div>
+          <span class="step-label">Personal</span>
+        </div>
+        <div class="step-connector" id="step2Con"></div>
+        <div class="step-item" id="step3Item">
+          <div class="step-circle">3</div>
+          <span class="step-label">Location</span>
+        </div>
+        <div class="step-connector" id="step3Con"></div>
+        <div class="step-item" id="step4Item">
+          <div class="step-circle">4</div>
+          <span class="step-label">Services</span>
+        </div>
+        <div class="step-connector" id="step4Con"></div>
+        <div class="step-item" id="step5Item">
+          <div class="step-circle">5</div>
+          <span class="step-label">Availability</span>
+        </div>
+      </div>
+
+      <form id="panditRegForm" novalidate>
+        <!-- STEP 1: ACCOUNT -->
+        <div class="reg-form-step active" id="regStep1">
+          <h3 class="section-card-title mb-24">Step 1: Create Your Account</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="regPhone">Phone Number <span class="required">*</span></label>
+              <input type="tel" class="form-input" id="regPhone" required placeholder="+91 98765 43210" maxlength="14" />
+              <span class="form-help">We will verify via OTP</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regEmail">Email Address</label>
+              <input type="email" class="form-input" id="regEmail" placeholder="pandit@example.com" />
+              <span class="form-help">Optional</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regPassword">Password <span class="required">*</span></label>
+              <input type="password" class="form-input" id="regPassword" required placeholder="Min. 8 characters" minlength="8" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regConfirmPass">Confirm Password <span class="required">*</span></label>
+              <input type="password" class="form-input" id="regConfirmPass" required placeholder="Re-enter password" />
+            </div>
+          </div>
+
+          <!-- OTP Section -->
+          <div id="otpSection" style="display:none;margin-top:20px;">
+            <p class="text-muted mb-8" style="font-size:0.88rem;">Enter the 6-digit OTP sent to your phone:</p>
+            <div class="otp-inputs">
+              <input type="text" class="otp-input" maxlength="1" id="otp1" oninput="otpNext(this,'otp2')" onkeydown="otpBack(event,this,null)" />
+              <input type="text" class="otp-input" maxlength="1" id="otp2" oninput="otpNext(this,'otp3')" onkeydown="otpBack(event,this,'otp1')" />
+              <input type="text" class="otp-input" maxlength="1" id="otp3" oninput="otpNext(this,'otp4')" onkeydown="otpBack(event,this,'otp2')" />
+              <input type="text" class="otp-input" maxlength="1" id="otp4" oninput="otpNext(this,'otp5')" onkeydown="otpBack(event,this,'otp3')" />
+              <input type="text" class="otp-input" maxlength="1" id="otp5" oninput="otpNext(this,'otp6')" onkeydown="otpBack(event,this,'otp4')" />
+              <input type="text" class="otp-input" maxlength="1" id="otp6" oninput="otpNext(this,null)" onkeydown="otpBack(event,this,'otp5')" />
+            </div>
+            <p style="font-size:0.78rem;color:var(--text-dim);margin-top:8px;">Didn't receive? <button type="button" style="background:none;border:none;color:var(--saffron-light);cursor:pointer;font-size:0.78rem;" onclick="sendOTP()">Resend OTP</button></p>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-submit" onclick="regStep1Next()">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 2: PERSONAL INFO -->
+        <div class="reg-form-step" id="regStep2">
+          <h3 class="section-card-title mb-24">Step 2: Personal Information</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="regFullName">Full Name <span class="required">*</span></label>
+              <input type="text" class="form-input" id="regFullName" required placeholder="Pandit Ram Sharma" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regDOB">Date of Birth <span class="required">*</span></label>
+              <input type="date" class="form-input" id="regDOB" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regExperience">Years of Experience <span class="required">*</span></label>
+              <input type="number" class="form-input" id="regExperience" required min="0" max="80" placeholder="e.g. 15" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regVedicTradition">Vedic Tradition / Specialization</label>
+              <select class="form-select" id="regVedicTradition">
+                <option>Shaiva (Shiva tradition)</option>
+                <option>Vaishnava (Vishnu tradition)</option>
+                <option>Shakta (Devi tradition)</option>
+                <option>Smarta (all-tradition)</option>
+                <option>Brahmin – Rigveda</option>
+                <option>Brahmin – Yajurveda</option>
+                <option>Brahmin – Samaveda</option>
+                <option>Brahmin – Atharvaveda</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regLanguages">Languages Spoken <span class="required">*</span></label>
+              <input type="text" class="form-input" id="regLanguages" required placeholder="Hindi, Sanskrit, English" />
+              <span class="form-help">Comma-separated</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Profile Photograph</label>
+              <div class="photo-upload-area" onclick="document.getElementById('regPhoto').click()">
+                <div class="photo-upload-icon">📷</div>
+                <div class="photo-upload-text">Click to upload your photo</div>
+                <div class="photo-upload-hint">JPG, PNG • Max 5MB</div>
+                <input type="file" id="regPhoto" accept="image/jpeg,image/png,image/webp" onchange="previewPhoto(this,'regPhotoPreview')" />
+              </div>
+              <img id="regPhotoPreview" class="img-preview" alt="Profile preview" />
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label" for="regBio">Short Biography <span class="required">*</span></label>
+              <textarea class="form-textarea" id="regBio" rows="4" required placeholder="Describe your experience, education, and areas of specialization. e.g. 'I am a Kashi-trained Brahmin with 20 years of experience in Shiva and Vedic puja vidhi...'" style="min-height:100px;"></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="gotoRegStep(1)">← Back</button>
+            <button type="button" class="btn-submit" onclick="regStep2Next()">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 3: LOCATION -->
+        <div class="reg-form-step" id="regStep3">
+          <h3 class="section-card-title mb-24">Step 3: Location & Travel</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="regCountry">Country <span class="required">*</span></label>
+              <select class="form-select" id="regCountry">
+                <option selected>India</option>
+                <option>Nepal</option>
+                <option>Mauritius</option>
+                <option>USA</option>
+                <option>UK</option>
+                <option>Canada</option>
+                <option>Australia</option>
+                <option>UAE</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regState">State <span class="required">*</span></label>
+              <select class="form-select" id="regState">
+                <option value="">Select State</option>
+                <option>Uttar Pradesh</option>
+                <option>Maharashtra</option>
+                <option>Delhi</option>
+                <option>Rajasthan</option>
+                <option>Madhya Pradesh</option>
+                <option>Gujarat</option>
+                <option>Bihar</option>
+                <option>West Bengal</option>
+                <option>Karnataka</option>
+                <option>Tamil Nadu</option>
+                <option>Kerala</option>
+                <option>Andhra Pradesh</option>
+                <option>Telangana</option>
+                <option>Haryana</option>
+                <option>Punjab</option>
+                <option>Uttarakhand</option>
+                <option>Jharkhand</option>
+                <option>Chhattisgarh</option>
+                <option>Odisha</option>
+                <option>Himachal Pradesh</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regDistrict">District</label>
+              <input type="text" class="form-input" id="regDistrict" placeholder="e.g. Varanasi" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regCity">City / Town <span class="required">*</span></label>
+              <input type="text" class="form-input" id="regCity" required placeholder="e.g. Varanasi" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regArea">Area / Locality</label>
+              <input type="text" class="form-input" id="regArea" placeholder="e.g. Assi Ghat" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regPincode">PIN Code <span class="required">*</span></label>
+              <input type="text" class="form-input" id="regPincode" required placeholder="e.g. 221001" maxlength="6" pattern="[0-9]{6}" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regTravelRadius">Service Radius (km)</label>
+              <select class="form-select" id="regTravelRadius">
+                <option value="5">Up to 5 km</option>
+                <option value="10">Up to 10 km</option>
+                <option value="20">Up to 20 km</option>
+                <option value="50" selected>Up to 50 km</option>
+                <option value="100">Up to 100 km</option>
+                <option value="0">No Travel (Temple / Online only)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regHomeVisit">Home Visit Available?</label>
+              <select class="form-select" id="regHomeVisit">
+                <option value="yes">Yes – I visit homes</option>
+                <option value="no">No – Temple / Online only</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="gotoRegStep(2)">← Back</button>
+            <button type="button" class="btn-submit" onclick="gotoRegStep(4)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 4: SERVICES -->
+        <div class="reg-form-step" id="regStep4">
+          <h3 class="section-card-title mb-24">Step 4: Puja Services Offered</h3>
+          <p class="text-muted mb-16" style="font-size:0.88rem;">Select all pujas you perform and set your price. You can update these anytime from your dashboard.</p>
+
+          <div id="serviceCheckboxGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-bottom:24px;">
+            <!-- Injected by JS -->
+          </div>
+
+          <div class="form-group" style="max-width:280px;">
+            <label class="form-label" for="regStartingPrice">Starting Price (₹) <span class="required">*</span></label>
+            <input type="number" class="form-input" id="regStartingPrice" required min="100" placeholder="e.g. 1100" />
+            <span class="form-help">Base price for your simplest service</span>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="gotoRegStep(3)">← Back</button>
+            <button type="button" class="btn-submit" onclick="gotoRegStep(5)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- STEP 5: AVAILABILITY -->
+        <div class="reg-form-step" id="regStep5">
+          <h3 class="section-card-title mb-24">Step 5: Availability</h3>
+
+          <p class="text-muted mb-16" style="font-size:0.88rem;">Select the days you are generally available for bookings:</p>
+
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;" id="availDaysGrid">
+            <!-- Injected by JS -->
+          </div>
+
+          <div class="form-group mb-24" style="max-width:360px;">
+            <label class="form-label" for="regTimeFrom">Available From</label>
+            <input type="time" class="form-input" id="regTimeFrom" value="07:00" />
+          </div>
+          <div class="form-group mb-24" style="max-width:360px;">
+            <label class="form-label" for="regTimeTo">Available Until</label>
+            <input type="time" class="form-input" id="regTimeTo" value="20:00" />
+          </div>
+
+          <div class="form-group mb-24">
+            <label class="form-label" for="regOnlineConsult">Online Consultation Available?</label>
+            <select class="form-select" id="regOnlineConsult" style="max-width:280px;">
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+
+          <!-- Summary Preview -->
+          <div id="regSummaryPreview" style="background:rgba(255,107,0,0.06);border:1px solid rgba(255,107,0,0.2);border-radius:var(--radius-md);padding:20px;margin-bottom:24px;display:none;">
+            <h4 style="color:var(--gold-primary);margin-bottom:12px;font-family:var(--font-heading);">📋 Registration Summary</h4>
+            <div id="regSummaryContent" style="font-size:0.86rem;color:var(--text-soft);line-height:1.9;"></div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-cancel" onclick="gotoRegStep(4)">← Back</button>
+            <button type="submit" class="btn-submit" id="btnFinalRegister" onclick="submitPanditRegistration(event)">
+              🙏 Submit Registration
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 7: PANDIT DASHBOARD
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="sectionPanditDashboard" class="page-section" aria-label="Pandit Dashboard">
+    <div class="hero-section" style="padding:40px 0 24px;">
+      <h1 class="hero-title" style="font-size:1.8rem;">🙏 Pandit Dashboard</h1>
+    </div>
+
+    <div class="dashboard-grid">
+      <aside class="dashboard-sidebar">
+        <div class="sidebar-user">
+          <div class="sidebar-avatar">🕉️</div>
+          <div class="sidebar-name" id="panditSidebarName">Pandit</div>
+          <div class="sidebar-role" id="panditSidebarId">PND-000000</div>
+          <div style="margin-top:8px;">
+            <span class="status-badge status-pending" id="panditVerifBadge">⏳ Pending Verification</span>
+          </div>
+        </div>
+        <nav class="sidebar-nav">
+          <button class="sidebar-nav-item active" onclick="setPanditDashTab('overview', this)">📊 Overview</button>
+          <button class="sidebar-nav-item" onclick="setPanditDashTab('bookings', this)">📋 Bookings <span class="nav-badge" id="pendingBadge">0</span></button>
+          <button class="sidebar-nav-item" onclick="setPanditDashTab('services', this)">🪔 My Services</button>
+          <button class="sidebar-nav-item" onclick="setPanditDashTab('availability', this)">📅 Availability</button>
+          <button class="sidebar-nav-item" onclick="setPanditDashTab('consultations', this)">💬 Consultations</button>
+          <button class="sidebar-nav-item" onclick="setPanditDashTab('reviews', this)">⭐ Reviews</button>
+          <button class="sidebar-nav-item" onclick="setPanditDashTab('profile', this)">👤 Edit Profile</button>
+          <button class="sidebar-nav-item" onclick="logoutUser()" style="color:#fb7185;margin-top:10px;border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;">🚪 Logout</button>
+        </nav>
+      </aside>
+
+      <div class="dashboard-content" id="panditDashContent">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════
+       SECTION 8: ADMIN DASHBOARD
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="sectionAdmin" class="page-section" aria-label="Admin Dashboard">
+    <div class="hero-section" style="padding:40px 0 24px;">
+      <h1 class="hero-title" style="font-size:1.8rem;">⚙️ Admin Dashboard</h1>
+    </div>
+
+    <div class="tabs-bar">
+      <button class="tab-btn active" onclick="setAdminTab('verifications', this)">🔍 Verifications</button>
+      <button class="tab-btn" onclick="setAdminTab('pandits', this)">👤 Pandits</button>
+      <button class="tab-btn" onclick="setAdminTab('bookings', this)">📋 Bookings</button>
+      <button class="tab-btn" onclick="setAdminTab('reviews', this)">⭐ Reviews</button>
+      <button class="tab-btn" onclick="setAdminTab('audit', this)">📝 Audit Log</button>
+    </div>
+
+    <div class="section-card" id="adminTabContent">
+      <!-- Injected by JS -->
+    </div>
+  </section>
+
+</div><!-- /.app-layout -->
+
+<!-- ══════════════════════════════════════════════════════════════
+     MODALS
+══════════════════════════════════════════════════════════════ -->
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 class="modal-title" id="bookingModalTitle">🪔 Book a Puja</h2>
+      <button class="modal-close" onclick="closeModal('bookingModal')" aria-label="Close">✕</button>
+    </div>
+
+    <!-- Pandit Info Strip -->
+    <div id="bookingPanditStrip" style="display:flex;gap:12px;align-items:center;background:rgba(255,107,0,0.06);border:1px solid rgba(255,107,0,0.2);border-radius:var(--radius-md);padding:14px;margin-bottom:20px;"></div>
+
+    <form id="bookingForm" novalidate onsubmit="submitBooking(event)">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="bookService">Puja Service <span class="required">*</span></label>
+          <select class="form-select" id="bookService" required></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bookDate">Preferred Date <span class="required">*</span></label>
+          <input type="date" class="form-input" id="bookDate" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bookTime">Preferred Time <span class="required">*</span></label>
+          <select class="form-select" id="bookTime" required>
+            <option value="">Select Time Slot</option>
+            <option>6:00 AM – 8:00 AM</option>
+            <option>8:00 AM – 10:00 AM</option>
+            <option>10:00 AM – 12:00 PM</option>
+            <option>12:00 PM – 2:00 PM</option>
+            <option>2:00 PM – 4:00 PM</option>
+            <option>4:00 PM – 6:00 PM</option>
+            <option>6:00 PM – 8:00 PM</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bookAttendees">Expected Attendees</label>
+          <input type="number" class="form-input" id="bookAttendees" min="1" max="500" placeholder="e.g. 25" value="10" />
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label" for="bookAddress">Service Address <span class="required">*</span></label>
+          <input type="text" class="form-input" id="bookAddress" required placeholder="Full address where puja will be performed" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bookPin">PIN Code <span class="required">*</span></label>
+          <input type="text" class="form-input" id="bookPin" required placeholder="e.g. 221001" maxlength="6" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bookContact">Contact Number <span class="required">*</span></label>
+          <input type="tel" class="form-input" id="bookContact" required placeholder="+91 98765 43210" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="bookSamagri">Samagri Preference</label>
+          <select class="form-select" id="bookSamagri">
+            <option value="pandit">Pandit will bring samagri</option>
+            <option value="self">I will arrange samagri</option>
+            <option value="discuss">To be discussed</option>
+          </select>
+        </div>
+        <div class="form-group full-width">
+          <label class="form-label" for="bookInstructions">Special Instructions</label>
+          <textarea class="form-textarea" id="bookInstructions" rows="3" placeholder="Any specific requirements, dietary restrictions for Pandit, special occasion details..."></textarea>
+        </div>
+      </div>
+
+      <!-- Detailed Upfront Order Summary & Payment Breakdown -->
+      <div id="bookingPriceSummary" class="order-summary-card" style="background:linear-gradient(135deg, rgba(245,197,24,0.06), rgba(255,107,0,0.04));border:1px solid rgba(245,197,24,0.25);border-radius:var(--radius-md);padding:18px;margin:16px 0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08);padding-bottom:8px;">
+          <div style="font-size:0.86rem;color:var(--gold-primary);font-weight:700;letter-spacing:0.04em;text-transform:uppercase;">🧾 Full Upfront Payment Summary</div>
+          <span style="font-size:0.75rem;padding:3px 8px;border-radius:var(--radius-full);background:rgba(52,211,153,0.15);color:var(--cosmic-emerald);border:1px solid rgba(52,211,153,0.3);">100% Escrow Protection</span>
+        </div>
+        
+        <div id="bookingPriceDetails" style="font-size:0.88rem;color:var(--text-soft);line-height:1.9;">
+          <!-- Dynamically populated by updateBookingPrice() -->
+        </div>
+
+        <!-- Cancellation & Refund Policy Disclosure -->
+        <div style="margin-top:14px;padding:12px;border-radius:var(--radius-sm);background:rgba(10,14,34,0.6);border:1px solid rgba(255,255,255,0.06);font-size:0.78rem;color:var(--text-muted);line-height:1.5;">
+          <div style="font-weight:600;color:var(--text-main);margin-bottom:4px;">🛡️ Cancellation & 100% Refund Policy:</div>
+          Full refund is guaranteed if cancelled 24+ hours before the scheduled puja time. Payments are held safely in platform escrow until ritual completion.
+        </div>
+      </div>
+
+      <!-- Concurrency Reservation Notice -->
+      <div id="slotReservationNotice" style="display:none;margin-bottom:14px;padding:10px 14px;border-radius:var(--radius-sm);background:rgba(245,197,24,0.1);border:1px solid rgba(245,197,24,0.3);font-size:0.8rem;color:var(--gold-primary);align-items:center;gap:8px;">
+        <span>⏳</span>
+        <span>Appointment slot reserved for <strong>15 minutes</strong> while you complete payment.</span>
+      </div>
+
+      <div class="form-actions" style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;gap:12px;width:100%;">
+          <button type="button" class="btn-cancel" onclick="closeModal('bookingModal')" style="flex:1;">Cancel</button>
+          <button type="submit" class="btn-submit" id="btnPayRazorpay" style="flex:2;background:var(--gold-gradient);color:#080c1e;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;font-size:0.95rem;padding:12px 18px;border:none;cursor:pointer;">
+            <span>💳</span>
+            <span id="btnPayText">Pay Securely with Razorpay</span>
+            <span>🔒</span>
+          </button>
+        </div>
+        <!-- Gateway Supported Methods -->
+        <div style="text-align:center;font-size:0.75rem;color:var(--text-dim);display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">
+          <span>Accepted:</span>
+          <span style="color:var(--text-soft);">UPI (GPay / PhonePe / Paytm)</span> •
+          <span style="color:var(--text-soft);">Credit & Debit Cards</span> •
+          <span style="color:var(--text-soft);">NetBanking (50+ Banks)</span>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- OFFICIAL RECEIPT & INVOICE MODAL -->
+<div class="modal-overlay" id="receiptModal" role="dialog" aria-modal="true" aria-labelledby="receiptModalTitle">
+  <div class="modal-box" style="max-width:620px;">
+    <div class="modal-header">
+      <h2 class="modal-title" id="receiptModalTitle">🧾 Booking Payment Receipt</h2>
+      <button class="modal-close" onclick="closeModal('receiptModal')" aria-label="Close">✕</button>
+    </div>
+    <div id="receiptModalBody" style="padding:4px 0 16px;">
+      <!-- Populated dynamically by viewReceipt() -->
+    </div>
+    <div class="modal-footer" style="display:flex;gap:12px;justify-content:flex-end;border-top:1px solid rgba(255,255,255,0.08);padding-top:14px;">
+      <button type="button" class="btn-hero-secondary" onclick="window.print()" style="font-size:0.85rem;padding:8px 16px;">🖨️ Print / Save PDF</button>
+      <button type="button" class="btn-submit" onclick="closeModal('receiptModal')" style="font-size:0.85rem;padding:8px 18px;">Done</button>
+    </div>
+  </div>
+</div>
+
+<!-- ASK QUESTION QUICK MODAL -->
+<div class="modal-overlay" id="askModal" role="dialog" aria-modal="true" aria-labelledby="askModalTitle">
+  <div class="modal-box" style="max-width:520px;">
+    <div class="modal-header">
+      <h2 class="modal-title" id="askModalTitle">💬 Ask a Question</h2>
+      <button class="modal-close" onclick="closeModal('askModal')" aria-label="Close">✕</button>
+    </div>
+    <div id="askModalPanditStrip" style="display:flex;gap:12px;align-items:center;background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.2);border-radius:var(--radius-md);padding:12px;margin-bottom:20px;"></div>
+    <form onsubmit="submitAskQuestion(event)">
+      <div class="form-group mb-16">
+        <label class="form-label" for="askModalName">Your Name <span class="required">*</span></label>
+        <input type="text" class="form-input" id="askModalName" required placeholder="Your name" />
+      </div>
+      <div class="form-group mb-16">
+        <label class="form-label" for="askModalQ">Your Question <span class="required">*</span></label>
+        <textarea class="form-textarea" id="askModalQ" rows="4" required placeholder="Ask your question about the puja, muhurta, or ceremony..." style="min-height:100px;"></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" onclick="closeModal('askModal')">Cancel</button>
+        <button type="submit" class="btn-submit">🙏 Send Question</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- REVIEW MODAL -->
+<div class="modal-overlay" id="reviewModal" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle">
+  <div class="modal-box" style="max-width:480px;">
+    <div class="modal-header">
+      <h2 class="modal-title" id="reviewModalTitle">⭐ Submit Review</h2>
+      <button class="modal-close" onclick="closeModal('reviewModal')" aria-label="Close">✕</button>
+    </div>
+    <div style="margin-bottom:20px;">
+      <p class="form-label mb-8">Your Rating <span class="required">*</span></p>
+      <div style="display:flex;gap:8px;" id="ratingStars">
+        <span class="star-btn" data-val="1" onclick="setReviewRating(1)" style="font-size:2rem;cursor:pointer;opacity:0.4;">⭐</span>
+        <span class="star-btn" data-val="2" onclick="setReviewRating(2)" style="font-size:2rem;cursor:pointer;opacity:0.4;">⭐</span>
+        <span class="star-btn" data-val="3" onclick="setReviewRating(3)" style="font-size:2rem;cursor:pointer;opacity:0.4;">⭐</span>
+        <span class="star-btn" data-val="4" onclick="setReviewRating(4)" style="font-size:2rem;cursor:pointer;opacity:0.4;">⭐</span>
+        <span class="star-btn" data-val="5" onclick="setReviewRating(5)" style="font-size:2rem;cursor:pointer;opacity:0.4;">⭐</span>
+      </div>
+      <input type="hidden" id="reviewRatingVal" value="0" />
+    </div>
+    <div class="form-group mb-20">
+      <label class="form-label" for="reviewText">Written Feedback</label>
+      <textarea class="form-textarea" id="reviewText" rows="4" placeholder="Share your experience with this Pandit..." style="min-height:100px;"></textarea>
+    </div>
+    <input type="hidden" id="reviewBookingId" />
+    <input type="hidden" id="reviewPanditId" />
+    <div class="form-actions">
+      <button class="btn-cancel" onclick="closeModal('reviewModal')">Cancel</button>
+      <button class="btn-submit" onclick="submitReview()">⭐ Submit Review</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="loginModalTitle">
+  <div class="modal-box" style="max-width:440px;">
+    <div class="modal-header">
+      <h2 class="modal-title" id="loginModalTitle">🙏 Login</h2>
+      <button class="modal-close" onclick="closeModal('loginModal')" aria-label="Close">✕</button>
+    </div>
+    <div class="tabs-bar" style="margin-bottom:20px;">
+      <button class="tab-btn active" onclick="setLoginTab('user', this)" id="loginTabUser">User Login</button>
+      <button class="tab-btn" onclick="setLoginTab('pandit', this)" id="loginTabPandit">Pandit Login</button>
+      <button class="tab-btn" onclick="setLoginTab('admin', this)" id="loginTabAdmin">Admin</button>
+    </div>
+    <form onsubmit="performLogin(event)">
+      <div class="form-group mb-16">
+        <label class="form-label" for="loginIdentifier">Phone / Email</label>
+        <input type="text" class="form-input" id="loginIdentifier" required placeholder="+91 98765 43210 or email@example.com" />
+      </div>
+      <div class="form-group mb-20">
+        <label class="form-label" for="loginPassword">Password</label>
+        <input type="password" class="form-input" id="loginPassword" required placeholder="Enter password" />
+      </div>
+      <input type="hidden" id="loginRole" value="user" />
+      <div class="form-actions">
+        <button type="submit" class="btn-submit" style="width:100%;">Login</button>
+      </div>
+    </form>
+    <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);text-align:center;">
+      <a href="/auth.html" style="color:var(--gold-primary);font-size:0.84rem;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+        ✨ Open Full Authentication Portal →
+      </a>
+      <p style="margin-top:10px;font-size:0.82rem;color:var(--text-muted);">
+        Don't have an account? <button onclick="closeModal('loginModal');showSection('sectionRegisterPandit')" style="background:none;border:none;color:var(--saffron-light);cursor:pointer;font-size:0.82rem;text-decoration:underline;">Register as Pandit</button>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Razorpay Standard Checkout SDK -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="pandit.js"></script>
+</body>
+</html>

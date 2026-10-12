@@ -7,3 +7,5 @@ yarn-error.log*
 .env.local
 *.log
 .vercel
+auth_data.json
+payments_data.json

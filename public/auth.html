@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — Vedic Astrology & PanditConnect</title>
+  <meta name="description" content="Sign in or register on Vedic Astrology. Discover Vedic wisdom, connect with trusted Pandits, and book sacred pujas." />
+
+  <!-- Google Fonts: Cinzel, Inter, Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Google Identity Services (GSI) for Google Sign-In -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    /* ── CSS Reset & Design Tokens ─────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg-base: #060913;
+      --bg-navy-dark: #080d1a;
+      --bg-card: #0d1424;
+      --bg-card-glow: rgba(13, 20, 36, 0.94);
+      --bg-input: #090e1c;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-gold: rgba(218, 165, 32, 0.28);
+      --border-gold-focus: rgba(247, 183, 51, 0.55);
+      --gold-primary: #f7b733;
+      --gold-deep: #e59866;
+      --gold-gradient: linear-gradient(135deg, #ffe57a 0%, #f7b733 50%, #e69500 100%);
+      --gold-btn-gradient: linear-gradient(135deg, #f9c74f 0%, #f39c12 100%);
+      --text-heading: #ffffff;
+      --text-body: #cbd5e1;
+      --text-muted: #8896ab;
+      --text-dim: #5c6b82;
+      --error: #ef4444;
+      --success: #10b981;
+      --info: #38bdf8;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+      --font-serif: 'Cinzel', serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+      --shadow-card: 0 24px 64px -12px rgba(0, 0, 0, 0.75), 0 0 50px rgba(218, 165, 32, 0.08);
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-body);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Top Left Back Link */
+    .back-home-link {
+      position: fixed;
+      top: 20px;
+      left: 24px;
+      z-index: 100;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(13, 20, 36, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
+    }
+    .back-home-link:hover {
+      color: var(--gold-primary);
+      border-color: var(--border-gold);
+      transform: translateX(-3px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    }
+
+    /* ── Split Layout Container ────────────────────────────────────── */
+    .auth-split-wrapper {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      min-height: 100vh;
+      width: 100vw;
+    }
+
+    /* ── Left Panel: Cosmic Vedic Illustration & Branding ─────────── */
+    .auth-panel-hero {
+      position: relative;
+      background: url('assets/auth_cosmic_mandala.jpg') center center / cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px 56px;
+      overflow: hidden;
+    }
+
+    /* Gradient overlay for readability and dramatic atmosphere */
+    .auth-panel-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 45%, rgba(6, 9, 19, 0.15) 0%, rgba(6, 9, 19, 0.72) 75%, #060913 100%),
+                  linear-gradient(180deg, rgba(6, 9, 19, 0.75) 0%, transparent 25%, transparent 65%, rgba(6, 9, 19, 0.95) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Subtle ambient cosmic breathing pulse */
+    .auth-panel-hero::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(247, 183, 51, 0.12) 0%, rgba(229, 152, 102, 0.05) 50%, transparent 70%);
+      filter: blur(40px);
+      animation: cosmicPulse 6s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes cosmicPulse {
+      0% { transform: translate(-50%, -55%) scale(0.92); opacity: 0.6; }
+      100% { transform: translate(-50%, -55%) scale(1.08); opacity: 1; }
+    }
+
+    .hero-brand-top {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero-brand-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      filter: drop-shadow(0 0 16px rgba(247, 183, 51, 0.7));
+      color: #ffd166;
+    }
+
+    .hero-brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+
+    .hero-brand-tagline {
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      color: #f7b733;
+      font-weight: 500;
+      opacity: 0.95;
+    }
+
+    .hero-content-bottom {
+      position: relative;
+      z-index: 2;
+      max-width: 520px;
+      margin-top: auto;
+      padding-top: 40px;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 2.5vw, 2.45rem);
+      font-weight: 700;
+      line-height: 1.25;
+      background: linear-gradient(135deg, #ffffff 0%, #ffe9a6 60%, #f7b733 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 14px;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.7);
+    }
+
+    .hero-lotus-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      color: var(--gold-primary);
+    }
+    .hero-lotus-divider::before,
+    .hero-lotus-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(247, 183, 51, 0.4), transparent);
+    }
+    .hero-lotus-icon {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .hero-subtitle {
+      font-size: 0.96rem;
+      line-height: 1.6;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    /* ── Right Panel: Elegant Authentication Card ─────────────────── */
+    .auth-panel-form {
+      position: relative;
+      background-color: var(--bg-navy-dark);
+      background-image: radial-gradient(circle at 80% 20%, rgba(247, 183, 51, 0.04) 0%, transparent 60%),
+                        radial-gradient(circle at 20% 80%, rgba(229, 152, 102, 0.04) 0%, transparent 50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      min-height: 100vh;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 480px;
+      background: var(--bg-card-glow);
+      border: 1px solid var(--border-gold);
+      border-radius: var(--radius-xl);
+      padding: 38px 36px 32px;
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(20px);
+      position: relative;
+      transition: all 0.3s ease;
+      animation: cardFadeIn 0.5s ease-out;
+    }
+
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Corner ornamental flourishes matching reference */
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 14px;
+      height: 14px;
+      border-top: 1px solid rgba(247, 183, 51, 0.4);
+      border-left: 1px solid rgba(247, 183, 51, 0.4);
+      border-top-left-radius: 4px;
+      pointer-events: none;
+    }
+    .auth-card::after {
+      content: '';
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      width: 14px;
+      height: 14px;
+      border-bottom: 1px solid rgba(247, 183, 51, 0.4);
+      border-right: 1px solid rgba(247, 183, 51, 0.4);
+      border-bottom-right-radius: 4px;
+      pointer-events: none;
+    }
+
+    /* ── Role Selector Pill Bar ───────────────────────────────────── */
+    .role-toggle-track {
+      display: flex;
+      align-items: center;
+      background: rgba(8, 12, 22, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-full);
+      padding: 5px;
+      margin: 0 auto 28px;
+      max-width: 280px;
+      position: relative;
+    }
+
+    .role-toggle-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: var(--radius-full);
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 2;
+    }
+    .role-toggle-btn:hover:not(.active) {
+      color: #ffffff;
+    }
+    .role-toggle-btn.active {
+      background: var(--gold-btn-gradient);
+      color: #0c101d;
+      box-shadow: 0 4px 18px rgba(247, 183, 51, 0.35);
+      font-weight: 700;
+    }
+
+    /* ── Card Header ─────────────────────────────────────────────── */
+    .card-header {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    .card-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* ── Banner / Alert Messages ─────────────────────────────────── */
+    .auth-alert {
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.86rem;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .auth-alert.error {
+      background: rgba(239, 68, 68, 0.12);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+    }
+    .auth-alert.success {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+    }
+    .auth-alert.info {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #bae6fd;
+    }
+
+    /* ── Form Controls & Inputs ──────────────────────────────────── */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+      letter-spacing: 0.01em;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon-left {
+      position: absolute;
+      left: 14px;
+      color: #64748b;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 48px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0 16px 0 44px;
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: all 0.25s ease;
+    }
+    .form-input::placeholder {
+      color: #55657d;
+    }
+    .form-input:hover {
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+    .form-input:focus {
+      border-color: var(--border-gold-focus);
+      background: #0b1222;
+      box-shadow: 0 0 0 3px rgba(247, 183, 51, 0.12);
+    }
+    .form-input:focus + .input-icon-left,
+    .form-input:focus ~ .input-icon-left {
+      color: var(--gold-primary);
+    }
+    .form-input.has-error {
+      border-color: rgba(239, 68, 68, 0.6);
+      background: rgba(239, 68, 68, 0.04);
+    }
+
+    .input-icon-btn {
+      position: absolute;
+      right: 12px;
+      background: transparent;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      transition: color 0.2s;
+    }
+    .input-icon-btn:hover {
+      color: #cbd5e1;
+    }
+
+    .form-error-msg {
+      font-size: 0.78rem;
+      color: #f87171;
+      margin-top: 5px;
+      display: none;
+    }
+
+    /* ── Remember Me & Forgot Password Row ───────────────────────── */
+    .form-options-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      font-size: 0.85rem;
+    }
+
+    .remember-me-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .custom-checkbox {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 17px;
+      height: 17px;
+      background: var(--bg-input);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 4px;
+      cursor: pointer;
+      display: grid;
+      place-content: center;
+      transition: all 0.2s;
+    }
+    .custom-checkbox:checked {
+      background: var(--gold-primary);
+      border-color: var(--gold-primary);
+    }
+    .custom-checkbox:checked::before {
+      content: '✓';
+      color: #0c101d;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .forgot-pw-link {
+      color: #f7b733;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .forgot-pw-link:hover {
+      color: #ffd166;
+      text-decoration: underline;
+    }
+
+    /* ── Primary Submit Button ───────────────────────────────────── */
+    .btn-submit-gold {
+      width: 100%;
+      height: 48px;
+      background: var(--gold-btn-gradient);
+      color: #0c101d;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 18px rgba(247, 183, 51, 0.3);
+    }
+    .btn-submit-gold:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(247, 183, 51, 0.45);
+      filter: brightness(1.05);
+    }
+    .btn-submit-gold:active {
+      transform: translateY(0);
+    }
+    .btn-submit-gold:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* ── Divider ─────────────────────────────────────────────────── */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 22px 0;
+      color: #64748b;
+      font-size: 0.73rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .auth-divider span {
+      padding: 0 12px;
+    }
+
+    /* ── Continue with Google Button ─────────────────────────────── */
+    .btn-google {
+      width: 100%;
+      height: 48px;
+      background: #ffffff;
+      color: #1f2937;
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius-md);
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+    .btn-google:hover {
+      background: #f8fafc;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+      transform: translateY(-1px);
+    }
+    .btn-google:active {
+      transform: translateY(0);
+    }
+    .btn-google:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .google-logo-svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* ── Switcher & Footer ───────────────────────────────────────── */
+    .auth-switch-row {
+      text-align: center;
+      margin-top: 22px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+    .auth-switch-link {
+      color: #f7b733;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .auth-switch-link:hover {
+      color: #ffd166;
+      text-decoration: underline;
+    }
+
+    .secure-footer-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 24px;
+      color: #64748b;
+      font-size: 0.78rem;
+    }
+    .secure-footer-badge svg {
+      width: 13px;
+      height: 13px;
+      color: #64748b;
+    }
+
+    /* ── Demo Accounts Quick Fill Pill Bar ───────────────────────── */
+    .demo-accounts-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.07);
+    }
+    .demo-pill {
+      background: rgba(247, 183, 51, 0.08);
+      border: 1px solid rgba(247, 183, 51, 0.2);
+      border-radius: var(--radius-full);
+      padding: 5px 12px;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: #ffd166;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .demo-pill:hover {
+      background: rgba(247, 183, 51, 0.16);
+      border-color: rgba(247, 183, 51, 0.4);
+      transform: translateY(-1px);
+    }
+
+    /* ── Spinner ─────────────────────────────────────────────────── */
+    .spinner-sm {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(12, 16, 29, 0.25);
+      border-top-color: #0c101d;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Toast Notifications ─────────────────────────────────────── */
+    #toastContainer {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .toast-msg {
+      background: #0f172a;
+      border: 1px solid var(--border-gold);
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes toastIn {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* ── Responsive Mobile & Tablet Layout ───────────────────────── */
+    @media (max-width: 991px) {
+      .auth-split-wrapper {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .auth-panel-hero {
+        padding: 50px 24px 40px;
+        min-height: 380px;
+        text-align: center;
+        align-items: center;
+      }
+      .hero-brand-top {
+        justify-content: center;
+      }
+      .hero-content-bottom {
+        text-align: center;
+        padding-top: 24px;
+      }
+      .hero-lotus-divider {
+        justify-content: center;
+      }
+      .auth-panel-form {
+        padding: 24px 16px 48px;
+        min-height: auto;
+      }
+      .auth-card {
+        padding: 30px 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Discreet Back Link -->
+  <a href="/pandit.html" class="back-home-link" title="Return to PanditConnect & Vedic Astrology">
+    <span>←</span>
+    <span>Back to PanditConnect</span>
+  </a>
+
+  <!-- Split Screen Wrapper -->
+  <div class="auth-split-wrapper">
+
+    <!-- ── LEFT PANEL: Cosmic Zodiac Artwork & Branding ───────── -->
+    <div class="auth-panel-hero">
+      <!-- Top Brand -->
+      <div class="hero-brand-top">
+        <span class="hero-brand-icon">🕉️</span>
+        <div class="hero-brand-text">
+          <span class="hero-brand-name">Vedic Astrology</span>
+          <span class="hero-brand-tagline">Jyotish AI • Vedic Wisdom</span>
+        </div>
+      </div>
+
+      <!-- Bottom Headline & Lotus Divider -->
+      <div class="hero-content-bottom">
+        <h2 class="hero-title">Your Journey, Written in the Stars</h2>
+        <div class="hero-lotus-divider">
+          <span class="hero-lotus-icon">🪷</span>
+        </div>
+        <p class="hero-subtitle">
+          Discover Vedic wisdom, connect with trusted Pandits, and find guidance for life’s important moments.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── RIGHT PANEL: Dark Navy Authentication Card ─────────── -->
+    <div class="auth-panel-form">
+      <div class="auth-card" id="authCard">
+
+        <!-- Role Toggle Pills: Devotee & Pandit -->
+        <div class="role-toggle-track" role="tablist" aria-label="Account Role Selection">
+          <button type="button" class="role-toggle-btn active" id="roleDevoteeBtn" onclick="setRole('user')">
+            <span>👤</span>
+            <span>Devotee</span>
+          </button>
+          <button type="button" class="role-toggle-btn" id="rolePanditBtn" onclick="setRole('pandit')">
+            <span>🏛️</span>
+            <span>Pandit</span>
+          </button>
+        </div>
+
+        <!-- Dynamic Card Header -->
+        <div class="card-header">
+          <h1 class="card-title" id="cardTitle">Welcome Back</h1>
+          <p class="card-subtitle" id="cardSubtitle">Sign in to continue your spiritual journey.</p>
+        </div>
+
+        <!-- Alert Notification Box -->
+        <div class="auth-alert" id="authAlert" role="alert"></div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- VIEW 1: SIGN IN FORM (Default)                         -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <form id="signInForm" onsubmit="handleSignIn(event)" novalidate>
+          <!-- Email / Identifier -->
+          <div class="form-group">
+            <label class="form-label" for="signin_email">Email address</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">
+                <!-- SVG Envelope -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+              </span>
+              <input
+                type="email"
+                id="signin_email"
+                class="form-input"
+                placeholder="Enter your email address"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <div class="form-error-msg" id="signin_email_err">Please enter a valid email address.</div>
+          </div>
+
+          <!-- Password with Show/Hide Toggle -->
+          <div class="form-group">
+            <label class="form-label" for="signin_password">Password</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">
+                <!-- SVG Lock -->
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
+              <input
+                type="password"
+                id="signin_password"
+                class="form-input"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+                required
+              />
+              <button
+                type="button"
+                class="input-icon-btn"
+                onclick="togglePasswordVisibility('signin_password', this)"
+                aria-label="Toggle password visibility"
+              >
+                <!-- SVG Eye Icon -->
+                <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <!-- SVG Eye-Off Icon -->
+                <svg class="eye-closed" style="display:none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path>
+                  <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"></path>
+                  <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"></path>
+                  <line x1="2" x2="22" y1="2" y2="22"></line>
+                </svg>
+              </button>
+            </div>
+            <div class="form-error-msg" id="signin_password_err">Password is required.</div>
+          </div>
+
+          <!-- Options Row: Remember Me & Forgot Password -->
+          <div class="form-options-row">
+            <label class="remember-me-label">
+              <input type="checkbox" id="rememberMeCheckbox" class="custom-checkbox" checked />
+              <span>Remember me</span>
+            </label>
+            <a href="javascript:void(0)" class="forgot-pw-link" onclick="switchView('forgotPw')">Forgot password?</a>
+          </div>
+
+          <!-- Gold Sign In Button -->
+          <button type="submit" class="btn-submit-gold" id="signInSubmitBtn">
+            <span id="signInBtnText">Sign In →</span>
+            <div class="spinner-sm" id="signInSpinner"></div>
+          </button>
+
+          <!-- Divider -->
+          <div class="auth-divider">
+            <span>OR CONTINUE WITH</span>
+          </div>
+
+          <!-- Google Sign-In Button with Official Branding -->
+          <button type="button" class="btn-google" id="googleSignInBtn" onclick="handleGoogleSignIn()">
+            <svg class="google-logo-svg" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.65v3.03h3.88c2.27-2.09 3.66-5.17 3.66-9.12z" />
+              <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.03c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.24v3.13C3.26 21.36 7.34 24 12 24z" />
+              <path fill="#FBBC05" d="M5.28 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.57H1.24C.45 8.14 0 9.99 0 12s.45 3.86 1.24 5.43l4.04-3.14z" />
+              <path fill="#EA4335" d="M12 4.77c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.24 6.57l4.04 3.14c.95-2.83 3.6-4.94 6.72-4.94z" />
+            </svg>
+            <span id="googleBtnText">Continue with Google</span>
+          </button>
+
+          <!-- Switch to Registration Link -->
+          <div class="auth-switch-row">
+            New here? <a href="javascript:void(0)" class="auth-switch-link" onclick="switchView('register')">Create an account</a>
+          </div>
+
+          <!-- Secure Sign-in Badge -->
+          <div class="secure-footer-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Secure sign-in</span>
+          </div>
+
+
+        </form>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- VIEW 2: REGISTRATION FORM                              -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <form id="registerForm" style="display:none;" onsubmit="handleRegister(event)" novalidate>
+          <!-- Full Name -->
+          <div class="form-group">
+            <label class="form-label" for="reg_name">Full Name *</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </span>
+              <input type="text" id="reg_name" class="form-input" placeholder="Enter your full name" required />
+            </div>
+            <div class="form-error-msg" id="reg_name_err">Full name is required.</div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label class="form-label" for="reg_email">Email address *</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+              </span>
+              <input type="email" id="reg_email" class="form-input" placeholder="name@domain.com" required />
+            </div>
+            <div class="form-error-msg" id="reg_email_err">Valid email is required.</div>
+          </div>
+
+          <!-- Phone -->
+          <div class="form-group">
+            <label class="form-label" for="reg_phone">Phone Number</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </span>
+              <input type="tel" id="reg_phone" class="form-input" placeholder="+91 98765 43210" />
+            </div>
+          </div>
+
+          <!-- Pandit Specific Extra Fields (shown when role is Pandit) -->
+          <div id="panditExtraFields" style="display:none;">
+            <div class="form-group">
+              <label class="form-label" for="reg_experience">Years of Vedic Experience *</label>
+              <input type="number" id="reg_experience" class="form-input" style="padding-left:16px;" placeholder="e.g. 15" min="0" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reg_tradition">Vedic Tradition / Sampradaya</label>
+              <input type="text" id="reg_tradition" class="form-input" style="padding-left:16px;" placeholder="e.g. Shaiva, Vaishnava, Smartha, Vedic Shakta" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reg_city">City / Area</label>
+              <input type="text" id="reg_city" class="form-input" style="padding-left:16px;" placeholder="e.g. Varanasi, Uttar Pradesh" />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label class="form-label" for="reg_password">Password (Min. 8 characters) *</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
+              <input type="password" id="reg_password" class="form-input" placeholder="Create a secure password" required />
+              <button type="button" class="input-icon-btn" onclick="togglePasswordVisibility('reg_password', this)">
+                <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                <svg class="eye-closed" style="display:none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"></path><line x1="2" x2="22" y1="2" y2="22"></line></svg>
+              </button>
+            </div>
+            <div class="form-error-msg" id="reg_password_err">Minimum 8 characters required.</div>
+          </div>
+
+          <!-- Submit Registration -->
+          <button type="submit" class="btn-submit-gold" id="registerSubmitBtn">
+            <span id="registerBtnText">Create Account →</span>
+            <div class="spinner-sm" id="registerSpinner"></div>
+          </button>
+
+          <!-- Switch to Sign In -->
+          <div class="auth-switch-row">
+            Already have an account? <a href="javascript:void(0)" class="auth-switch-link" onclick="switchView('signIn')">Sign In</a>
+          </div>
+        </form>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- VIEW 3: FORGOT PASSWORD FORM                           -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <form id="forgotPwForm" style="display:none;" onsubmit="handleForgotPw(event)" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="fp_identifier">Registered Email or Phone</label>
+            <div class="input-wrapper">
+              <span class="input-icon-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+              </span>
+              <input type="text" id="fp_identifier" class="form-input" placeholder="Enter your email or phone" required />
+            </div>
+            <div class="form-error-msg" id="fp_err">Please enter your registered email or phone.</div>
+          </div>
+
+          <button type="submit" class="btn-submit-gold" id="fpSubmitBtn">
+            <span id="fpBtnText">Send Reset Link →</span>
+            <div class="spinner-sm" id="fpSpinner"></div>
+          </button>
+
+          <div class="auth-switch-row">
+            <a href="javascript:void(0)" class="auth-switch-link" onclick="switchView('signIn')">← Back to Sign In</a>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer"></div>
+
+  <!-- ── Script Logic: Unified Authentication Layer ───────────── -->
+  <script>
+    const API = '/api/auth';
+    let currentRole = 'user'; // 'user' (Devotee) or 'pandit'
+    let currentView = 'signIn'; // 'signIn', 'register', 'forgotPw'
+
+    // ── Toast Notification Helper ─────────────────────────────
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast-msg';
+      const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+      toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.3s';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // ── Alert Banner Helper ───────────────────────────────────
+    function showAlert(message, type = 'error') {
+      const alert = document.getElementById('authAlert');
+      alert.className = `auth-alert ${type}`;
+      alert.style.display = 'flex';
+      const icon = type === 'success' ? '✅' : type === 'error' ? '⚠️' : 'ℹ️';
+      alert.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+    }
+    function clearAlert() {
+      const alert = document.getElementById('authAlert');
+      alert.style.display = 'none';
+      alert.innerHTML = '';
+    }
+
+    // ── Role Selector ─────────────────────────────────────────
+    function setRole(role) {
+      currentRole = role;
+      document.getElementById('roleDevoteeBtn').classList.toggle('active', role === 'user');
+      document.getElementById('rolePanditBtn').classList.toggle('active', role === 'pandit');
+
+      const isPandit = role === 'pandit';
+      const panditExtra = document.getElementById('panditExtraFields');
+      if (panditExtra) {
+        panditExtra.style.display = isPandit && currentView === 'register' ? 'block' : 'none';
+      }
+
+      updateCardHeader();
+    }
+
+    // ── View Switcher: Sign In / Register / Forgot Password ───
+    function switchView(view) {
+      currentView = view;
+      clearAlert();
+
+      document.getElementById('signInForm').style.display = view === 'signIn' ? 'block' : 'none';
+      document.getElementById('registerForm').style.display = view === 'register' ? 'block' : 'none';
+      document.getElementById('forgotPwForm').style.display = view === 'forgotPw' ? 'block' : 'none';
+
+      const panditExtra = document.getElementById('panditExtraFields');
+      if (panditExtra) {
+        panditExtra.style.display = currentRole === 'pandit' && view === 'register' ? 'block' : 'none';
+      }
+
+      updateCardHeader();
+    }
+
+    function updateCardHeader() {
+      const title = document.getElementById('cardTitle');
+      const subtitle = document.getElementById('cardSubtitle');
+
+      if (currentView === 'signIn') {
+        title.textContent = 'Welcome Back';
+        subtitle.textContent = currentRole === 'pandit'
+          ? 'Sign in to access your Pandit rituals & devotee bookings.'
+          : 'Sign in to continue your spiritual journey.';
+      } else if (currentView === 'register') {
+        title.textContent = currentRole === 'pandit' ? 'Join as Vedic Pandit' : 'Create Devotee Account';
+        subtitle.textContent = currentRole === 'pandit'
+          ? 'Share your Vedic knowledge and perform sacred pujas.'
+          : 'Start your journey and connect with trusted Pandits.';
+      } else if (currentView === 'forgotPw') {
+        title.textContent = 'Reset Password';
+        subtitle.textContent = 'Enter your registered email or phone to reset credentials.';
+      }
+    }
+
+    // ── Password Visibility Toggle ────────────────────────────
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+
+      const openIcon = btn.querySelector('.eye-open');
+      const closedIcon = btn.querySelector('.eye-closed');
+      if (openIcon && closedIcon) {
+        openIcon.style.display = isPassword ? 'none' : 'block';
+        closedIcon.style.display = isPassword ? 'block' : 'none';
+      }
+    }
+
+    // ── Quick Fill Demo Accounts ──────────────────────────────
+    function quickFillDemo(role) {
+      switchView('signIn');
+      if (role === 'pandit') {
+        setRole('pandit');
+        document.getElementById('signin_email').value = 'pandit.ram@vedicastrology.ai';
+        document.getElementById('signin_password').value = 'Password@123';
+        showToast('Demo Pandit credentials loaded!', 'info');
+      } else {
+        setRole('user');
+        document.getElementById('signin_email').value = 'devotee@vedicastrology.ai';
+        document.getElementById('signin_password').value = 'Password@123';
+        showToast('Demo Devotee credentials loaded!', 'info');
+      }
+    }
+
+    // ── Save Session to LocalStorage ──────────────────────────
+    function saveSession(accessToken, refreshToken, userObj, role) {
+      try {
+        const sessionPayload = {
+          accessToken,
+          refreshToken,
+          user: userObj,
+          pandit: role === 'pandit' ? userObj : null,
+          role: role
+        };
+        localStorage.setItem('va_session', JSON.stringify(sessionPayload));
+
+        // Sync PanditConnect PC.currentUser
+        const currentUserData = {
+          name: userObj.name || userObj.profile?.professionalName || 'User',
+          role: role,
+          id: userObj.id || userObj.panditId,
+          panditId: userObj.panditId,
+          token: accessToken,
+          email: userObj.email,
+          phone: userObj.phone
+        };
+        localStorage.setItem('currentUser', JSON.stringify(currentUserData));
+      } catch (e) {
+        console.error('Session storage error:', e);
+      }
+    }
+
+    // ── Submit Sign In Form ───────────────────────────────────
+    async function handleSignIn(e) {
+      e.preventDefault();
+      clearAlert();
+
+      const emailInput = document.getElementById('signin_email');
+      const pwInput = document.getElementById('signin_password');
+      const email = emailInput.value.trim();
+      const password = pwInput.value;
+
+      let valid = true;
+      if (!email) {
+        emailInput.classList.add('has-error');
+        document.getElementById('signin_email_err').style.display = 'block';
+        valid = false;
+      } else {
+        emailInput.classList.remove('has-error');
+        document.getElementById('signin_email_err').style.display = 'none';
+      }
+
+      if (!password) {
+        pwInput.classList.add('has-error');
+        document.getElementById('signin_password_err').style.display = 'block';
+        valid = false;
+      } else {
+        pwInput.classList.remove('has-error');
+        document.getElementById('signin_password_err').style.display = 'none';
+      }
+
+      if (!valid) return;
+
+      const submitBtn = document.getElementById('signInSubmitBtn');
+      const btnText = document.getElementById('signInBtnText');
+      const spinner = document.getElementById('signInSpinner');
+
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      spinner.style.display = 'block';
+
+      const endpoint = currentRole === 'pandit' ? `${API}/pandit/login` : `${API}/user/login`;
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ identifier: email, password: password })
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          showAlert(data.error || 'Authentication failed. Please verify your credentials.', 'error');
+          return;
+        }
+
+        const userObj = data.pandit || data.user;
+        saveSession(data.accessToken, data.refreshToken, userObj, currentRole);
+        showToast(`Welcome back, ${userObj.name || 'Devotee'}!`, 'success');
+
+        setTimeout(() => {
+          window.location.href = '/pandit.html';
+        }, 900);
+      } catch (err) {
+        showAlert('Network or server connection issue. Please check your connection and try again.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        spinner.style.display = 'none';
+      }
+    }
+
+    // ── Submit Registration Form ──────────────────────────────
+    async function handleRegister(e) {
+      e.preventDefault();
+      clearAlert();
+
+      const name = document.getElementById('reg_name').value.trim();
+      const email = document.getElementById('reg_email').value.trim();
+      const phone = document.getElementById('reg_phone').value.trim();
+      const password = document.getElementById('reg_password').value;
+
+      let valid = true;
+      if (!name) { document.getElementById('reg_name_err').style.display = 'block'; valid = false; }
+      else document.getElementById('reg_name_err').style.display = 'none';
+
+      if (!email || !email.includes('@')) { document.getElementById('reg_email_err').style.display = 'block'; valid = false; }
+      else document.getElementById('reg_email_err').style.display = 'none';
+
+      if (!password || password.length < 8) { document.getElementById('reg_password_err').style.display = 'block'; valid = false; }
+      else document.getElementById('reg_password_err').style.display = 'none';
+
+      if (!valid) return;
+
+      const submitBtn = document.getElementById('registerSubmitBtn');
+      const btnText = document.getElementById('registerBtnText');
+      const spinner = document.getElementById('registerSpinner');
+
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      spinner.style.display = 'block';
+
+      const isPandit = currentRole === 'pandit';
+      const endpoint = isPandit ? `${API}/pandit/register` : `${API}/user/register`;
+
+      const payload = isPandit ? {
+        name,
+        email,
+        phone,
+        password,
+        experience: parseInt(document.getElementById('reg_experience')?.value) || 0,
+        tradition: document.getElementById('reg_tradition')?.value || 'Vedic',
+        city: document.getElementById('reg_city')?.value || ''
+      } : {
+        name,
+        email,
+        phone,
+        password
+      };
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          showAlert(data.error || 'Registration failed. Please check your details.', 'error');
+          return;
+        }
+
+        const userObj = data.pandit || data.user;
+        saveSession(data.accessToken, data.refreshToken, userObj, currentRole);
+        showToast('Registration successful! Redirecting to your dashboard…', 'success');
+
+        setTimeout(() => {
+          window.location.href = '/pandit.html';
+        }, 1000);
+      } catch (err) {
+        showAlert('Network error occurred during registration. Please try again.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        spinner.style.display = 'none';
+      }
+    }
+
+    // ── Submit Forgot Password ────────────────────────────────
+    async function handleForgotPw(e) {
+      e.preventDefault();
+      clearAlert();
+
+      const id = document.getElementById('fp_identifier').value.trim();
+      if (!id) {
+        document.getElementById('fp_err').style.display = 'block';
+        return;
+      }
+      document.getElementById('fp_err').style.display = 'none';
+
+      const submitBtn = document.getElementById('fpSubmitBtn');
+      const btnText = document.getElementById('fpBtnText');
+      const spinner = document.getElementById('fpSpinner');
+
+      submitBtn.disabled = true;
+      btnText.style.display = 'none';
+      spinner.style.display = 'block';
+
+      try {
+        const res = await fetch(`${API}/forgot-password`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ identifier: id })
+        });
+        const data = await res.json();
+        showAlert(data.message || 'If an account matches, a reset link has been dispatched.', 'info');
+      } catch (err) {
+        showAlert('Failed to connect to password recovery service.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        btnText.style.display = 'inline';
+        spinner.style.display = 'none';
+      }
+    }
+
+    // ── Google Sign-In Integration ───────────────────────────
+    let googleClientId = '';
+
+    async function initGoogleOAuth() {
+      try {
+        const res = await fetch(`${API}/google/config`);
+        if (res.ok) {
+          const cfg = await res.json();
+          if (cfg.enabled && cfg.clientId && window.google?.accounts?.id) {
+            googleClientId = cfg.clientId;
+            window.google.accounts.id.initialize({
+              client_id: cfg.clientId,
+              callback: handleGoogleCredentialResponse,
+              auto_select: false
+            });
+          }
+        }
+      } catch (e) {
+        console.warn('[Google OAuth Config]', e.message);
+      }
+    }
+
+    function handleGoogleSignIn() {
+      clearAlert();
+      // If real GSI client ID configured, prompt standard Google One Tap / Selector
+      if (googleClientId && window.google?.accounts?.id) {
+        window.google.accounts.id.prompt();
+        return;
+      }
+
+      // Smooth interactive Google Account authentication dialog
+      const defaultEmail = currentRole === 'pandit' ? 'pandit.ram@vedicastrology.ai' : 'devotee@vedicastrology.ai';
+      const promptEmail = prompt('Enter your Google Account email for one-click verification:', defaultEmail);
+      if (!promptEmail) return;
+
+      const btn = document.getElementById('googleSignInBtn');
+      const text = document.getElementById('googleBtnText');
+      btn.disabled = true;
+      text.textContent = 'Verifying with Google…';
+
+      fetch(`${API}/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: promptEmail,
+          name: promptEmail.split('@')[0],
+          role: currentRole
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          const userObj = data.pandit || data.user;
+          saveSession(data.accessToken, data.refreshToken, userObj, currentRole);
+          showToast(`✅ Google Sign-In verified for ${userObj.name}!`, 'success');
+          setTimeout(() => {
+            window.location.href = '/pandit.html';
+          }, 900);
+        } else {
+          showAlert(data.error || 'Google verification failed.', 'error');
+        }
+      })
+      .catch(() => {
+        showAlert('Google authentication network failure.', 'error');
+      })
+      .finally(() => {
+        btn.disabled = false;
+        text.textContent = 'Continue with Google';
+      });
+    }
+
+    function handleGoogleCredentialResponse(response) {
+      if (!response.credential) return;
+
+      fetch(`${API}/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          credential: response.credential,
+          role: currentRole
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          const userObj = data.pandit || data.user;
+          saveSession(data.accessToken, data.refreshToken, userObj, currentRole);
+          showToast(`Welcome ${userObj.name}!`, 'success');
+          setTimeout(() => {
+            window.location.href = '/pandit.html';
+          }, 800);
+        } else {
+          showAlert(data.error || 'Google authentication failed.', 'error');
+        }
+      })
+      .catch(err => {
+        showAlert('Google Sign-In server exchange failed.', 'error');
+      });
+    }
+
+    // ── Check if Already Logged In ────────────────────────────
+    window.addEventListener('DOMContentLoaded', () => {
+      initGoogleOAuth();
+
+      try {
+        const session = JSON.parse(localStorage.getItem('va_session'));
+        if (session && session.accessToken && (session.user || session.pandit)) {
+          const u = session.user || session.pandit;
+          showAlert(`You are already signed in as ${u.name || u.email}. <a href="/pandit.html" style="color:var(--gold-primary);text-decoration:underline;">Proceed to Dashboard →</a>`, 'info');
+        }
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>

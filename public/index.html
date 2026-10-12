@@ -23,46 +23,80 @@
     <div class="glow-orb orb-purple"></div>
   </div>
 
-  <!-- Main Application Wrapper -->
-  <div class="app-layout">
-    <!-- Header Section -->
-    <header class="app-header">
-      <div class="header-top-bar">
-        <div class="brand-badge">
-          <span class="om-symbol">ॐ</span>
-          <span data-i18n="brand_badge">Jyotish AI • Vedic Wisdom</span>
+  <!-- Sticky Navigation Header -->
+  <header class="site-nav-header" id="siteNavHeader" role="banner">
+    <div class="site-header-container">
+      <!-- Left: Logo / Brand -->
+      <a href="/" class="header-brand" aria-label="Vedic Astrology Rashi Fal Home">
+        <span class="header-om">🕉️</span>
+        <div class="header-brand-text">
+          <span class="header-brand-title">Vedic Astrology</span>
+          <span class="header-brand-sub">Rashi Fal • Jyotish AI</span>
         </div>
-        
-        <!-- Language Mode Selector -->
-        <div class="lang-selector-container">
-          <div class="lang-pill-group" id="langPillGroup" role="radiogroup" aria-label="Select Language">
-            <button type="button" class="lang-pill active" data-lang="en" title="English" role="radio" aria-checked="true">
-              <span class="lang-flag">🌐</span> English
-            </button>
-            <button type="button" class="lang-pill" data-lang="hi" title="हिन्दी (Hindi)" role="radio" aria-checked="false">
-              <span class="lang-flag">🇮🇳</span> हिन्दी
-            </button>
-            <button type="button" class="lang-pill" data-lang="ta" title="தமிழ் (Tamil)" role="radio" aria-checked="false">
-              <span class="lang-flag">🇮🇳</span> தமிழ்
-            </button>
-            <button type="button" class="lang-pill" data-lang="te" title="తెలుగు (Telugu)" role="radio" aria-checked="false">
-              <span class="lang-flag">🇮🇳</span> తెలుగు
-            </button>
-            <button type="button" class="lang-pill" data-lang="sa" title="संस्कृतम् (Sanskrit)" role="radio" aria-checked="false">
-              <span class="lang-flag">🕉️</span> संस्कृतम्
-            </button>
+      </a>
+
+      <!-- Right: Compact Actions & Controls -->
+      <div class="header-actions">
+        <!-- Quick Shortcut: Find a Pandit -->
+        <a href="/pandit.html" class="header-pill-btn header-pandit-pill" title="Find a Pandit for Puja">
+          <span>🪔</span> <span class="hide-mobile">Find a Pandit</span>
+        </a>
+
+        <!-- Compact Language Selector -->
+        <div class="compact-lang-selector" id="compactLangSelector">
+          <button type="button" class="compact-lang-btn" id="compactLangBtn" aria-label="Select Language" aria-expanded="false" aria-haspopup="true">
+            <span class="compact-lang-flag" id="compactLangFlag">🌐</span>
+            <span class="compact-lang-code" id="compactLangCode">EN</span>
+            <span class="compact-lang-arrow">▾</span>
+          </button>
+          <div class="compact-lang-menu" id="compactLangMenu" role="menu" aria-hidden="true">
+            <button type="button" class="lang-pill" data-lang="en" role="menuitem"><span class="lang-flag">🌐</span> English</button>
+            <button type="button" class="lang-pill" data-lang="hi" role="menuitem"><span class="lang-flag">🇮🇳</span> हिन्दी</button>
+            <button type="button" class="lang-pill" data-lang="ta" role="menuitem"><span class="lang-flag">🇮🇳</span> தமிழ்</button>
+            <button type="button" class="lang-pill" data-lang="te" role="menuitem"><span class="lang-flag">🇮🇳</span> తెలుగు</button>
+            <button type="button" class="lang-pill" data-lang="sa" role="menuitem"><span class="lang-flag">🕉️</span> संस्कृतम्</button>
           </div>
         </div>
-      </div>
 
+        <!-- User Account Link -->
+        <a href="/auth.html" id="headerAccountBtn" class="header-account-btn" aria-label="User Account" title="Login or View Account">
+          <span class="header-account-icon" id="headerAccountIcon">👤</span>
+          <span class="header-account-name hide-mobile" id="headerAccountName">Login</span>
+        </a>
+
+        <!-- Responsive Hamburger Toggle -->
+        <button type="button" class="hamburger-btn" id="hamburgerBtn" onclick="toggleDrawer()" aria-label="Open Navigation Menu" aria-expanded="false" aria-controls="navDrawer">
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-layout">
+    <!-- Hero Section -->
+    <header class="app-header">
       <h1 class="app-title" data-i18n="app_title">Vedic Astrology Rashi Fal</h1>
       <p class="app-subtitle" data-i18n="app_subtitle">
         Grounded, realistic, and uplifting planetary insights curated according to ancient Moon Sign (Chandra Rashi) traditions.
       </p>
     </header>
 
-    <!-- Navigation Tabs -->
-    <nav class="mode-tabs" role="tablist" aria-label="Astrology Tools">
+    <!-- Active Feature Indicator Bar -->
+    <div class="active-tool-banner" id="activeToolBanner" role="region" aria-label="Current Tool">
+      <div class="active-tool-info">
+        <span id="activeToolIcon">✨</span>
+        <span>Viewing: <strong id="activeToolName" class="active-tool-title">Rashi Fal (Daily Horoscope)</strong></span>
+      </div>
+      <button type="button" class="btn-open-menu-shortcut" id="btnChangeTool" onclick="toggleDrawer(true)" aria-label="Open menu to change tool">
+        <span>Change Feature</span> <span>☰</span>
+      </button>
+    </div>
+
+    <!-- Hidden Backwards-Compatible Navigation Tabs for Engine & Scripts -->
+    <nav class="mode-tabs" role="tablist" aria-label="Astrology Tools" style="display:none;" aria-hidden="true">
       <button class="tab-btn active" id="tabHoroscope" role="tab" aria-selected="true" aria-controls="panelHoroscope">
         <span class="tab-icon">✨</span> <span data-i18n="tab_horoscope">Rashi Fal (Horoscope)</span>
       </button>
@@ -75,6 +109,12 @@
       <button class="tab-btn" id="tabPalmistry" role="tab" aria-selected="false" aria-controls="panelPalmistry">
         <span class="tab-icon">✋</span> <span data-i18n="tab_palmistry">Hast Rekha (Palmistry)</span>
       </button>
+      <a href="/pandit.html" class="tab-btn" role="tab" aria-selected="false" id="tabPanditLegacy">
+        <span class="tab-icon">🪔</span> Find a Pandit
+      </a>
+      <a href="/auth.html" id="navAccountBtn" class="tab-btn" role="tab" aria-selected="false">
+        <span class="tab-icon" id="navAccountIcon">🔑</span> <span id="navAccountLabel">Login</span>
+      </a>
     </nav>
 
 
@@ -270,7 +310,7 @@
               </div>
 
               <!-- Vedic Chandra Rashi Cosmic Insight Cards -->
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:18px;">
+              <div class="chandra-insights-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:18px;">
                 <!-- Emotional State (Chandra) -->
                 <div style="background:linear-gradient(135deg,rgba(56,189,248,0.08),rgba(99,102,241,0.08));border:1px solid rgba(56,189,248,0.25);border-radius:14px;padding:16px;">
                   <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
@@ -421,7 +461,7 @@
                 </div>
 
                 <!-- 4 Luck Factor Tiles Grid -->
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 20px;">
+                <div class="luck-factor-tiles-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 20px;">
                   
                   <!-- 1. Lucky Color Tile -->
                   <div class="luck-tile" style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(245, 197, 24, 0.25); border-radius: 16px; padding: 16px; display: flex; align-items: center; gap: 14px;">
@@ -949,10 +989,474 @@
     </div>
   </aside>
 
+  <!-- ══════════════════════════════════════════════════════════════
+       NAVIGATION DRAWER BACKDROP & DRAWER PANEL
+  ══════════════════════════════════════════════════════════════ -->
+  <div id="navDrawerOverlay" class="nav-drawer-overlay" aria-hidden="true"></div>
+
+  <aside id="navDrawer" class="nav-drawer" role="dialog" aria-modal="true" aria-label="Website Navigation Menu" aria-hidden="true">
+    <!-- Drawer Header -->
+    <div class="nav-drawer-header">
+      <div class="drawer-header-brand">
+        <span class="drawer-om">🕉️</span>
+        <div>
+          <div class="drawer-brand-title">Vedic Navigation</div>
+          <div class="drawer-brand-sub">Jyotish AI & Puja Services</div>
+        </div>
+      </div>
+      <button type="button" id="drawerCloseBtn" class="drawer-close-btn" aria-label="Close navigation menu">✕</button>
+    </div>
+
+    <!-- Drawer Scrollable Body -->
+    <div class="nav-drawer-body">
+      <!-- Dynamic User Status Card -->
+      <div class="drawer-user-card" id="drawerUserCard"></div>
+
+      <!-- CATEGORY A: ASTROLOGY -->
+      <div class="menu-section">
+        <div class="menu-section-header">
+          <span class="menu-section-icon">🔮</span>
+          <h3 class="menu-section-title">Astrology & Predictions</h3>
+        </div>
+        <div class="menu-items-group">
+          <button type="button" class="drawer-nav-item active" data-action="horoscope-daily" id="dItemHoroscopeDaily">
+            <span class="d-item-icon">✨</span>
+            <div class="d-item-text">
+              <span class="d-item-title">Rashi Fal (Daily Horoscope)</span>
+              <span class="d-item-desc">Planetary daily Moon sign predictions</span>
+            </div>
+            <span class="d-item-badge">Today</span>
+          </button>
+
+          <button type="button" class="drawer-nav-item" data-action="horoscope-weekly" id="dItemHoroscopeWeekly">
+            <span class="d-item-icon">📅</span>
+            <div class="d-item-text">
+              <span class="d-item-title">Weekly Horoscope</span>
+              <span class="d-item-desc">7-day planetary transit outlook</span>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-nav-item" data-action="horoscope-monthly" id="dItemHoroscopeMonthly">
+            <span class="d-item-icon">🌕</span>
+            <div class="d-item-text">
+              <span class="d-item-title">Monthly Horoscope</span>
+              <span class="d-item-desc">Full lunar cycle guidance & transits</span>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-nav-item" data-action="compatibility" id="dItemCompatibility">
+            <span class="d-item-icon">💫</span>
+            <div class="d-item-text">
+              <span class="d-item-title">Rashi Compatibility</span>
+              <span class="d-item-desc">Love & relationship harmony score</span>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-nav-item" data-action="dob-finder" id="dItemDOBFinder">
+            <span class="d-item-icon">🧭</span>
+            <div class="d-item-text">
+              <span class="d-item-title">DOB Rashi Finder</span>
+              <span class="d-item-desc">Find your Moon sign by birth date</span>
+            </div>
+          </button>
+
+          <button type="button" class="drawer-nav-item" data-action="vedic-ai-studio" id="dItemVedicAI">
+            <span class="d-item-icon">🕉️</span>
+            <div class="d-item-text">
+              <span class="d-item-title">Advanced Vedic AI Studio</span>
+              <span class="d-item-desc">Lagna, Surya & Chandra multi-factor analysis</span>
+            </div>
+            <span class="d-item-badge ai">AI Studio</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CATEGORY B: SPIRITUAL SERVICES -->
+      <div class="menu-section">
+        <div class="menu-section-header">
+          <span class="menu-section-icon">🪔</span>
+          <h3 class="menu-section-title">Spiritual Services</h3>
+        </div>
+        <div class="menu-items-group">
+          <a href="/pandit.html" class="drawer-nav-item" id="dItemFindPandit">
+            <span class="d-item-icon">🔍</span>
+            <div class="d-item-text">
+              <span class="d-item-title">Find a Pandit</span>
+              <span class="d-item-desc">Search verified priests by city & puja</span>
+            </div>
+            <span class="d-item-badge hot">Marketplace</span>
+          </a>
+
+          <a href="/pandit.html#pujas" class="drawer-nav-item" id="dItemPujas">
+            <span class="d-item-icon">🪔</span>
+            <div class="d-item-text">
+              <span class="d-item-title">Browse Puja Services</span>
+              <span class="d-item-desc">Griha Pravesh, Rudrabhishek & 50+ vidhis</span>
+            </div>
+          </a>
+
+          <a href="/pandit.html#ask" class="drawer-nav-item" id="dItemAskPandit">
+            <span class="d-item-icon">💬</span>
+            <div class="d-item-text">
+              <span class="d-item-title">Ask a Pandit</span>
+              <span class="d-item-desc">Consultation & spiritual questions</span>
+            </div>
+          </a>
+
+          <a href="/pandit.html#dashboard" class="drawer-nav-item" id="dItemMyBookings">
+            <span class="d-item-icon">📋</span>
+            <div class="d-item-text">
+              <span class="d-item-title">My Bookings</span>
+              <span class="d-item-desc">Track status & confirmed appointments</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- CATEGORY C: PALMISTRY & AI TOOLS -->
+      <div class="menu-section">
+        <div class="menu-section-header">
+          <span class="menu-section-icon">✋</span>
+          <h3 class="menu-section-title">Palmistry & AI Tools</h3>
+        </div>
+        <div class="menu-items-group">
+          <button type="button" class="drawer-nav-item" data-action="palmistry" id="dItemPalmistry">
+            <span class="d-item-icon">✋</span>
+            <div class="d-item-text">
+              <span class="d-item-title">Hast Rekha (Palmistry)</span>
+              <span class="d-item-desc">AI palm scan, Mounts & life lines analysis</span>
+            </div>
+            <span class="d-item-badge new">Scanner</span>
+          </button>
+
+          <button type="button" class="drawer-nav-item" data-action="voice-assistant" id="dItemVoiceAI">
+            <span class="d-item-icon">🎙️</span>
+            <div class="d-item-text">
+              <span class="d-item-title">Jyotish Vani Voice AI</span>
+              <span class="d-item-desc">Speak directly with Vedic Voice Assistant</span>
+            </div>
+            <span class="d-item-badge ai">Interactive</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- CATEGORY D: ACCOUNT -->
+      <div class="menu-section" id="drawerAccountSection">
+        <div class="menu-section-header">
+          <span class="menu-section-icon">👤</span>
+          <h3 class="menu-section-title">Account</h3>
+        </div>
+        <div class="menu-items-group" id="drawerAccountItems"></div>
+      </div>
+
+      <!-- CATEGORY E: PREFERENCES & LANGUAGE -->
+      <div class="menu-section">
+        <div class="menu-section-header">
+          <span class="menu-section-icon">🌐</span>
+          <h3 class="menu-section-title">Language Preferences</h3>
+        </div>
+        <div class="drawer-lang-grid" role="radiogroup" aria-label="Select Language">
+          <button type="button" class="lang-pill" data-lang="en"><span class="lang-flag">🌐</span> English</button>
+          <button type="button" class="lang-pill" data-lang="hi"><span class="lang-flag">🇮🇳</span> हिन्दी</button>
+          <button type="button" class="lang-pill" data-lang="ta"><span class="lang-flag">🇮🇳</span> தமிழ்</button>
+          <button type="button" class="lang-pill" data-lang="te"><span class="lang-flag">🇮🇳</span> తెలుగు</button>
+          <button type="button" class="lang-pill" data-lang="sa"><span class="lang-flag">🕉️</span> संस्कृतम्</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="nav-drawer-footer">
+      <div class="drawer-footer-text">🕉️ Vedic Astrology Rashi Fal • Jyotish AI</div>
+      <div class="drawer-footer-sub">Ancient Shastras • Precision Algorithms</div>
+    </div>
+  </aside>
+
   <script src="i18n.js"></script>
   <script src="palmistry.js"></script>
   <script src="palmScan.js"></script>
   <script src="voiceAssistant.js"></script>
   <script src="app.js"></script>
+
+  <!-- Hamburger Navigation Drawer Controller Script -->
+  <script>
+  (function() {
+    'use strict';
+
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const drawer = document.getElementById('navDrawer');
+    const overlay = document.getElementById('navDrawerOverlay');
+    const closeBtn = document.getElementById('drawerCloseBtn');
+    const btnChangeTool = document.getElementById('btnChangeTool');
+    const compactLangBtn = document.getElementById('compactLangBtn');
+    const compactLangSelector = document.getElementById('compactLangSelector');
+    const activeToolName = document.getElementById('activeToolName');
+    const activeToolIcon = document.getElementById('activeToolIcon');
+    const drawerAccountItems = document.getElementById('drawerAccountItems');
+    const drawerUserCard = document.getElementById('drawerUserCard');
+    const headerAccountName = document.getElementById('headerAccountName');
+    const headerAccountIcon = document.getElementById('headerAccountIcon');
+    const headerAccountBtn = document.getElementById('headerAccountBtn');
+
+    // ── Open / Close Drawer ──────────────────────────────────────────
+    function toggleDrawer(open) {
+      const isOpen = open !== undefined ? open : !drawer.classList.contains('open');
+      if (isOpen) {
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+        hamburgerBtn.classList.add('active');
+        hamburgerBtn.setAttribute('aria-expanded', 'true');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        renderAccountState();
+        closeBtn?.focus();
+      } else {
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+        hamburgerBtn.classList.remove('active');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        hamburgerBtn?.focus();
+      }
+    }
+
+    window.toggleDrawer = toggleDrawer;
+
+    hamburgerBtn?.addEventListener('click', () => toggleDrawer());
+    closeBtn?.addEventListener('click', () => toggleDrawer(false));
+    overlay?.addEventListener('click', () => toggleDrawer(false));
+    btnChangeTool?.addEventListener('click', () => toggleDrawer(true));
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (drawer.classList.contains('open')) toggleDrawer(false);
+        if (compactLangSelector?.classList.contains('open')) compactLangSelector.classList.remove('open');
+      }
+    });
+
+    // ── Compact Language Selector ────────────────────────────────────
+    compactLangBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      compactLangSelector.classList.toggle('open');
+      compactLangBtn.setAttribute('aria-expanded', compactLangSelector.classList.contains('open') ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (compactLangSelector && !compactLangSelector.contains(e.target)) {
+        compactLangSelector.classList.remove('open');
+        compactLangBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    function syncLanguageUI(lang) {
+      const flags = { en: '🌐', hi: '🇮🇳', ta: '🇮🇳', te: '🇮🇳', sa: '🕉️' };
+      const code = (lang || 'en').toUpperCase();
+      const flag = flags[lang] || '🌐';
+      const codeEl = document.getElementById('compactLangCode');
+      const flagEl = document.getElementById('compactLangFlag');
+      if (codeEl) codeEl.textContent = code;
+      if (flagEl) flagEl.textContent = flag;
+    }
+
+    window.addEventListener('languageChanged', (e) => {
+      syncLanguageUI(e.detail.lang);
+    });
+
+    // ── Account State Synchronization ────────────────────────────────
+    function getStoredSession() {
+      try { return JSON.parse(localStorage.getItem('va_session')); } catch(e) { return null; }
+    }
+
+    function renderAccountState() {
+      const session = getStoredSession();
+      const user = session?.user || session?.pandit;
+      const role = session?.role || user?.role;
+
+      if (user && user.name) {
+        const firstName = user.name.split(' ')[0];
+        const isPandit = role === 'pandit';
+        
+        // Header Account Button
+        if (headerAccountName) headerAccountName.textContent = firstName;
+        if (headerAccountIcon) headerAccountIcon.textContent = isPandit ? '🕉️' : '👤';
+        if (headerAccountBtn) {
+          headerAccountBtn.href = '/pandit.html';
+          headerAccountBtn.style.color = isPandit ? '#FF8C42' : 'var(--cosmic-emerald)';
+          headerAccountBtn.style.borderColor = isPandit ? 'rgba(255,107,0,0.4)' : 'rgba(52,211,153,0.35)';
+        }
+
+        // Drawer User Card
+        if (drawerUserCard) {
+          drawerUserCard.innerHTML = `
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div style="width:38px;height:38px;border-radius:var(--radius-full);background:rgba(245,197,24,0.15);border:1px solid rgba(245,197,24,0.35);display:flex;align-items:center;justify-content:center;font-size:1.2rem;">
+                  ${isPandit ? '🕉️' : '🙏'}
+                </div>
+                <div>
+                  <div style="font-weight:700;color:var(--text-main);font-size:0.92rem;line-height:1.2;">${user.name}</div>
+                  <div style="font-size:0.75rem;color:${isPandit ? '#FF8C42' : 'var(--gold-primary)'};">${isPandit ? 'Verified Pandit' : 'Devotee Account'}</div>
+                </div>
+              </div>
+              <span class="d-item-badge ${isPandit ? 'hot' : 'new'}">${role || 'User'}</span>
+            </div>
+          `;
+        }
+
+        // Drawer Account Navigation Items
+        if (drawerAccountItems) {
+          drawerAccountItems.innerHTML = `
+            <a href="/pandit.html" class="drawer-nav-item">
+              <span class="d-item-icon">📋</span>
+              <div class="d-item-text">
+                <span class="d-item-title">${isPandit ? 'Pandit Dashboard' : 'My Bookings & Profile'}</span>
+                <span class="d-item-desc">Track pujas, history and consultations</span>
+              </div>
+            </a>
+            <button type="button" class="drawer-nav-item" id="btnDrawerLogout" style="color:#fb7185;">
+              <span class="d-item-icon">🚪</span>
+              <div class="d-item-text">
+                <span class="d-item-title" style="color:#fb7185;">Logout</span>
+                <span class="d-item-desc">End your active session securely</span>
+              </div>
+            </button>
+          `;
+
+          document.getElementById('btnDrawerLogout')?.addEventListener('click', () => {
+            localStorage.removeItem('va_session');
+            localStorage.removeItem('currentUser');
+            renderAccountState();
+            toggleDrawer(false);
+            if (typeof showToast === 'function') showToast('You have been logged out.', 'info');
+          });
+        }
+      } else {
+        // Logged Out
+        if (headerAccountName) headerAccountName.textContent = 'Login';
+        if (headerAccountIcon) headerAccountIcon.textContent = '👤';
+        if (headerAccountBtn) {
+          headerAccountBtn.href = '/auth.html';
+          headerAccountBtn.style.color = '';
+          headerAccountBtn.style.borderColor = '';
+        }
+
+        if (drawerUserCard) {
+          drawerUserCard.innerHTML = `
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="font-size:1.2rem;">🙏</span>
+                <span style="font-weight:700;color:var(--gold-primary);font-size:0.9rem;">Welcome, Spiritual Seeker</span>
+              </div>
+              <p style="font-size:0.78rem;color:var(--text-muted);margin:0;line-height:1.4;">Sign in to book pandits, view personal astrological charts, and save consultations.</p>
+              <div style="display:flex;gap:8px;margin-top:6px;">
+                <a href="/auth.html#userLogin" class="role-btn-secondary" style="flex:1;text-align:center;padding:7px;font-size:0.78rem;text-decoration:none;border-radius:var(--radius-full);border:1px solid rgba(245,197,24,0.3);color:var(--gold-primary);">🔑 Sign In</a>
+                <a href="/auth.html#userSignup" class="role-btn-primary" style="flex:1;text-align:center;padding:7px;font-size:0.78rem;text-decoration:none;border-radius:var(--radius-full);background:var(--gold-gradient);color:#080c1e;font-weight:700;">✨ Join</a>
+              </div>
+            </div>
+          `;
+        }
+
+        if (drawerAccountItems) {
+          drawerAccountItems.innerHTML = `
+            <a href="/auth.html#userLogin" class="drawer-nav-item">
+              <span class="d-item-icon">🔑</span>
+              <div class="d-item-text">
+                <span class="d-item-title">Devotee Login</span>
+                <span class="d-item-desc">Sign in with phone or email</span>
+              </div>
+            </a>
+            <a href="/auth.html#userSignup" class="drawer-nav-item">
+              <span class="d-item-icon">✨</span>
+              <div class="d-item-text">
+                <span class="d-item-title">Create Devotee Account</span>
+                <span class="d-item-desc">Free astrological profile & bookings</span>
+              </div>
+            </a>
+            <a href="/auth.html#panditLogin" class="drawer-nav-item">
+              <span class="d-item-icon">🪔</span>
+              <div class="d-item-text">
+                <span class="d-item-title">Pandit Portal & Registration</span>
+                <span class="d-item-desc">Priest dashboard and verified listings</span>
+              </div>
+              <span class="d-item-badge hot">Priests</span>
+            </a>
+          `;
+        }
+      }
+    }
+
+    // ── Active Drawer Item & Panel Switching ──────────────────────────
+    function setActiveTool(title, icon, drawerBtnId) {
+      if (activeToolName) activeToolName.textContent = title;
+      if (activeToolIcon) activeToolIcon.textContent = icon;
+      document.querySelectorAll('.drawer-nav-item').forEach(b => b.classList.remove('active'));
+      if (drawerBtnId) {
+        document.getElementById(drawerBtnId)?.classList.add('active');
+      }
+    }
+
+    document.querySelectorAll('.drawer-nav-item[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.dataset.action;
+        toggleDrawer(false);
+
+        if (action === 'horoscope-daily') {
+          document.getElementById('tabHoroscope')?.click();
+          const dailyBtn = document.querySelector('.segment-btn[data-timeframe="daily"]');
+          if (dailyBtn && !dailyBtn.classList.contains('active')) dailyBtn.click();
+          setActiveTool('Rashi Fal (Daily Horoscope)', '✨', 'dItemHoroscopeDaily');
+          document.getElementById('panelHoroscope')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (action === 'horoscope-weekly') {
+          document.getElementById('tabHoroscope')?.click();
+          const weeklyBtn = document.querySelector('.segment-btn[data-timeframe="weekly"]');
+          if (weeklyBtn) weeklyBtn.click();
+          setActiveTool('Weekly Horoscope', '📅', 'dItemHoroscopeWeekly');
+          document.querySelector('.timeframe-segmented')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (action === 'horoscope-monthly') {
+          document.getElementById('tabHoroscope')?.click();
+          const monthlyBtn = document.querySelector('.segment-btn[data-timeframe="monthly"]');
+          if (monthlyBtn) monthlyBtn.click();
+          setActiveTool('Monthly Horoscope', '🌕', 'dItemHoroscopeMonthly');
+          document.querySelector('.timeframe-segmented')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (action === 'compatibility') {
+          document.getElementById('tabCompatibility')?.click();
+          setActiveTool('Rashi Compatibility', '💫', 'dItemCompatibility');
+          document.getElementById('panelCompatibility')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (action === 'dob-finder') {
+          document.getElementById('tabDOBFinder')?.click();
+          setActiveTool('DOB Rashi Finder', '🧭', 'dItemDOBFinder');
+          document.getElementById('panelDOBFinder')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (action === 'palmistry') {
+          document.getElementById('tabPalmistry')?.click();
+          setActiveTool('Hast Rekha (Palmistry)', '✋', 'dItemPalmistry');
+          document.getElementById('panelPalmistry')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (action === 'vedic-ai-studio') {
+          document.getElementById('tabHoroscope')?.click();
+          setActiveTool('Advanced Vedic AI Studio', '🕉️', 'dItemVedicAI');
+          document.querySelector('.ai-studio-card')?.scrollIntoView({ behavior: 'smooth' });
+        }
+        else if (action === 'voice-assistant') {
+          document.getElementById('voiceAssistantLauncher')?.click();
+        }
+      });
+    });
+
+    // Initial hydration
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAccountState();
+      syncLanguageUI(localStorage.getItem('vedic_astrology_lang') || 'en');
+    });
+
+    renderAccountState();
+    syncLanguageUI(localStorage.getItem('vedic_astrology_lang') || 'en');
+  })();
+  </script>
 </body>
 </html>
